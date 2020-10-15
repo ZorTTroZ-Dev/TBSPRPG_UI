@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'tbsprpg';
+  title = 'tbsprpg (text based single player rpg)';
   version = '0.01';
 }
