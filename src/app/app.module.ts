@@ -9,6 +9,7 @@ import { VerbsComponent } from './verbs/verbs.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { CharacterComponent } from './character/character.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { InventoryComponent } from './inventory/inventory.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
