@@ -10,7 +10,6 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { CharacterComponent } from './character/character.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatGridListModule,
     FlexLayoutModule
   ],
   providers: [],
