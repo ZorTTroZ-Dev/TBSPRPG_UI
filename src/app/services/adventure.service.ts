@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AdventureService {
-  private adventuresUrl = 'http://localhost:8000/adventures';
+  private adventuresUrl = '/api/adventures';
 
   constructor(private http: HttpClient,) { }
 
