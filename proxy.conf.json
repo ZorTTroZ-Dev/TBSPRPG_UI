@@ -1,6 +1,6 @@
 {
     "/api/*": {
-      "target": "http://tbspapi:8000",
+      "target": "http://mockapi:3000",
       "secure": false,
       "changeOrigin":true,
       "logLevel": "debug"
