@@ -1,1 +1,6 @@
-<p>console works!</p>
+<p>Welcome to the zorttroz tbsprpg console.  Enter 'help' to see a list of commands.  If you're just here for the demo, enter 'play demo'.</p>
+
+<form (ngSubmit)="handleSubmit($event)" >
+    {{prompt}} <input name="command" [(ngModel)]="command" (keyup)="handleKeyUp($event)" size="50"/> 
+</form>
+{{output}}
