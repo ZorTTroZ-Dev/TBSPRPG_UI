@@ -1,0 +1,7 @@
+<form (ngSubmit)="handleSubmit($event)" >
+    {{prompt}} <input name="command" [(ngModel)]="command" (keyup)="handleKeyUp($event)" [disabled]="inactive"/> 
+</form>
+<div>
+    {{output}}
+</div>
+

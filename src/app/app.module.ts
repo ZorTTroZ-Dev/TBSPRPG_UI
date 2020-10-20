@@ -10,13 +10,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AdventuresComponent } from './components/adventures/adventures.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConsoleComponent } from './components/console/console.component';
+import { ComrespComponent } from './components/comresp/comresp.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
     AdventuresComponent,
-    ConsoleComponent
+    ConsoleComponent,
+    ComrespComponent
   ],
   imports: [
     BrowserModule,
