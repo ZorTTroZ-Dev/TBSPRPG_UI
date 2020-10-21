@@ -1,5 +1,3 @@
 <p>Welcome to the zorttroz tbsprpg console.  Enter 'help' to see a list of commands.  If you're just here for the demo, enter 'play demo'.</p>
 
-<div *ngFor='let in of counter() ;let i = index'>
-    <app-comresp [(count)]="count"></app-comresp>
-</div>
+<app-comresp *ngFor='let in of counter() ;let i = index' [(count)]="count" [index]="i"></app-comresp>

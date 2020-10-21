@@ -9,13 +9,18 @@ export class ComrespComponent implements OnInit {
   prompt: string = '>';
   command: string;
   output : string;
+  @Input() index : number;
   @Input() count : number;
   @Output() countChange = new EventEmitter<number>();
   inactive : boolean;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngAfterViewInit() {
+    var commandInput = window.document.getElementById("command" + this.index);
+    commandInput.focus();
   }
 
   handleSubmit(e){
