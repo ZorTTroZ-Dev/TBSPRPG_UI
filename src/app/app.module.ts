@@ -11,6 +11,7 @@ import { AdventuresComponent } from './components/adventures/adventures.componen
 import { HttpClientModule } from '@angular/common/http';
 import { ConsoleComponent } from './components/console/console.component';
 import { ComrespComponent } from './components/comresp/comresp.component';
+import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ComrespComponent } from './components/comresp/comresp.component';
     GameComponent,
     AdventuresComponent,
     ConsoleComponent,
-    ComrespComponent
+    ComrespComponent,
+    FocusOnShowDirectiveDirective
   ],
   imports: [
     BrowserModule,

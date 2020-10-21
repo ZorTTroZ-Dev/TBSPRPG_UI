@@ -16,11 +16,8 @@ export class ComrespComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
-
-  ngAfterViewInit() {
-    var commandInput = window.document.getElementById("command" + this.index);
-    commandInput.focus();
+  ngOnInit(): void {
+    
   }
 
   handleSubmit(e){
