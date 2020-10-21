@@ -24,7 +24,7 @@ export class ComrespComponent implements OnInit {
   }
 
   handleKeyUp(e) {
-    if(e.keyCode === 13) {
+    if(e.keyCode === 13) {  //13 is the enter key
       this.handleSubmit(e);
       this.inactive = true;
       this.count += 1;
