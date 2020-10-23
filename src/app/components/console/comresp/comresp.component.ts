@@ -30,7 +30,7 @@ export class ComrespComponent implements OnInit {
     this.countChange.emit(this.count);
 
     //split the command
-    var splitCommand = command.split(" ");
+    var splitCommand : string[] = command.split(" ");
 
     //we're going to dynamically load a component
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
