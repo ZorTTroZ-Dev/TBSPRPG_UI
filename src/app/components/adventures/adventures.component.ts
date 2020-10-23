@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Adventure } from '../../models/adventure';
 import { AdventureService } from '../../services/adventure.service';
 
@@ -9,6 +9,7 @@ import { AdventureService } from '../../services/adventure.service';
 })
 export class AdventuresComponent implements OnInit {
   adventures: Adventure[];
+  @Input() data: any;
 
   constructor(private adventureService: AdventureService) { }
 

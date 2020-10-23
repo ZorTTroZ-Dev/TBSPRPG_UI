@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConsoleComponent } from './components/console/console.component';
 import { ComrespComponent } from './components/comresp/comresp.component';
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
+import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-direct
     AdventuresComponent,
     ConsoleComponent,
     ComrespComponent,
-    FocusOnShowDirectiveDirective
+    FocusOnShowDirectiveDirective,
+    ConsoleOutputDirective
   ],
   imports: [
     BrowserModule,
