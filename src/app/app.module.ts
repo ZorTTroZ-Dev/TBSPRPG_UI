@@ -10,9 +10,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AdventuresComponent } from './components/adventures/adventures.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConsoleComponent } from './components/console/console.component';
-import { ComrespComponent } from './components/comresp/comresp.component';
+import { ComrespComponent } from './components/console/comresp/comresp.component';
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
+import { EchoComponent } from './components/console/echo/echo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     ConsoleComponent,
     ComrespComponent,
     FocusOnShowDirectiveDirective,
-    ConsoleOutputDirective
+    ConsoleOutputDirective,
+    EchoComponent
   ],
   imports: [
     BrowserModule,

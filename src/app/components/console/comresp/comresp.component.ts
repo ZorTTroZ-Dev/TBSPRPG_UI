@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { ConsoleOutputDirective } from '../../directives/consoleoutput.directive';
-import { AdventuresComponent } from '../adventures/adventures.component';
+import { ConsoleOutputDirective } from '../../../directives/consoleoutput.directive';
+import { OutputComponent } from '../output.component';
+import { ConsoleService } from '../../../services/console.service';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-comresp',
@@ -16,7 +18,7 @@ export class ComrespComponent implements OnInit {
 
   @ViewChild(ConsoleOutputDirective, {static: true}) outputHost: ConsoleOutputDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private consoleService: ConsoleService) { }
 
   ngOnInit(): void {
     
@@ -27,13 +29,17 @@ export class ComrespComponent implements OnInit {
     this.count += 1;
     this.countChange.emit(this.count);
 
+    //split the command
+    var splitCommand = command.split(" ");
+
     //we're going to dynamically load a component
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AdventuresComponent);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      this.consoleService.getComponentForCommand(splitCommand.shift()));
 
     const viewContainerRef = this.outputHost.viewContainerRef;
     viewContainerRef.clear();
 
-    const componentRef = viewContainerRef.createComponent<AdventuresComponent>(componentFactory);
-    // componentRef.instance.data = {};
+    const componentRef = viewContainerRef.createComponent<OutputComponent>(componentFactory);
+    componentRef.instance.data = { 'arguments': splitCommand.join(" ")};
   }
 }
