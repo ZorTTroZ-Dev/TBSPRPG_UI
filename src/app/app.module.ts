@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 //flex
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -19,6 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { GameComponent } from './components/game/game.component';
 import { AdventuresComponent } from './components/adventures/adventures.component';
+import { MainSiteComponent } from './components/mainsite/mainsite.component';
 
 //console components
 import { ConsoleComponent } from './components/console/console.component';
@@ -29,6 +31,7 @@ import { EchoComponent } from './components/console/echo/echo.component';
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +41,8 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     ComrespComponent,
     FocusOnShowDirectiveDirective,
     ConsoleOutputDirective,
-    EchoComponent
+    EchoComponent,
+    MainSiteComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     MatInputModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

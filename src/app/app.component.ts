@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,12 @@ export class AppComponent {
   title = 'tbsprpg (text based single player rpg)';
   version = '0.01';
   //going to connect to the api to get a list of adventures
+
+  constructor(private router: Router  ) {}
+
+  ngOnInit(): void {
+    //check if the user is logged in, look in local storage if so, take them to the console
+    //if not logged in they will automatically go to the main page
+    //this.router.navigate(['/console', {}]);
+  }
 }
