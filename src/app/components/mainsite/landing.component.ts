@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
 
 @Component({
-  selector: 'app-mainsite',
-  templateUrl: './mainsite.component.html',
-  styleUrls: ['./mainsite.component.scss']
+  selector: 'app-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.scss']
 })
-export class MainSiteComponent implements OnInit {
+export class LandingComponent implements OnInit {
   email : string;
 
   constructor() { }

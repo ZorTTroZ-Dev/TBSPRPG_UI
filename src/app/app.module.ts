@@ -20,7 +20,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { GameComponent } from './components/game/game.component';
 import { AdventuresComponent } from './components/adventures/adventures.component';
-import { MainSiteComponent } from './components/mainsite/mainsite.component';
+import { LandingComponent } from './components/mainsite/landing.component';
 
 //console components
 import { ConsoleComponent } from './components/console/console.component';
@@ -42,7 +42,7 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     FocusOnShowDirectiveDirective,
     ConsoleOutputDirective,
     EchoComponent,
-    MainSiteComponent
+    LandingComponent
   ],
   imports: [
     BrowserModule,
