@@ -4,7 +4,7 @@ import { ConsoleComponent } from './components/console/console.component';
 
 const routes: Routes = [
   { path: 'console', component: ConsoleComponent },
-  { path: '', redirectTo: '/console', pathMatch: 'full' }
+  //{ path: '', redirectTo: '/console', pathMatch: 'full' }
 ];
 
 @NgModule({

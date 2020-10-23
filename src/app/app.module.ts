@@ -1,21 +1,33 @@
+//angular stuff
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-import { MatInputModule } from '@angular/material/input';
-
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+//material
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+
+//flex
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+//main components
 import { AppComponent } from './app.component';
 import { GameComponent } from './components/game/game.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { AdventuresComponent } from './components/adventures/adventures.component';
-import { HttpClientModule } from '@angular/common/http';
+
+//console components
 import { ConsoleComponent } from './components/console/console.component';
 import { ComrespComponent } from './components/console/comresp/comresp.component';
+import { EchoComponent } from './components/console/echo/echo.component';
+
+//directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
-import { EchoComponent } from './components/console/echo/echo.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +47,10 @@ import { EchoComponent } from './components/console/echo/echo.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
