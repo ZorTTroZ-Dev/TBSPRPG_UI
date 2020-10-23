@@ -7,8 +7,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ComrespComponent implements OnInit {
   prompt: string = '>';
-  command: string;
   output : string;
+
   @Input() index : number;
   @Input() count : number;
   @Output() countChange = new EventEmitter<number>();
@@ -20,17 +20,10 @@ export class ComrespComponent implements OnInit {
     
   }
 
-  handleSubmit(e){
-    e.preventDefault();
-    this.output = this.command.slice(5);    
-  }
-
-  handleKeyUp(e) {
-    if(e.keyCode === 13) {  //13 is the enter key
-      this.handleSubmit(e);
-      this.inactive = true;
-      this.count += 1;
-      this.countChange.emit(this.count);
-    }
+  handleCommand(command : string) {
+    this.inactive = true;
+    this.count += 1;
+    this.countChange.emit(this.count);
+    this.output = command.slice(5);
   }
 }

@@ -1,6 +1,9 @@
-<form (ngSubmit)="handleSubmit($event)" >
-    {{prompt}} <input name="command" [(ngModel)]="command" (keyup)="handleKeyUp($event)" [disabled]="inactive" appFocusOnShowDirective /> 
-</form>
+<div>
+    {{prompt}} 
+        <input #command
+            (keyup.enter)="handleCommand(command.value)"
+            [disabled]="inactive" appFocusOnShowDirective /> 
+</div>
 <div>
     {{output}}
 </div>
