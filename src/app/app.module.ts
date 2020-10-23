@@ -30,6 +30,8 @@ import { EchoComponent } from './components/console/echo/echo.component';
 //directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
+import { LoginComponent } from './components/mainsite/login/login.component';
+import { RegistrationComponent } from './components/mainsite/registration/registration.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     FocusOnShowDirectiveDirective,
     ConsoleOutputDirective,
     EchoComponent,
-    LandingComponent
+    LandingComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
