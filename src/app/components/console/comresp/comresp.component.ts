@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFac
 import { ConsoleOutputDirective } from '../../../directives/consoleoutput.directive';
 import { OutputComponent } from '../output.component';
 import { ConsoleService } from '../../../services/console.service';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-comresp',
