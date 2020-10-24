@@ -19,7 +19,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 //main components
 import { AppComponent } from './app.component';
-import { GameComponent } from './components/game/game.component';
 import { AdventuresComponent } from './components/adventures/adventures.component';
 import { LandingComponent } from './components/mainsite/landing.component';
 import { LoginComponent } from './components/mainsite/login/login.component';
@@ -32,9 +31,16 @@ import { ComrespComponent } from './components/console/comresp/comresp.component
 import { EchoComponent } from './components/console/echo/echo.component';
 import { HeaderComponent } from './components/console/header/header.component';
 
+//game components
+import { GameComponent } from './components/game/game.component';
+import { ContentComponent } from './components/game/content/content.component';
+import { VerbsComponent } from './components/game/verbs/verbs.component';
+import { MovementComponent } from './components/game/movement/movement.component';
+
 //directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
+
 
 
 
@@ -52,7 +58,10 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     LoginComponent,
     RegistrationComponent,
     ToolbarComponent,
-    HeaderComponent
+    HeaderComponent,
+    ContentComponent,
+    VerbsComponent,
+    MovementComponent
   ],
   imports: [
     BrowserModule,

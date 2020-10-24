@@ -1,25 +1,22 @@
-<!-- <div style="height: 45%;width:100%">
-    <div fxLayout="row" fxLayoutAlign="center" fxFlexFill>
-        <div>
-            <app-textwindow></app-textwindow>
-        </div>
+<div style="width:100%; height: 100%;">
+    <div [ngStyle]="computeContentStyle()">
+        <app-content></app-content>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-around" fxFlexFill>
-        <div>
-            <app-verbs></app-verbs>
-        </div>
-        <div>
-            <app-navigation></app-navigation>
-        </div>
+    <div [ngStyle]="computeVerbStyle()">
+        <app-verbs></app-verbs>
     </div>
-</div> -->
-{{adventure}}
+    <div [ngStyle]="computeMovementStyle()">
+        <app-movement></app-movement>
+    </div>
+</div>
+<!-- {{adventure}}
 <p>The main game screen will need the following:</p>
 <ul>
   <li>main game window</li>
   <li>verbs</li>
+  <li>movement</li>
   <li>map (optional)</li>
   <li>inventory</li>
   <li>character sheet</li>
   <li>settings/menu/save/load</li>
-</ul>
+</ul> -->
