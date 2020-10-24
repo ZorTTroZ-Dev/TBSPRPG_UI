@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-
+  hide : boolean;
+  
   constructor(private router: Router) { }
 
   ngOnInit(): void {

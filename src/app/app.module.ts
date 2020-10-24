@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider'; 
 
 //flex
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -21,17 +22,20 @@ import { AppComponent } from './app.component';
 import { GameComponent } from './components/game/game.component';
 import { AdventuresComponent } from './components/adventures/adventures.component';
 import { LandingComponent } from './components/mainsite/landing.component';
+import { LoginComponent } from './components/mainsite/login/login.component';
+import { RegistrationComponent } from './components/mainsite/registration/registration.component';
+import { ToolbarComponent } from './components/mainsite/toolbar/toolbar.component';
 
 //console components
 import { ConsoleComponent } from './components/console/console.component';
 import { ComrespComponent } from './components/console/comresp/comresp.component';
 import { EchoComponent } from './components/console/echo/echo.component';
+import { HeaderComponent } from './components/console/header/header.component';
 
 //directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
-import { LoginComponent } from './components/mainsite/login/login.component';
-import { RegistrationComponent } from './components/mainsite/registration/registration.component';
+
 
 
 @NgModule({
@@ -46,7 +50,9 @@ import { RegistrationComponent } from './components/mainsite/registration/regist
     EchoComponent,
     LandingComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ToolbarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,8 @@ import { RegistrationComponent } from './components/mainsite/registration/regist
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
