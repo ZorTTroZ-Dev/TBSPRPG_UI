@@ -37,6 +37,7 @@ export class ComrespComponent implements OnInit {
     if(splitCommand.length > 0 && splitCommand[0].toLowerCase() == 'play') {
       splitCommand.shift();
       this.router.navigate(['/game', {adventure: splitCommand.join(" ")}]);
+      return;
     }
 
     //we're going to dynamically load a component

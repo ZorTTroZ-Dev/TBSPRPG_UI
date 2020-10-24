@@ -12,7 +12,6 @@ export class GameComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    //this.adventure = this.route.snapshot.paramMap.get('adventure');
     this.route.params.subscribe( params => {
       this.adventure = params['adventure'];
     });
