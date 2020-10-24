@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ComponentFac
 import { ConsoleOutputDirective } from '../../../directives/consoleoutput.directive';
 import { OutputComponent } from '../output.component';
 import { ConsoleService } from '../../../services/console.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comresp',
@@ -17,7 +18,7 @@ export class ComrespComponent implements OnInit {
 
   @ViewChild(ConsoleOutputDirective, {static: true}) outputHost: ConsoleOutputDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private consoleService: ConsoleService) { }
+  constructor(private componentFactoryResolver: ComponentFactoryResolver, private consoleService: ConsoleService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -30,6 +31,13 @@ export class ComrespComponent implements OnInit {
 
     //split the command
     var splitCommand : string[] = command.split(" ");
+
+    //we'll handle the play command since we don't want to show it in the conosle, we're leaving the console
+    //this maybe should be somewhere else or maybe in a different function
+    if(splitCommand.length > 0 && splitCommand[0].toLowerCase() == 'play') {
+      splitCommand.shift();
+      this.router.navigate(['/game', {adventure: splitCommand.join(" ")}]);
+    }
 
     //we're going to dynamically load a component
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
