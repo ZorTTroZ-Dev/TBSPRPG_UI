@@ -1,6 +1,4 @@
 export class GameLayout {
-    windowWidth: number;
-    windowHeight: number;
     contentX: number;
     contentY: number;
     contentWidth: number;
@@ -19,25 +17,23 @@ export class GameLayout {
     movementHeight: number;
 
     updateValues(newWidth : number, newHeight: number) : void {
-        this.windowWidth = newWidth;
-        this.windowHeight = newHeight;
 
         //we're going to use the golden ratio bunch
         var goldenRatio : number = 1.61;
 
-        var bottomBarHeight : number = this.windowHeight / goldenRatio / goldenRatio / goldenRatio;
-        var movementWidth : number = this.windowWidth / goldenRatio / goldenRatio / goldenRatio;
+        var bottomBarHeight : number = newHeight / goldenRatio / goldenRatio / goldenRatio;
+        var movementWidth : number = newWidth / goldenRatio / goldenRatio / goldenRatio;
 
         //compute content location
         this.contentX = this.contentY = 0;
-        this.contentWidth = this.windowWidth;
-        this.contentHeight = this.windowHeight - bottomBarHeight;
+        this.contentWidth = newWidth;
+        this.contentHeight = newHeight - bottomBarHeight;
 
         //compute verb location
         this.verbsX = 0;
         this.verbsY = this.contentHeight;
         this.verbsHeight = bottomBarHeight;
-        this.verbsWidth = this.windowWidth - 2 * movementWidth;
+        this.verbsWidth = newWidth - 2 * movementWidth;
 
         //compute inventory location
         this.inventoryX = this.verbsWidth;

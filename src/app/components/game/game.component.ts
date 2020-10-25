@@ -83,7 +83,8 @@ export class GameComponent implements OnInit {
       'top': this.layout.inventoryY + 'px',
       'left': this.layout.inventoryX + 'px',
       'width': this.layout.inventoryWidth + 'px',
-      'height': this.layout.inventoryHeight + 'px'
+      'height': this.layout.inventoryHeight + 'px',
+      'overflow-y':'scroll'
     };
     return style;
   }
