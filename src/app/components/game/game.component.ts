@@ -72,6 +72,17 @@ export class GameComponent implements OnInit {
     return style;
   }
 
+  computeInventoryStyle(): any {
+    var style = { 
+      'position': 'absolute',
+      'top': this.windowHeight - (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px',
+      'left': '0px',
+      'width': this.windowWidth - (this.windowWidth / 1.61 / 1.61 / 1.61) + 'px',
+      'height': (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px'
+    };
+    return style;
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.windowWidth = window.innerWidth;

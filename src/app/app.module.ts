@@ -40,6 +40,7 @@ import { MovementComponent } from './components/game/movement/movement.component
 //directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
+import { InventoryComponent } from './components/game/inventory/inventory.component';
 
 
 
@@ -61,7 +62,8 @@ import { ConsoleOutputDirective } from './directives/consoleoutput.directive';
     HeaderComponent,
     ContentComponent,
     VerbsComponent,
-    MovementComponent
+    MovementComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,
