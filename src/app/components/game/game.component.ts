@@ -33,6 +33,8 @@ export class GameComponent implements OnInit {
     //contact the games service to see if they've started this game,
     //if so pick up from where they left off
     //otherwise post a new game for this adventure
+
+    //for this skeleton we're going to assume they've started the game already
   }
 
   computeContentStyle(): any {
@@ -43,7 +45,7 @@ export class GameComponent implements OnInit {
       'left': '0px',
       'width': this.windowWidth + 'px',
       'height': this.windowHeight - (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px',
-      'overflow':'scroll'
+      'overflow-y':'scroll'
     };
     return style;
   }

@@ -1,1 +1,19 @@
-<p>movement works!</p>
+<div style="font-size: 24px;height: 100%;display: flex;align-items: center;justify-content: center;">
+    <!-- <div>
+        <button mat-flat-button color="primary">Primary</button>
+        <button mat-flat-button color="primary">Primary</button>
+        <button mat-flat-button color="primary">Primary</button>
+        <button mat-flat-button color="primary">Primary</button>
+    </div> -->
+    <!-- <div fxLayout="column" fxLayoutGap="2px" fxLayoutAlign="flex-center">
+        <button mat-flat-button color="primary">Primary</button>
+        <button mat-flat-button color="primary">Primary</button>
+        <button mat-flat-button color="primary">Primary</button>
+        <button mat-flat-button color="primary">Primary</button>
+    </div> -->
+    <div fxLayout="row wrap" fxLayoutGap="2px grid" fxLayoutAlign="space-between">
+        <ng-container *ngFor="let _ of [1,2,3,4,5,6]">
+            <button mat-flat-button color="primary" fxFlex="0 1 calc(50% - 2px)" style="margin-bottom:1%;">Movement</button>
+        </ng-container>
+    </div>
+</div>
