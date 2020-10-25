@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GameLayout } from './models/GameLayout';
 
 @Component({
   selector: 'app-game',
@@ -10,13 +11,17 @@ export class GameComponent implements OnInit {
   adventure: string;
   windowWidth: number;
   windowHeight: number;
+  layout: GameLayout;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+    this.layout = new GameLayout();
+  }
 
   ngOnInit(): void {
     //figure out the coordinates for everything
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
+    this.layout.updateValues(this.windowWidth, this.windowHeight);
 
     this.route.params.subscribe( params => {
       this.adventure = params['adventure'];
@@ -41,10 +46,10 @@ export class GameComponent implements OnInit {
     //outline: 1px solid blue;position: absolute; top: 0; left: 0; width: {{windowWidth}}px; height: 616px;
     var style = { 
       'position': 'absolute',
-      'top': '0px',
-      'left': '0px',
-      'width': this.windowWidth + 'px',
-      'height': this.windowHeight - (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px',
+      'top': this.layout.contentY + 'px',
+      'left': this.layout.contentX + 'px',
+      'width': this.layout.contentWidth + 'px',
+      'height': this.layout.contentHeight + 'px',
       'overflow-y':'scroll'
     };
     return style;
@@ -53,10 +58,10 @@ export class GameComponent implements OnInit {
   computeMovementStyle(): any {
     var style = { 
       'position': 'absolute',
-      'top': this.windowHeight - (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px',
-      'left': this.windowWidth - (this.windowWidth / 1.61 / 1.61 / 1.61) + 'px',
-      'width': (this.windowWidth / 1.61 / 1.61 / 1.61) + 'px',
-      'height': (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px'
+      'top': this.layout.movementY + 'px',
+      'left': this.layout.movementX + 'px',
+      'width': this.layout.movementWidth + 'px',
+      'height': this.layout.movementHeight + 'px'
     };
     return style;
   }
@@ -64,10 +69,10 @@ export class GameComponent implements OnInit {
   computeVerbStyle(): any {
     var style = { 
       'position': 'absolute',
-      'top': this.windowHeight - (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px',
-      'left': '0px',
-      'width': this.windowWidth - (this.windowWidth / 1.61 / 1.61 / 1.61) + 'px',
-      'height': (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px'
+      'top': this.layout.verbsY + 'px',
+      'left': this.layout.verbsX + 'px',
+      'width': this.layout.verbsWidth + 'px',
+      'height': this.layout.verbsHeight + 'px'
     };
     return style;
   }
@@ -75,10 +80,10 @@ export class GameComponent implements OnInit {
   computeInventoryStyle(): any {
     var style = { 
       'position': 'absolute',
-      'top': this.windowHeight - (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px',
-      'left': '0px',
-      'width': this.windowWidth - (this.windowWidth / 1.61 / 1.61 / 1.61) + 'px',
-      'height': (this.windowHeight / 1.61 / 1.61 / 1.61) + 'px'
+      'top': this.layout.inventoryY + 'px',
+      'left': this.layout.inventoryX + 'px',
+      'width': this.layout.inventoryWidth + 'px',
+      'height': this.layout.inventoryHeight + 'px'
     };
     return style;
   }
@@ -87,5 +92,6 @@ export class GameComponent implements OnInit {
   onResize(event) {
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
+    this.layout.updateValues(this.windowWidth, this.windowHeight);
   }
 }
