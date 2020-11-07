@@ -21,6 +21,13 @@ export class AdventureService {
     );
   }
 
+  getAdventureByName(name: string) : Observable<Adventure> {
+    return this.http.get<Adventure>(this.adventuresUrl + '/' + name)
+    .pipe(
+      catchError(this.handleError<Adventure>('getAdventureByName', null))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
   

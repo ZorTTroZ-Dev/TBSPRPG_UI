@@ -1,5 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AdventureService } from '../../services/adventure.service';
+import { Adventure } from '../../models/adventure';
+
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -7,22 +11,21 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  adventure: string;
+  adventure: Adventure;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private adventureService: AdventureService) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe( params => {
-      this.adventure = params['adventure'];
-    });
-
     //I would like for people to be able to just click a link and be in the game
     //so this could be one of the most used entry points
 
-    //check if someone is logged in, if not kick back to login screen
-
-    //check if we have an adventure and it's valid,
-    //if not we'll kick back to console, eventually let them pick from a dialog box
+    //let's try this using switch map
+    this.route.params.pipe(
+      switchMap( params => this.adventureService.getAdventureByName(params['adventure']) )
+    ).subscribe( adv => {
+      this.adventure = adv;
+    });
 
     //contact the games service to see if they've started this game,
     //if so pick up from where they left off

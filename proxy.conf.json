@@ -1,6 +1,6 @@
 {
     "/api/*": {
-      "target": "http://tbspapi:8000",
+      "target": "http://publicapi:8000",
       "secure": false,
       "changeOrigin":true,
       "logLevel": "debug"
