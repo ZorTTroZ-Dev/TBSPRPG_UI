@@ -12,4 +12,4 @@ COPY . /app
 RUN npm install
 
 # this should eventually go to a docker compose file, maybe not
-CMD ng serve --host 0.0.0.0 --port 4200
+#CMD ng serve --host 0.0.0.0 --port 4200
