@@ -1,10 +1,8 @@
 <div>
-    {{prompt}} 
-    <mat-form-field style="width: 50%;">
+    {{prompt}}
         <input matInput #command
             (keyup.enter)="handleCommand(command.value)"
             [disabled]="inactive" appFocusOnShowDirective />
-    </mat-form-field>
 </div>
 <div>
     <ng-template appConsoleOutput></ng-template>

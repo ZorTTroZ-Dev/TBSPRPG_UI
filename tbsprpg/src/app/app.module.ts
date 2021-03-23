@@ -9,17 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-//material
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDividerModule } from '@angular/material/divider'; 
-
-//flex
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 //main components
 import { AppComponent } from './app.component';
 import { AdventuresComponent } from './components/adventures/adventures.component';
@@ -74,14 +63,7 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    MatInputModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatDividerModule
+    HttpClientModule
   ],
   providers: [
     httpInterceptorProviders
