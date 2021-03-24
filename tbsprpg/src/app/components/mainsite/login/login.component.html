@@ -1,14 +1,14 @@
 <app-toolbar></app-toolbar>
 <div>
     <form (ngSubmit)="login()" [formGroup]="loginForm">
-            <p>enter your email</p>
-            <input id="email" placeholder="pat@example.com" required email formControlName="email">
+        <p>enter your email</p>
+        <input id="email" placeholder="pat@example.com" required email formControlName="email">
         <br>
-            <p>enter your password</p>
-            <input id="password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
-            <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <p>{{hide ? 'visibility_off' : 'visibility'}}</p>
-            </button>
+        <p>enter your password</p>
+        <input id="password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+        <button (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            {{hide ? 'visibility_off' : 'visibility'}}
+        </button>
         <br>
         <button type="submit" [disabled]="!loginForm.valid">login</button>
         <p *ngIf="loginError">invalid username or password</p>
