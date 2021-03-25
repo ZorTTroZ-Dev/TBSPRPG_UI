@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdventureService } from '../../services/adventure.service';
+import { GameService } from '../../services/game.service';
 import { Adventure } from '../../models/adventure';
+import { Game } from '../../models/game';
 
 import { switchMap } from 'rxjs/operators';
 
@@ -12,14 +14,25 @@ import { switchMap } from 'rxjs/operators';
 })
 export class GameComponent implements OnInit {
   adventure: Adventure;
+  game: Game;
 
   constructor(private route: ActivatedRoute,
-    private adventureService: AdventureService) { }
+    private adventureService: AdventureService,
+    private gameService: GameService) { }
 
   loadGame(adventure: Adventure): void {
     //check if there is an game for this adventure for this user, set the game variable if so
     //if no game post to start game and we'll have to post to check when the game has
     //  been created and set it to a variable, poll until game variable added
+    this.gameService.getGameForAdventure(adventure.id).subscribe(
+      gme => {
+        if(gme === null) {
+          console.log("starting game");
+          this.gameService.startGame(adventure.id).subscribe(
+            resp => { console.log(resp); }
+          );
+        }
+    });
   }
 
   ngOnInit(): void {

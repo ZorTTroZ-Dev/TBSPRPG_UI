@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Adventure } from '../models/adventure';
+import { BaseService } from './base.service';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -9,10 +10,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AdventureService {
+export class AdventureService extends BaseService{
   private adventuresUrl = '/api/adventures';
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,) { 
+    super();
+  }
 
   getAdventures() : Observable<Adventure[]> {
     return this.http.get<Adventure[]>(this.adventuresUrl)
@@ -26,16 +29,5 @@ export class AdventureService {
     .pipe(
       catchError(this.handleError<Adventure>('getAdventureByName', null))
     );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-  
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-  
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 }
