@@ -24,15 +24,10 @@ export class GameService extends BaseService {
     );
   }
 
-  startGame(adventureId: string) : Observable<boolean> {
-    return this.http.get<Response>(this.gamesUrl + '/start/' + adventureId).pipe(
-      map(resp => {
-        console.log(resp.status);
-        if(resp.status === 202)
-          return true;
-        else
-          return false;
-      })
+  startGame(adventureId: string) : Observable<any> {
+    return this.http.get<any>(this.gamesUrl + '/start/' + adventureId)
+    .pipe(
+      catchError(this.handleError<any>('startGame', null))
     );
   }
 }
