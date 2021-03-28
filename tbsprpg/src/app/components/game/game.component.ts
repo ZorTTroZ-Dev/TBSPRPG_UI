@@ -5,7 +5,8 @@ import { GameService } from '../../services/game.service';
 import { Adventure } from '../../models/adventure';
 import { Game } from '../../models/game';
 
-import { switchMap } from 'rxjs/operators';
+import {switchMap, takeUntil, repeat, last, tap} from 'rxjs/operators';
+import {Subject, timer} from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -16,21 +17,35 @@ export class GameComponent implements OnInit {
   adventure: Adventure;
   game: Game;
 
+
   constructor(private route: ActivatedRoute,
     private adventureService: AdventureService,
     private gameService: GameService) { }
 
   loadGame(adventure: Adventure): void {
-    //check if there is an game for this adventure for this user, set the game variable if so
-    //if no game post to start game and we'll have to post to check when the game has
-    //  been created and set it to a variable, poll until game variable added
+    let gameLoaded = new Subject();
     this.gameService.getGameForAdventure(adventure.id).subscribe(
       gme => {
         if(gme === null) {
-          console.log("starting game");
-          this.gameService.startGame(adventure.id).subscribe(
-            resp => { console.log(resp); }
-          );
+          this.gameService.startGame(adventure.id).subscribe();
+          //we need to start polling for the game to be created
+          timer(1, 500).pipe(
+            switchMap( () => this.gameService.getGameForAdventure(adventure.id)),
+            repeat(10),
+            tap(gme => {
+              if(gme !== null) {
+                console.log(gme);
+                this.game = gme;
+                gameLoaded.next(gme);
+              }
+            }),
+            takeUntil(gameLoaded),
+            last()
+          ).subscribe( gme => {
+            console.log(gme);
+          });
+        } else {
+          this.game = gme;
         }
     });
   }
@@ -39,7 +54,7 @@ export class GameComponent implements OnInit {
     //I would like for people to be able to just click a link and be in the game
     //so this could be one of the most used entry points
 
-    //let's try this using switch map
+    //start the loading process
     this.route.params.pipe(
       switchMap( params => this.adventureService.getAdventureByName(params['adventure']) )
     ).subscribe( adv => {
@@ -47,10 +62,5 @@ export class GameComponent implements OnInit {
       this.loadGame(adv);
     });
 
-    //contact the games service to see if they've started this game,
-    //if so pick up from where they left off
-    //otherwise post a new game for this adventure
-
-    //for this skeleton we're going to assume they've started the game already
   }
 }
