@@ -5,7 +5,7 @@ import { GameService } from '../../services/game.service';
 import { Adventure } from '../../models/adventure';
 import { Game } from '../../models/game';
 
-import {switchMap, takeUntil, repeat, last, tap, timeout, catchError} from 'rxjs/operators';
+import {switchMap, takeUntil, tap, take, timeout, catchError, first} from 'rxjs/operators';
 import {of, Subject, timer} from 'rxjs';
 
 @Component({
@@ -24,27 +24,30 @@ export class GameComponent implements OnInit {
     this.gameLoaded = new Subject<Game>();
   }
 
+  pollStartedGame(adventure: Adventure): void {
+    timer(1, 500).pipe(
+      switchMap( () => this.gameService.getGameForAdventure(adventure.id)),
+      tap(gme => {
+        if(gme !== null) {
+          this.game = gme;
+          this.gameLoaded.next(gme);
+        }
+      }),
+      takeUntil(this.gameLoaded),
+      take(20)
+    ).subscribe();
+  }
+
   loadGame(adventure: Adventure): void {
     this.gameService.getGameForAdventure(adventure.id).subscribe(
       gme => {
         if(gme === null) {
           this.gameService.startGame(adventure.id).subscribe();
           //we need to start polling for the game to be created
-          timer(1, 500).pipe(
-            switchMap( () => this.gameService.getGameForAdventure(adventure.id)),
-            tap(gme => {
-              if(gme !== null) {
-                //console.log(gme);
-                this.game = gme;
-                this.gameLoaded.next(gme);
-              }
-            }),
-            takeUntil(this.gameLoaded),
-            timeout(10000),
-            catchError(error => { console.log("couldn't create a new game"); return of(null); })
-          ).subscribe();
+          this.pollStartedGame(adventure);
         } else {
           this.game = gme;
+          this.gameLoaded.next(gme);
         }
     });
   }
@@ -60,5 +63,15 @@ export class GameComponent implements OnInit {
       this.adventure = adv;
       this.loadGame(adv);
     });
+
+    //eventually throw an error if the game never loads
+    this.gameLoaded.pipe(
+      first(),
+      timeout(10000),
+      catchError(error => {
+        console.log("game never loaded");
+        return of(null);
+      })
+    ).subscribe();
   }
 }
