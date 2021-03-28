@@ -5,8 +5,8 @@ import { GameService } from '../../services/game.service';
 import { Adventure } from '../../models/adventure';
 import { Game } from '../../models/game';
 
-import {switchMap, takeUntil, repeat, last, tap} from 'rxjs/operators';
-import {Subject, timer} from 'rxjs';
+import {switchMap, takeUntil, repeat, last, tap, timeout, catchError} from 'rxjs/operators';
+import {of, Subject, timer} from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -16,14 +16,15 @@ import {Subject, timer} from 'rxjs';
 export class GameComponent implements OnInit {
   adventure: Adventure;
   game: Game;
-
+  gameLoaded : Subject<Game>;
 
   constructor(private route: ActivatedRoute,
     private adventureService: AdventureService,
-    private gameService: GameService) { }
+    private gameService: GameService) {
+    this.gameLoaded = new Subject<Game>();
+  }
 
   loadGame(adventure: Adventure): void {
-    let gameLoaded = new Subject();
     this.gameService.getGameForAdventure(adventure.id).subscribe(
       gme => {
         if(gme === null) {
@@ -31,19 +32,17 @@ export class GameComponent implements OnInit {
           //we need to start polling for the game to be created
           timer(1, 500).pipe(
             switchMap( () => this.gameService.getGameForAdventure(adventure.id)),
-            repeat(10),
             tap(gme => {
               if(gme !== null) {
-                console.log(gme);
+                //console.log(gme);
                 this.game = gme;
-                gameLoaded.next(gme);
+                this.gameLoaded.next(gme);
               }
             }),
-            takeUntil(gameLoaded),
-            last()
-          ).subscribe( gme => {
-            console.log(gme);
-          });
+            takeUntil(this.gameLoaded),
+            timeout(10000),
+            catchError(error => { console.log("couldn't create a new game"); return of(null); })
+          ).subscribe();
         } else {
           this.game = gme;
         }
@@ -61,6 +60,5 @@ export class GameComponent implements OnInit {
       this.adventure = adv;
       this.loadGame(adv);
     });
-
   }
 }
