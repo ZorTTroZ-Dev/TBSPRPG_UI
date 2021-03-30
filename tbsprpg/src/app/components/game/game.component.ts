@@ -43,7 +43,6 @@ export class GameComponent implements OnInit {
       gme => {
         if(gme === null) {
           this.gameService.startGame(adventure.id).subscribe();
-          //we need to start polling for the game to be created
           this.pollStartedGame(adventure);
         } else {
           this.game = gme;
@@ -53,9 +52,6 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //I would like for people to be able to just click a link and be in the game
-    //so this could be one of the most used entry points
-
     //start the loading process
     this.route.params.pipe(
       switchMap( params => this.adventureService.getAdventureByName(params['adventure']) )
