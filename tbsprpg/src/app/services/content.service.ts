@@ -21,4 +21,11 @@ export class ContentService extends BaseService {
         catchError(this.handleError<Content>('getLatestContentForGame', null))
       );
   }
+
+  getLastContentForGame(gameId: string, count: number) : Observable<Content> {
+    return this.http.get<Content>(this.contentUrl + '/filter/' + gameId + '?direction=b&count=' + count)
+      .pipe(
+        catchError(this.handleError<Content>('getLastContentForGame', null))
+      );
+  }
 }

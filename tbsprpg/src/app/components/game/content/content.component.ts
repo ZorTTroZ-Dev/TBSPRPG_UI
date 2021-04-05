@@ -25,7 +25,14 @@ export class ContentComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if(changes.game.currentValue) {
       //get the last 10 content items
-      this.pollContent();
+      this.contentService.getLastContentForGame(this.game.id, 10).subscribe(
+        content => {
+          for(let entry in content.texts.reverse()) {
+            this.content.push(content.texts[entry]);
+          }
+          this.contentIndex = content.index;
+          this.pollContent();
+        });
     }
   }
 
