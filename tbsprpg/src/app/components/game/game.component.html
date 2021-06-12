@@ -2,14 +2,14 @@
     <div>
         <app-content [game]="game"></app-content>
     </div>
+<!--    <div>-->
+<!--        <app-verbs></app-verbs>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <app-inventory></app-inventory>-->
+<!--    </div>-->
     <div>
-        <app-verbs></app-verbs>
-    </div>
-    <div>
-        <app-inventory></app-inventory>
-    </div>
-    <div>
-        <app-movement></app-movement>
+        <app-movement [game]="game"></app-movement>
     </div>
 </div>
 <!-- {{adventure}}

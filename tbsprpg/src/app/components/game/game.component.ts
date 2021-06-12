@@ -16,11 +16,11 @@ import {of, Subject, timer} from 'rxjs';
 export class GameComponent implements OnInit {
   adventure: Adventure;
   game: Game;
-  gameLoaded : Subject<Game>;
+  gameLoaded: Subject<Game>;
 
   constructor(private route: ActivatedRoute,
-    private adventureService: AdventureService,
-    private gameService: GameService) {
+              private adventureService: AdventureService,
+              private gameService: GameService) {
     this.gameLoaded = new Subject<Game>();
   }
 
@@ -28,7 +28,7 @@ export class GameComponent implements OnInit {
     timer(1, 500).pipe(
       switchMap( () => this.gameService.getGameForAdventure(adventure.id)),
       tap(gme => {
-        if(gme !== null) {
+        if (gme !== null) {
           this.game = gme;
           this.gameLoaded.next(gme);
         }
@@ -41,7 +41,7 @@ export class GameComponent implements OnInit {
   loadGame(adventure: Adventure): void {
     this.gameService.getGameForAdventure(adventure.id).subscribe(
       gme => {
-        if(gme === null) {
+        if (gme === null) {
           this.gameService.startGame(adventure.id).subscribe();
           this.pollStartedGame(adventure);
         } else {
@@ -52,20 +52,20 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //start the loading process
+    // start the loading process
     this.route.params.pipe(
-      switchMap( params => this.adventureService.getAdventureByName(params['adventure']) )
+      switchMap( params => this.adventureService.getAdventureByName(params.adventure) )
     ).subscribe( adv => {
       this.adventure = adv;
       this.loadGame(adv);
     });
 
-    //eventually throw an error if the game never loads
+    // eventually throw an error if the game never loads
     this.gameLoaded.pipe(
       first(),
       timeout(10000),
-      catchError(error => {
-        console.log("game never loaded");
+      catchError(() => {
+        console.log('game never loaded');
         return of(null);
       })
     ).subscribe();
