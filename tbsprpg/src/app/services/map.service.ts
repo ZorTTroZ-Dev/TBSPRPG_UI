@@ -15,10 +15,10 @@ export class MapService extends BaseService {
     super();
   }
 
-  getRoutesForGame(gameId: string): Observable<Route> {
-    return this.http.get<Route>(this.mapUrl + '/routes/' + gameId)
+  getRoutesForGame(gameId: string): Observable<Route[]> {
+    return this.http.get<Route[]>(this.mapUrl + '/routes/' + gameId)
       .pipe(
-        catchError(this.handleError<Route>('getRoutesForGame', null))
+        catchError(this.handleError<Route[]>('getRoutesForGame', null))
       );
   }
 }

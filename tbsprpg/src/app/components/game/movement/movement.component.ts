@@ -2,6 +2,8 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {Game} from '../../../models/game';
 import {MapService} from '../../../services/map.service';
 import {Route} from '../../../models/route';
+import {switchMap} from 'rxjs/operators';
+import {from} from 'rxjs';
 
 @Component({
   selector: 'app-movement',
@@ -20,10 +22,10 @@ export class MovementComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.game.currentValue) {
-      this.mapService.getRoutesForGame(this.game.id).subscribe(routes => {
-        for (const key of Object.keys(routes)) {
-          this.routes.push(routes[key]);
-        }
+      this.mapService.getRoutesForGame(this.game.id).pipe(
+        switchMap(routes => from(routes))
+      ).subscribe(route => {
+        this.routes.push(route);
       });
     }
   }
