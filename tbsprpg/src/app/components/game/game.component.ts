@@ -19,9 +19,9 @@ export class GameComponent implements OnInit, OnDestroy {
   gameLoaded: Subject<Game>;
   private subscription: Subscription = new Subscription();
 
-  constructor(private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute/*,
               private adventureService: AdventureService,
-              private gameService: GameService) {
+              private gameService: GameService*/) {
     this.gameLoaded = new Subject<Game>();
   }
 
@@ -38,18 +38,18 @@ export class GameComponent implements OnInit, OnDestroy {
     //   wait for the game to be populated
     // game not null, save game
     this.subscription.add(
-      this.route.params.pipe(
-        switchMap(params => this.adventureService.getAdventureByName(params.adventure)),
-        tap(adventure => this.adventure = adventure), // save the adventure
-        switchMap(adventure => this.gameService.getGameForAdventure(adventure.id)),
-        mergeMap(game => iif(
-          () => game === null,
-          this.gameService.startGame(this.adventure.id),
-          of(game)
-        ))
-      ).subscribe(() => {
-        this.pollGame();
-      })
+      // this.route.params.pipe(
+      //   switchMap(params => this.adventureService.getAdventureByName(params.adventure)),
+      //   tap(adventure => this.adventure = adventure), // save the adventure
+      //   switchMap(adventure => this.gameService.getGameForAdventure(adventure.id)),
+      //   mergeMap(game => iif(
+      //     () => game === null,
+      //     this.gameService.startGame(this.adventure.id),
+      //     of(game)
+      //   ))
+      // ).subscribe(() => {
+      //   this.pollGame();
+      // })
     );
 
     // eventually throw an error if the game never loads
@@ -66,17 +66,17 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private pollGame(): void {
-    this.subscription.add(
-      timer(1, 500).pipe(
-        takeUntil(this.gameLoaded),
-        take(20),
-        switchMap(() => this.gameService.getGameForAdventure(this.adventure.id))
-      ).subscribe(game => {
-        if (game !== null) {
-          this.game = game;
-          this.gameLoaded.next(game);
-        }
-      })
-    );
+    // this.subscription.add(
+    //   timer(1, 500).pipe(
+    //     takeUntil(this.gameLoaded),
+    //     take(20),
+    //     switchMap(() => this.gameService.getGameForAdventure(this.adventure.id))
+    //   ).subscribe(game => {
+    //     if (game !== null) {
+    //       this.game = game;
+    //       this.gameLoaded.next(game);
+    //     }
+    //   })
+    // );
   }
 }

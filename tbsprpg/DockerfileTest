@@ -1,6 +1,9 @@
 FROM node:14-alpine
+RUN apk add chromium
 
 WORKDIR /app
+
+ENV CHROME_BIN=/usr/bin/chromium-browser
 
 #add node_modules bin to path
 ENV PATH /app/node_modules/.bin:$PATH
