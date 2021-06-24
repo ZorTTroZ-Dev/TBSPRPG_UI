@@ -5,7 +5,7 @@ import {GameService} from '../../services/game.service';
 import {Adventure} from '../../models/adventure';
 import {Game} from '../../models/game';
 
-import {catchError, first, mergeMap, switchMap, take, takeUntil, tap, timeout} from 'rxjs/operators';
+import {catchError, first, map, mergeMap, switchMap, take, takeUntil, tap, timeout} from 'rxjs/operators';
 import {iif, of, Subject, Subscription, timer} from 'rxjs';
 
 @Component({
@@ -17,12 +17,14 @@ export class GameComponent implements OnInit, OnDestroy {
   adventure: Adventure;
   game: Game;
   gameLoaded: Subject<Game>;
+  isGameError: boolean;
   private subscription: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute/*,
               private adventureService: AdventureService,
               private gameService: GameService*/) {
     this.gameLoaded = new Subject<Game>();
+    this.isGameError = false;
   }
 
   ngOnDestroy(): void {
@@ -38,6 +40,16 @@ export class GameComponent implements OnInit, OnDestroy {
     //   wait for the game to be populated
     // game not null, save game
     this.subscription.add(
+      this.route.paramMap.pipe(
+        map(params => {
+          if (params.get('adventure') === '') {
+            this.isGameError = true;
+            throw new Error('adventure name parameter not provided');
+          }
+          return params.get('adventure');
+        }),
+        catchError((err: Error) => of(err.message))
+      ).subscribe()
       // this.route.params.pipe(
       //   switchMap(params => this.adventureService.getAdventureByName(params.adventure)),
       //   tap(adventure => this.adventure = adventure), // save the adventure

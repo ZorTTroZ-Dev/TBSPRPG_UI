@@ -1,25 +1,11 @@
-<div >
-    <div>
-        <app-content [game]="game"></app-content>
-    </div>
-<!--    <div>-->
-<!--        <app-verbs></app-verbs>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--        <app-inventory></app-inventory>-->
-<!--    </div>-->
-    <div>
-        <app-movement [game]="game"></app-movement>
-    </div>
+<div>
+  <div class="game-error" *ngIf="isGameError">
+    An error occurred while loading or starting your game!
+  </div>
+  <div>
+    <app-content [game]="game"></app-content>
+  </div>
+  <div>
+    <app-movement [game]="game"></app-movement>
+  </div>
 </div>
-<!-- {{adventure}}
-<p>The main game screen will need the following:</p>
-<ul>
-  <li>main game window</li>
-  <li>verbs</li>
-  <li>movement</li>
-  <li>map (optional)</li>
-  <li>inventory</li>
-  <li>character sheet</li>
-  <li>settings/menu/save/load</li>
-</ul> -->
