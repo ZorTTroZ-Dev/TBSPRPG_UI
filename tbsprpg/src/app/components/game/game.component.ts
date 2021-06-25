@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {AdventureService} from '../../services/adventure.service';
 import {GameService} from '../../services/game.service';
 import {Adventure} from '../../models/adventure';
 import {Game} from '../../models/game';
 
-import {catchError, first, map, mergeMap, switchMap, take, takeUntil, tap, timeout} from 'rxjs/operators';
-import {iif, of, Subject, Subscription, timer} from 'rxjs';
+import {catchError, first, map, mergeMap, pluck, switchMap, take, takeUntil, tap, timeout} from 'rxjs/operators';
+import {of, Subject, Subscription, timer} from 'rxjs';
+import {AdventureService} from '../../services/adventure.service';
 
 @Component({
   selector: 'app-game',
@@ -20,9 +20,9 @@ export class GameComponent implements OnInit, OnDestroy {
   isGameError: boolean;
   private subscription: Subscription = new Subscription();
 
-  constructor(private route: ActivatedRoute/*,
+  constructor(private route: ActivatedRoute,
               private adventureService: AdventureService,
-              private gameService: GameService*/) {
+              private gameService: GameService) {
     this.gameLoaded = new Subject<Game>();
     this.isGameError = false;
   }
@@ -32,13 +32,6 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // start with a adventure name
-    // load an adventure based on name (switchMap)
-    // load a game for the user of that adventure id (switchMap)
-    // if the game is null
-    //   call start game
-    //   wait for the game to be populated
-    // game not null, save game
     this.subscription.add(
       this.route.paramMap.pipe(
         map(params => {
@@ -48,47 +41,51 @@ export class GameComponent implements OnInit, OnDestroy {
           }
           return params.get('adventure');
         }),
-        catchError((err: Error) => of(err.message))
-      ).subscribe()
-      // this.route.params.pipe(
-      //   switchMap(params => this.adventureService.getAdventureByName(params.adventure)),
-      //   tap(adventure => this.adventure = adventure), // save the adventure
-      //   switchMap(adventure => this.gameService.getGameForAdventure(adventure.id)),
-      //   mergeMap(game => iif(
-      //     () => game === null,
-      //     this.gameService.startGame(this.adventure.id),
-      //     of(game)
-      //   ))
-      // ).subscribe(() => {
-      //   this.pollGame();
-      // })
+        switchMap(adventureName => this.adventureService.getAdventureByName(adventureName)),
+        tap(adventure => this.adventure = adventure), // save the adventure
+        switchMap(adventure => this.gameService.startGame(adventure.id)),
+        switchMap(() => timer(0, 500)),  // start a timer to load the game every half second
+        takeUntil(this.gameLoaded), // try to load the game until it's loaded
+        map(tic => {
+          if (tic >= 20) {
+            this.isGameError = true;
+            throw new Error('failed to load game');
+          }
+          return tic;
+        }), // only try for 20 half seconds which is 10 seconds
+        switchMap(() => this.gameService.getGameForAdventure(this.adventure.id)),
+        catchError((err: Error) => of(null)),  // pipe line continue with a null game if there is an error
+      ).subscribe(game => {
+        this.game = game;
+        this.gameLoaded.next(game);
+      })
     );
 
     // eventually throw an error if the game never loads
-    this.subscription.add(
-      this.gameLoaded.pipe(
-        first(),
-        timeout(10000),
-        catchError(() => {
-          console.log('game never loaded');
-          return of(null);
-        })
-      ).subscribe()
-    );
-  }
-
-  private pollGame(): void {
     // this.subscription.add(
-    //   timer(1, 500).pipe(
-    //     takeUntil(this.gameLoaded),
-    //     take(20),
-    //     switchMap(() => this.gameService.getGameForAdventure(this.adventure.id))
-    //   ).subscribe(game => {
-    //     if (game !== null) {
-    //       this.game = game;
-    //       this.gameLoaded.next(game);
-    //     }
-    //   })
+    //   this.gameLoaded.pipe(
+    //     first(),
+    //     timeout(10000),
+    //     catchError(() => {
+    //       console.log('game never loaded');
+    //       return of(null);
+    //     })
+    //   ).subscribe()
     // );
   }
+
+  // private pollGame(): void {
+  //   this.subscription.add(
+  //     timer(1, 500).pipe(
+  //       takeUntil(this.gameLoaded),
+  //       take(20),
+  //       switchMap(() => this.gameService.getGameForAdventure(this.adventure.id))
+  //     ).subscribe(game => {
+  //       if (game !== null) {
+  //         this.game = game;
+  //         this.gameLoaded.next(game);
+  //       }
+  //     })
+  //   );
+  // }
 }
