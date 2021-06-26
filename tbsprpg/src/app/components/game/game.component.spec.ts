@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
 
 import { GameComponent } from './game.component';
 import {ActivatedRouteStub} from '../../testing/activated-route-stub';
@@ -62,11 +62,34 @@ describe('GameComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('game should load game', () => {
+  it('game should load game', fakeAsync(() => {
+    activatedRoute.setParamMap({adventure: 'demo'});
+    getGameForAdventureSpy = gameService.getGameForAdventure.and.returnValue(of(testGame));
     fixture.detectChanges();
-  });
+
+    expect(getAdventureByNameSpy.calls.any()).toBe(true);
+    expect(component.adventure.id).toBe(testAdventure.id);
+    expect(component.game).toBeNull();
+    expect(startGameSpy.calls.any()).toBe(true);
+
+    tick();
+    fixture.detectChanges();
+    expect(component.game).not.toBeNull();
+    expect(getGameForAdventureSpy.calls.any()).toBe(true);
+  }));
 
   // it('should display spinner until game loads', () => {});
+  it('should display spinner until game loads', fakeAsync(() => {
+    activatedRoute.setParamMap({adventure: 'demo'});
+    getGameForAdventureSpy = gameService.getGameForAdventure.and.returnValue(of(testGame));
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.spinner-border')).not.toBeNull();
+
+    tick();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.spinner-border')).toBeNull();
+  }));
 
   it('should fail if no adventure param', () => {
     activatedRoute.setParamMap({adventure: ''});
@@ -84,9 +107,21 @@ describe('GameComponent', () => {
     // start game should have been called
     expect(getAdventureByNameSpy.calls.any()).toBe(true);
     expect(component.adventure.id).toBe(testAdventure.id);
-    expect(component.game).toBeUndefined();
+    expect(component.game).toBeNull();
     expect(startGameSpy.calls.any()).toBe(true);
   });
 
-  // it('should display error if game not loaded in time', () => {});
+  it('should display error if game not loaded in time', fakeAsync(() => {
+    activatedRoute.setParamMap({adventure: 'demo'});
+    getGameForAdventureSpy = gameService.getGameForAdventure.and.returnValue(of(null));
+    fixture.detectChanges();
+
+    expect(component.game).toBeNull();
+
+    tick(10000);
+    fixture.detectChanges();
+    expect(component.game).toBeNull();
+    expect(component.isGameError).toBe(true);
+    expect(fixture.nativeElement.querySelector('.game-error')).not.toBeNull();
+  }));
 });

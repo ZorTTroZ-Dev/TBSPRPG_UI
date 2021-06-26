@@ -25,6 +25,7 @@ export class GameComponent implements OnInit, OnDestroy {
               private gameService: GameService) {
     this.gameLoaded = new Subject<Game>();
     this.isGameError = false;
+    this.game = null;
   }
 
   ngOnDestroy(): void {
@@ -54,38 +55,14 @@ export class GameComponent implements OnInit, OnDestroy {
           return tic;
         }), // only try for 20 half seconds which is 10 seconds
         switchMap(() => this.gameService.getGameForAdventure(this.adventure.id)),
+        tap(game => {
+          if (game !== null) {
+            this.game = game;
+            this.gameLoaded.next(game);
+          }
+        }),
         catchError((err: Error) => of(null)),  // pipe line continue with a null game if there is an error
-      ).subscribe(game => {
-        this.game = game;
-        this.gameLoaded.next(game);
-      })
+      ).subscribe()
     );
-
-    // eventually throw an error if the game never loads
-    // this.subscription.add(
-    //   this.gameLoaded.pipe(
-    //     first(),
-    //     timeout(10000),
-    //     catchError(() => {
-    //       console.log('game never loaded');
-    //       return of(null);
-    //     })
-    //   ).subscribe()
-    // );
   }
-
-  // private pollGame(): void {
-  //   this.subscription.add(
-  //     timer(1, 500).pipe(
-  //       takeUntil(this.gameLoaded),
-  //       take(20),
-  //       switchMap(() => this.gameService.getGameForAdventure(this.adventure.id))
-  //     ).subscribe(game => {
-  //       if (game !== null) {
-  //         this.game = game;
-  //         this.gameLoaded.next(game);
-  //       }
-  //     })
-  //   );
-  // }
 }

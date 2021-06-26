@@ -2,6 +2,9 @@
   <div class="game-error" *ngIf="isGameError">
     An error occurred while loading or starting your game!
   </div>
+  <div class="spinner-border text-primary" role="status" *ngIf="game === null  && !isGameError">
+    <span class="sr-only">Loading...</span>
+  </div>
   <div>
     <app-content [game]="game"></app-content>
   </div>
