@@ -4,7 +4,7 @@ import {GameService} from '../../services/game.service';
 import {Adventure} from '../../models/adventure';
 import {Game} from '../../models/game';
 
-import {catchError, first, map, mergeMap, pluck, switchMap, take, takeUntil, tap, timeout} from 'rxjs/operators';
+import {catchError, map, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {of, Subject, Subscription, timer} from 'rxjs';
 import {AdventureService} from '../../services/adventure.service';
 
@@ -61,7 +61,7 @@ export class GameComponent implements OnInit, OnDestroy {
             this.gameLoaded.next(game);
           }
         }),
-        catchError((err: Error) => of(null)),  // pipe line continue with a null game if there is an error
+        catchError(() => of(null)),  // pipe line continue with a null game if there is an error
       ).subscribe()
     );
   }

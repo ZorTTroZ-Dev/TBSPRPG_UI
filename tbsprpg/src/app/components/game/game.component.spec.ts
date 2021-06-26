@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import { GameComponent } from './game.component';
 import {ActivatedRouteStub} from '../../testing/activated-route-stub';
