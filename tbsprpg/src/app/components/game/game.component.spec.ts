@@ -10,6 +10,7 @@ import {of} from 'rxjs';
 import {GameService} from '../../services/game.service';
 import {Adventure} from '../../models/adventure';
 import {AdventureService} from '../../services/adventure.service';
+import {Component, Input} from '@angular/core';
 
 let activatedRoute: ActivatedRouteStub;
 
@@ -29,7 +30,7 @@ describe('GameComponent', () => {
     userid: uuidv4()
   };
 
-  // setup the mock service
+  // setup the mock services
   const gameService = jasmine.createSpyObj(
     'GameService',
     ['startGame', 'getGameForAdventure']);
@@ -42,10 +43,24 @@ describe('GameComponent', () => {
   );
   getAdventureByNameSpy = adventureService.getAdventureByName.and.returnValue(of(testAdventure));
 
+  // stub components
+  @Component({selector: 'app-content', template: ''})
+  class AppStubContent {
+    @Input() game: Game;
+  }
+  @Component({selector: 'app-movement', template: ''})
+  class AppStubMovement {
+    @Input() game: Game;
+  }
+
   beforeEach(async () => {
     activatedRoute = new ActivatedRouteStub();
     await TestBed.configureTestingModule({
-      declarations: [GameComponent],
+      declarations: [
+        GameComponent,
+        AppStubContent,
+        AppStubMovement
+      ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         { provide: AdventureService, useValue: adventureService },
