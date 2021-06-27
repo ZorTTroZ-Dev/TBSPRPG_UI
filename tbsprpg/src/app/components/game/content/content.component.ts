@@ -2,8 +2,9 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 
 import {Game} from '../../../models/game';
 import {ContentService} from '../../../services/content.service';
-import {from, Subscription, timer} from 'rxjs';
-import {finalize, mergeMap, switchMap, tap} from 'rxjs/operators';
+import {from, of, Subject, Subscription, timer} from 'rxjs';
+import {catchError, finalize, map, mergeMap, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {Content} from '../../../models/content';
 
 @Component({
   selector: 'app-content',
@@ -12,11 +13,14 @@ import {finalize, mergeMap, switchMap, tap} from 'rxjs/operators';
 })
 export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: Game;
+  initialContentLoaded: Subject<Content>;
   content: string[];
   contentIndex: number;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private contentService: ContentService) { }
+  constructor(private contentService: ContentService) {
+    this.initialContentLoaded = new Subject<Content>();
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -37,16 +41,40 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     // it can get the content so maybe throw an exception when handling the event
     // so that it tries to process the event again, giving the content api time to
     // handle the new game event.
+    // if (changes.game.currentValue) {
+    //   // get the last 10 content items
+    //   this.subscriptions.add(
+    //     this.contentService.getLastContentForGame(this.game.id, 10).pipe(
+    //       tap(content => this.contentIndex = content.index),
+    //       mergeMap(content => from(content.texts.reverse())),
+    //       finalize(() => this.pollContent())
+    //     ).subscribe( contentItem => {
+    //       this.content.push(contentItem);
+    //     })
+    //   );
+    // }
     if (changes.game.currentValue) {
-      // get the last 10 content items
       this.subscriptions.add(
-        this.contentService.getLastContentForGame(this.game.id, 10).pipe(
-          tap(content => this.contentIndex = content.index),
+        timer(0, 500).pipe(
+          takeUntil(this.initialContentLoaded),
+          map(tic => {
+            if (tic >= 20) {
+              throw new Error('failed to load game content');
+            }
+            return tic;
+          }), // only try for 20 half seconds which is 10 seconds
+          switchMap(() => this.contentService.getLastContentForGame(this.game.id, 10)),
+          tap( content => {
+            if (content != null) {
+              this.contentIndex = content.index;
+              this.initialContentLoaded.next(content);
+            }
+          }),
           mergeMap(content => from(content.texts.reverse())),
-          finalize(() => this.pollContent())
-        ).subscribe( contentItem => {
-          this.content.push(contentItem);
-        })
+          tap(contentItem => this.content.push(contentItem)),
+          finalize(() => this.pollContent()),
+          catchError(() => of(null))
+        ).subscribe()
       );
     }
   }
@@ -54,16 +82,16 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   pollContent(): void {
     // check if the the contentIndex from the last retrieved entry is greater than the currentIndex
     // if it is add it to the content and update the contentIndex
-    this.subscriptions.add(
-      timer(1, 10000).pipe(
-        switchMap(_ => this.contentService.getLatestContentForGame(this.game.id)),
-        tap(content => {
-          if (content.index > this.contentIndex) {
-            this.content.push(content.texts[0]);
-            this.contentIndex = content.index;
-          }
-        })
-      ).subscribe()
-    );
+    // this.subscriptions.add(
+    //   timer(1, 10000).pipe(
+    //     switchMap(_ => this.contentService.getLatestContentForGame(this.game.id)),
+    //     tap(content => {
+    //       if (content.index > this.contentIndex) {
+    //         this.content.push(content.texts[0]);
+    //         this.contentIndex = content.index;
+    //       }
+    //     })
+    //   ).subscribe()
+    // );
   }
 }
