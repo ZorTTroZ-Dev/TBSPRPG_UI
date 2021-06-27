@@ -3,7 +3,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {Game} from '../../../models/game';
 import {ContentService} from '../../../services/content.service';
 import {from, Subscription, timer} from 'rxjs';
-import {finalize, mergeMap, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {finalize, mergeMap, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-content',
@@ -29,11 +29,8 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
 
   // called when the game is added to the component
   ngOnChanges(changes: SimpleChanges): void {
-    // this needs to either keep trying until it gets data
-    // or poll content needs to be able to retrieve more content
-    // what is happening is, this is being called before content is there
-    // so only the last content is being displayed from poll content
-    // i'm leaning towards this being called until there is content
+    // this should call the endpoint until it returns some content
+    // the poll call should send the current position and be given all content since them
 
     // I also need to fix the map api trying to get button content before
     // the content api has the game defined, it needs to keep trying until
