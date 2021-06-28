@@ -1,31 +1,39 @@
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ContentComponent} from './content.component';
-// import {of} from 'rxjs';
+import {of} from 'rxjs';
 import {ContentService} from '../../../services/content.service';
 import {Adventure} from '../../../models/adventure';
 import {Game} from '../../../models/game';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4, NIL as NIL_UUID} from 'uuid';
 import {SimpleChange} from '@angular/core';
+import {Content} from '../../../models/content';
 
 describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
   let component: ContentComponent;
+  let getLastContentForGame: jasmine.Spy;
   const testAdventure: Adventure = {
-    id: uuidv4(),
+    id: uuidv4().toString(),
     name: 'demo'
   };
   const testGame: Game = {
-    id: uuidv4(),
+    id: uuidv4().toString(),
     adventureid: testAdventure.id,
     userid: uuidv4()
+  };
+  const testContent: Content = {
+    id: testGame.id,
+    index: 12,
+    texts: [
+      'one', 'two', 'three', 'four', 'five',
+      'six', 'seven', 'eight', 'nine', 'ten'
+    ]
   };
 
   // setup the mock service
   const contentService = jasmine.createSpyObj(
     'ContentService',
     ['getLatestContentForGame', 'getLastContentForGame']);
-  // startGameSpy = gameService.startGame.and.returnValue(of({}));
-  // getGameForAdventureSpy = gameService.getGameForAdventure.and.returnValue(of(testGame));
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -44,14 +52,73 @@ describe('ContentComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load at most last 10 content items when game added', fakeAsync(() => {
+  it('should load last content items when game added', fakeAsync(() => {
+    getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(testContent));
     component.game = testGame;
-
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
     });
-
     fixture.detectChanges();
+    tick();
+
+    expect(component.isContentError).toBeFalse();
+    expect(getLastContentForGame.calls.any()).toBe(true);
+    expect(component.contentIndex).toBe(12);
+    expect(component.content.length).toBe(10);
+    component.ngOnDestroy();
+  }));
+
+  it('spinner should display until content loaded', fakeAsync(() => {
+    getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(testContent));
+    component.game = testGame;
+    component.ngOnChanges({
+      game: new SimpleChange(null, component.game, true)
+    });
+    fixture.detectChanges();
+    tick();
+    expect(fixture.nativeElement.querySelector('.content-spinner')).not.toBeNull();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.content-spinner')).toBeNull();
+    component.ngOnDestroy();
+  }));
+
+  it('nil uuid is not valid content', fakeAsync(() => {
+    getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(
+      {
+        id: NIL_UUID.toString(),
+        index: 0,
+        texts: []
+      }
+    ));
+    component.game = testGame;
+    component.ngOnChanges({
+      game: new SimpleChange(null, component.game, true)
+    });
+    fixture.detectChanges();
+    tick(10000);
+
+    expect(component.isContentError).toBeTrue();
+    expect(getLastContentForGame.calls.any()).toBe(true);
+    component.ngOnDestroy();
+  }));
+
+  it('should display error if content not loaded in time', fakeAsync(() => {
+    getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(
+      {
+        id: NIL_UUID.toString(),
+        index: 0,
+        texts: []
+      }
+    ));
+    component.game = testGame;
+    component.ngOnChanges({
+      game: new SimpleChange(null, component.game, true)
+    });
+    fixture.detectChanges();
+    tick(10000);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.content-error')).not.toBeNull();
     component.ngOnDestroy();
   }));
 

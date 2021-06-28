@@ -1,10 +1,8 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-
 import { GameComponent } from './game.component';
 import {ActivatedRouteStub} from '../../testing/activated-route-stub';
 import {ActivatedRoute} from '@angular/router';
 import {Game} from '../../models/game';
-
 import { v4 as uuidv4 } from 'uuid';
 import {of} from 'rxjs';
 import {GameService} from '../../services/game.service';
@@ -91,19 +89,6 @@ describe('GameComponent', () => {
     fixture.detectChanges();
     expect(component.game).not.toBeNull();
     expect(getGameForAdventureSpy.calls.any()).toBe(true);
-  }));
-
-  // it('should display spinner until game loads', () => {});
-  it('should display spinner until game loads', fakeAsync(() => {
-    activatedRoute.setParamMap({adventure: 'demo'});
-    getGameForAdventureSpy = gameService.getGameForAdventure.and.returnValue(of(testGame));
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('.spinner-border')).not.toBeNull();
-
-    tick();
-    fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('.spinner-border')).toBeNull();
   }));
 
   it('should fail if no adventure param', () => {
