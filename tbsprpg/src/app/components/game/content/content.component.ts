@@ -72,7 +72,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     // if it is add it to the content and update the contentIndex
     this.subscriptions.add(
       timer(0, 10000).pipe(
-        switchMap(() => this.contentService.getLatestContentForGame(this.game.id, this.contentIndex)),
+        switchMap(() => this.contentService.getContentForGameAfterPosition(this.game.id, this.contentIndex)),
         tap(content => {
           if (content.id === this.game.id && content.index > this.contentIndex) {
             this.contentIndex = content.index;

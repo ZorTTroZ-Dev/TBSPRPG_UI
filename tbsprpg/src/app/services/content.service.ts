@@ -15,8 +15,8 @@ export class ContentService extends BaseService {
     super();
   }
 
-  getLatestContentForGame(gameId: string, currentPosition: number): Observable<Content> {
-    return this.http.get<Content>(this.contentUrl + '/latest/' + gameId + '?position=' + currentPosition)
+  getContentForGameAfterPosition(gameId: string, currentPosition: number): Observable<Content> {
+    return this.http.get<Content>(this.contentUrl + '/after/' + gameId + '/' + currentPosition)
       .pipe(
         catchError(this.handleError<Content>('getLatestContentForGame', null))
       );

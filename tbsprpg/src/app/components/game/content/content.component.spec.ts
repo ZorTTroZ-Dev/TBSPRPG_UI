@@ -12,6 +12,7 @@ describe('ContentComponent', () => {
   let fixture: ComponentFixture<ContentComponent>;
   let component: ContentComponent;
   let getLastContentForGame: jasmine.Spy;
+  let getContentForGameAfterPosition: jasmine.Spy;
   const testAdventure: Adventure = {
     id: uuidv4().toString(),
     name: 'demo'
@@ -33,7 +34,7 @@ describe('ContentComponent', () => {
   // setup the mock service
   const contentService = jasmine.createSpyObj(
     'ContentService',
-    ['getLatestContentForGame', 'getLastContentForGame']);
+    ['getContentForGameAfterPosition', 'getLastContentForGame']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -54,7 +55,7 @@ describe('ContentComponent', () => {
 
   it('should load last content items when game added', fakeAsync(() => {
     getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(testContent));
-    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+    getContentForGameAfterPosition = contentService.getContentForGameAfterPosition.and.returnValue(of(
       {
         id: testGame.id,
         index: 12,
@@ -77,7 +78,7 @@ describe('ContentComponent', () => {
 
   it('spinner should display until content loaded', fakeAsync(() => {
     getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(testContent));
-    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+    getContentForGameAfterPosition = contentService.getContentForGameAfterPosition.and.returnValue(of(
       {
         id: testGame.id,
         index: 12,
@@ -131,7 +132,7 @@ describe('ContentComponent', () => {
   it('should poll for new content', fakeAsync(() => {
     component.game = testGame;
     component.contentIndex = 12;
-    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+    getContentForGameAfterPosition = contentService.getContentForGameAfterPosition.and.returnValue(of(
       {
         id: testGame.id,
         index: 13,
@@ -149,7 +150,7 @@ describe('ContentComponent', () => {
   it('should only update content with new content', fakeAsync(() => {
     component.game = testGame;
     component.contentIndex = 12;
-    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+    getContentForGameAfterPosition = contentService.getContentForGameAfterPosition.and.returnValue(of(
       {
         id: testGame.id,
         index: 12,
@@ -167,7 +168,7 @@ describe('ContentComponent', () => {
   it('should only update content with non-empty content', fakeAsync(() => {
     component.game = testGame;
     component.contentIndex = 12;
-    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+    getContentForGameAfterPosition = contentService.getContentForGameAfterPosition.and.returnValue(of(
       {}
     ));
     component.pollContent();
