@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {Game} from '../../../models/game';
 import {ContentService} from '../../../services/content.service';
 import {of, Subject, Subscription, timer} from 'rxjs';
-import {catchError, finalize, map, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {Content} from '../../../models/content';
 
 @Component({
@@ -54,15 +54,13 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
           }), // only try for 20 half seconds which is 10 seconds
           switchMap(() => this.contentService.getLastContentForGame(this.game.id, 10)),
           tap( content => {
-            console.log(content);
-            console.log(this.game);
             if (content.id === this.game.id) {
               this.contentIndex = content.index;
               this.content.push(...content.texts.reverse());
               this.initialContentLoaded.next(content);
+              this.pollContent();
             }
           }),
-          finalize(() => this.pollContent()),
           catchError(() => of(null))
         ).subscribe()
       );
@@ -72,16 +70,16 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   pollContent(): void {
     // check if the the contentIndex from the last retrieved entry is greater than the currentIndex
     // if it is add it to the content and update the contentIndex
-    // this.subscriptions.add(
-    //   timer(1, 10000).pipe(
-    //     switchMap(_ => this.contentService.getLatestContentForGame(this.game.id)),
-    //     tap(content => {
-    //       if (content.index > this.contentIndex) {
-    //         this.content.push(content.texts[0]);
-    //         this.contentIndex = content.index;
-    //       }
-    //     })
-    //   ).subscribe()
-    // );
+    this.subscriptions.add(
+      timer(0, 10000).pipe(
+        switchMap(() => this.contentService.getLatestContentForGame(this.game.id, this.contentIndex)),
+        tap(content => {
+          if (content.id === this.game.id && content.index > this.contentIndex) {
+            this.contentIndex = content.index;
+            this.content.push(...content.texts);
+          }
+        })
+      ).subscribe()
+    );
   }
 }

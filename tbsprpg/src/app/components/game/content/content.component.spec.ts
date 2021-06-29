@@ -54,6 +54,13 @@ describe('ContentComponent', () => {
 
   it('should load last content items when game added', fakeAsync(() => {
     getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(testContent));
+    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+      {
+        id: testGame.id,
+        index: 12,
+        texts: []
+      }
+    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
@@ -70,6 +77,13 @@ describe('ContentComponent', () => {
 
   it('spinner should display until content loaded', fakeAsync(() => {
     getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(testContent));
+    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+      {
+        id: testGame.id,
+        index: 12,
+        texts: []
+      }
+    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
@@ -122,5 +136,39 @@ describe('ContentComponent', () => {
     component.ngOnDestroy();
   }));
 
-  it('should poll for new content', fakeAsync(() => {}));
+  it('should poll for new content', fakeAsync(() => {
+    component.game = testGame;
+    component.contentIndex = 12;
+    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+      {
+        id: testGame.id,
+        index: 13,
+        texts: ['eleven']
+      }
+    ));
+    component.pollContent();
+    tick();
+
+    expect(component.contentIndex).toBe(13);
+    expect(component.content.length).toBe(1);
+    component.ngOnDestroy();
+  }));
+
+  it('should only update content with new content', fakeAsync(() => {
+    component.game = testGame;
+    component.contentIndex = 12;
+    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+      {
+        id: testGame.id,
+        index: 12,
+        texts: []
+      }
+    ));
+    component.pollContent();
+    tick();
+
+    expect(component.contentIndex).toBe(12);
+    expect(component.content.length).toBe(0);
+    component.ngOnDestroy();
+  }));
 });
