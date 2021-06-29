@@ -4,7 +4,7 @@ import {of} from 'rxjs';
 import {ContentService} from '../../../services/content.service';
 import {Adventure} from '../../../models/adventure';
 import {Game} from '../../../models/game';
-import {v4 as uuidv4, NIL as NIL_UUID} from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {SimpleChange} from '@angular/core';
 import {Content} from '../../../models/content';
 
@@ -98,11 +98,7 @@ describe('ContentComponent', () => {
 
   it('nil uuid is not valid content', fakeAsync(() => {
     getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(
-      {
-        id: NIL_UUID.toString(),
-        index: 0,
-        texts: []
-      }
+      {}
     ));
     component.game = testGame;
     component.ngOnChanges({
@@ -118,11 +114,7 @@ describe('ContentComponent', () => {
 
   it('should display error if content not loaded in time', fakeAsync(() => {
     getLastContentForGame = contentService.getLastContentForGame.and.returnValue(of(
-      {
-        id: NIL_UUID.toString(),
-        index: 0,
-        texts: []
-      }
+      {}
     ));
     component.game = testGame;
     component.ngOnChanges({
@@ -163,6 +155,20 @@ describe('ContentComponent', () => {
         index: 12,
         texts: []
       }
+    ));
+    component.pollContent();
+    tick();
+
+    expect(component.contentIndex).toBe(12);
+    expect(component.content.length).toBe(0);
+    component.ngOnDestroy();
+  }));
+
+  it('should only update content with non-empty content', fakeAsync(() => {
+    component.game = testGame;
+    component.contentIndex = 12;
+    getLastContentForGame = contentService.getLatestContentForGame.and.returnValue(of(
+      {}
     ));
     component.pollContent();
     tick();
