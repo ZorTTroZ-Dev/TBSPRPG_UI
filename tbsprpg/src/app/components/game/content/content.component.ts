@@ -54,7 +54,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
           }), // only try for 20 half seconds which is 10 seconds
           switchMap(() => this.contentService.getLastContentForGame(this.game.id, 10)),
           tap( content => {
-            if (content.id === this.game.id) {
+            if (content !== null && content.id === this.game.id) {
               this.contentIndex = content.index;
               this.content.push(...content.texts.reverse());
               this.initialContentLoaded.next(content);
@@ -74,7 +74,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
       timer(0, 10000).pipe(
         switchMap(() => this.contentService.getContentForGameAfterPosition(this.game.id, this.contentIndex)),
         tap(content => {
-          if (content.id === this.game.id && content.index > this.contentIndex) {
+          if (content !== null && content.id === this.game.id && content.index > this.contentIndex) {
             this.contentIndex = content.index;
             this.content.push(...content.texts);
           }

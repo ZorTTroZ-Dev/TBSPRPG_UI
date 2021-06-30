@@ -169,7 +169,7 @@ describe('ContentComponent', () => {
     component.game = testGame;
     component.contentIndex = 12;
     getContentForGameAfterPosition = contentService.getContentForGameAfterPosition.and.returnValue(of(
-      {}
+      null
     ));
     component.pollContent();
     tick();
