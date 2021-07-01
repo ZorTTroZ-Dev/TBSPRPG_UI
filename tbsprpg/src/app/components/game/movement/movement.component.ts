@@ -2,8 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {Game} from '../../../models/game';
 import {MapService} from '../../../services/map.service';
 import {Route} from '../../../models/route';
-import {switchMap} from 'rxjs/operators';
-import {from, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-movement',
@@ -12,6 +11,7 @@ import {from, Subscription} from 'rxjs';
 })
 export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: Game;
+  isMovementError: boolean;
   routes: Route[];
   private subscription: Subscription = new Subscription();
 
@@ -23,18 +23,22 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.routes = [];
+    this.isMovementError = false;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.game.currentValue) {
-      this.subscription.add(
-        this.mapService.getRoutesForGame(this.game.id).pipe(
-          switchMap(routes => from(routes))
-        ).subscribe(route => {
-          this.routes.push(route);
-        })
-      );
-    }
+    // when the game changes
+    // load routes until we get a valid response
+
+    // if (changes.game.currentValue) {
+    //   this.subscription.add(
+    //     this.mapService.getRoutesForGame(this.game.id).pipe(
+    //       switchMap(routes => from(routes))
+    //     ).subscribe(route => {
+    //       this.routes.push(route);
+    //     })
+    //   );
+    // }
   }
 
 }
