@@ -25,7 +25,7 @@ describe('ContentComponent', () => {
   const testContent: Content = {
     id: testGame.id,
     index: 12,
-    texts: [
+    sourceIds: [
       'one', 'two', 'three', 'four', 'five',
       'six', 'seven', 'eight', 'nine', 'ten'
     ]

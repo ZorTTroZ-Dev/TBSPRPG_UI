@@ -22,8 +22,8 @@ describe('MovementComponent', () => {
     userid: uuidv4()
   };
   const testRoutes: Route[] = [
-    { id: uuidv4().toString(), name: 'route one', content: 'route one' },
-    { id: uuidv4().toString(), name: 'route two', content: 'route two' }
+    { id: uuidv4().toString(), name: 'route one', sourceKey: 'route one' },
+    { id: uuidv4().toString(), name: 'route two', sourceKey: 'route two' }
   ];
 
   // setup the mock service

@@ -56,7 +56,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
           tap( content => {
             if (content !== null && content.id === this.game.id) {
               this.contentIndex = content.index;
-              this.content.push(...content.texts.reverse());
+              this.content.push(...content.sourceIds.reverse());
               this.initialContentLoaded.next(content);
               this.pollContent();
             }
@@ -76,7 +76,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
         tap(content => {
           if (content !== null && content.id === this.game.id && content.index > this.contentIndex) {
             this.contentIndex = content.index;
-            this.content.push(...content.texts);
+            this.content.push(...content.sourceIds);
           }
         })
       ).subscribe()

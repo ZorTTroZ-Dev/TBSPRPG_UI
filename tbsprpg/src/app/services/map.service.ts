@@ -9,14 +9,14 @@ import {catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MapService extends BaseService {
-  private mapUrl = '/api/map';
+  private mapUrl = '/api/maps';
 
   constructor(private http: HttpClient, ) {
     super();
   }
 
   getRoutesForGame(gameId: string): Observable<Route[]> {
-    return this.http.get<Route[]>(this.mapUrl + '/routes/' + gameId)
+    return this.http.get<Route[]>(this.mapUrl + '/' + gameId + '/routes')
       .pipe(
         catchError(this.handleError<Route[]>('getRoutesForGame', null))
       );
