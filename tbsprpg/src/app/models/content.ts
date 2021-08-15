@@ -1,5 +1,5 @@
 export interface Content {
   id: string;
-  sourceIds: string[];
+  sourceKeys: string[];
   index: number;
 }
