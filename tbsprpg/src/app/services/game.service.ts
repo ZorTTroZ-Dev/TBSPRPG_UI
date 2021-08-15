@@ -18,7 +18,7 @@ export class GameService extends BaseService {
   }
 
   getGameForAdventure(adventureId: string): Observable<Game> {
-    return this.http.get<Game>(this.gamesUrl + '/' + adventureId)
+    return this.http.get<Game>(this.gamesUrl + '/adventure/' + adventureId)
     .pipe(
       catchError(this.handleError<Game>('getGameForAdventure', null))
     );

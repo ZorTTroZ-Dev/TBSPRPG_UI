@@ -9,7 +9,7 @@ import {Content} from '../models/content';
   providedIn: 'root'
 })
 export class ContentService extends BaseService {
-  private contentUrl = '/api/content';
+  private contentUrl = '/api/contents';
 
   constructor(private http: HttpClient, ) {
     super();
@@ -23,7 +23,7 @@ export class ContentService extends BaseService {
   }
 
   getLastContentForGame(gameId: string, count: number): Observable<Content> {
-    return this.http.get<Content>(this.contentUrl + '/filter/' + gameId + '?direction=b&count=' + count)
+    return this.http.get<Content>(this.contentUrl + '/' + gameId + '/filter?direction=b&count=' + count)
       .pipe(
         catchError(this.handleError<Content>('getLastContentForGame', null))
       );
