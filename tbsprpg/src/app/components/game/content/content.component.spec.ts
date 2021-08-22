@@ -59,7 +59,7 @@ describe('ContentComponent', () => {
       {
         id: testGame.id,
         index: 12,
-        texts: []
+        sourceKeys: []
       }
     ));
     component.game = testGame;
@@ -82,7 +82,7 @@ describe('ContentComponent', () => {
       {
         id: testGame.id,
         index: 12,
-        texts: []
+        sourceKeys: []
       }
     ));
     component.game = testGame;
@@ -136,7 +136,7 @@ describe('ContentComponent', () => {
       {
         id: testGame.id,
         index: 13,
-        texts: ['eleven']
+        sourceKeys: ['eleven']
       }
     ));
     component.pollContent();
@@ -154,7 +154,7 @@ describe('ContentComponent', () => {
       {
         id: testGame.id,
         index: 12,
-        texts: []
+        sourceKeys: []
       }
     ));
     component.pollContent();
