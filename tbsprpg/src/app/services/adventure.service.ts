@@ -13,18 +13,18 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class AdventureService extends BaseService{
   private adventuresUrl = '/api/adventures';
 
-  constructor(private http: HttpClient,) { 
-    super();
+  constructor(http: HttpClient, ) {
+    super(http);
   }
 
-  getAdventures() : Observable<Adventure[]> {
+  getAdventures(): Observable<Adventure[]> {
     return this.http.get<Adventure[]>(this.adventuresUrl)
     .pipe(
       catchError(this.handleError<Adventure[]>('getAdventures', []))
     );
   }
 
-  getAdventureByName(name: string) : Observable<Adventure> {
+  getAdventureByName(name: string): Observable<Adventure> {
     return this.http.get<Adventure>(this.adventuresUrl + '/' + name)
     .pipe(
       catchError(this.handleError<Adventure>('getAdventureByName', null))

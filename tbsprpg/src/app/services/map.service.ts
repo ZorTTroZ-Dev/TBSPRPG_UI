@@ -11,8 +11,8 @@ import {catchError} from 'rxjs/operators';
 export class MapService extends BaseService {
   private mapUrl = '/api/maps';
 
-  constructor(private http: HttpClient, ) {
-    super();
+  constructor(http: HttpClient, ) {
+    super(http);
   }
 
   getRoutesForGame(gameId: string): Observable<Route[]> {

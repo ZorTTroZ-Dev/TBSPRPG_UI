@@ -11,8 +11,8 @@ import {Content} from '../models/content';
 export class ContentService extends BaseService {
   private contentUrl = '/api/contents';
 
-  constructor(private http: HttpClient, ) {
-    super();
+  constructor(http: HttpClient, ) {
+    super(http);
   }
 
   getContentForGameAfterPosition(gameId: string, currentPosition: number): Observable<Content> {
