@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Game} from '../../../models/game';
 import {ContentService} from '../../../services/content.service';
-import {of, Subject, Subscription, timer} from 'rxjs';
+import {from, of, Subject, Subscription, timer} from 'rxjs';
 import {catchError, map, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {Content} from '../../../models/content';
 
@@ -13,6 +13,7 @@ import {Content} from '../../../models/content';
 export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: Game;
   initialContentLoaded: Subject<Content>;
+  contentObservable: Subject<string>;
   isContentError: boolean;
   content: string[];
   contentIndex: number;
@@ -20,6 +21,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private contentService: ContentService) {
     this.initialContentLoaded = new Subject<Content>();
+    this.contentObservable = new Subject<string>();
   }
 
   ngOnDestroy(): void {
@@ -30,6 +32,17 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     this.contentIndex = 0;
     this.content = [];
     this.isContentError = false;
+
+    this.subscriptions.add(
+      this.contentObservable.pipe(
+        tap(key => {
+          console.log(key);
+        }),
+        switchMap(key => this.contentService.getSourceForSourceKey(this.game.id, key))
+      ).subscribe(source => {
+        this.content.push(source);
+      })
+    );
   }
 
   // called when the game is added to the component
@@ -56,7 +69,9 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
           tap( content => {
             if (content !== null && content.id === this.game.id) {
               this.contentIndex = content.index;
-              this.content.push(...content.sourceKeys.reverse());
+              for (const key of content.sourceKeys.reverse()) {
+                this.contentObservable.next(key);
+              }
               this.initialContentLoaded.next(content);
               this.pollContent();
             }

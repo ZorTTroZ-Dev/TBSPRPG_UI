@@ -11,14 +11,7 @@ export class BaseService {
 
   constructor(protected http: HttpClient, ) { }
 
-  // private getSourceForSourceKey(gameId: string, sourceKey: string): void {
-  //   this.http.get<string>(this.sourceUrl + '/' + gameId + '/source/' + sourceKey)
-  //     .pipe(
-  //       catchError(this.handleError<string>('getLatestContentForGame', null))
-  //     ).subscribe(data =>
-  //       console.log(data)
-  //     );
-  // }
+
   //
   // protected lookupSourceKeys(gameId: string): <T>(source: Observable<T>) => Observable<T> {
   //   return <T>(source: Observable<T>): Observable<T> => new Observable(subscriber => {

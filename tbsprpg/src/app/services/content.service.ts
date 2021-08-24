@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, filter, tap} from 'rxjs/operators';
 import {Content} from '../models/content';
 
 @Injectable({
@@ -26,6 +26,13 @@ export class ContentService extends BaseService {
     return this.http.get<Content>(this.contentUrl + '/' + gameId + '/filter?direction=b&count=' + count)
       .pipe(
         catchError(this.handleError<Content>('getLastContentForGame', null))
+      );
+  }
+
+  getSourceForSourceKey(gameId: string, sourceKey: string): Observable<string> {
+    return this.http.get<string>(this.contentUrl + '/' + gameId + '/source/' + sourceKey)
+      .pipe(
+        catchError(this.handleError<string>('getSourceForSourceKey', null))
       );
   }
 }
