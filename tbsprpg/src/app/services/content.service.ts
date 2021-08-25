@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {catchError, filter, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {Content} from '../models/content';
+import {Source} from '../models/source';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +30,10 @@ export class ContentService extends BaseService {
       );
   }
 
-  getSourceForSourceKey(gameId: string, sourceKey: string): Observable<string> {
-    return this.http.get<string>(this.contentUrl + '/' + gameId + '/source/' + sourceKey)
+  getSourceForSourceKey(gameId: string, sourceKey: string): Observable<Source> {
+    return this.http.get<Source>(this.contentUrl + '/' + gameId + '/source/' + sourceKey)
       .pipe(
-        catchError(this.handleError<string>('getSourceForSourceKey', null))
+        catchError(this.handleError<Source>('getSourceForSourceKey', null))
       );
   }
 }

@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Game} from '../../../models/game';
 import {ContentService} from '../../../services/content.service';
-import {from, of, Subject, Subscription, timer} from 'rxjs';
+import {of, Subject, Subscription, timer} from 'rxjs';
 import {catchError, map, switchMap, takeUntil, tap} from 'rxjs/operators';
 import {Content} from '../../../models/content';
 
@@ -35,13 +35,16 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
 
     this.subscriptions.add(
       this.contentObservable.pipe(
-        tap(key => {
-          console.log(key);
-        }),
-        switchMap(key => this.contentService.getSourceForSourceKey(this.game.id, key))
-      ).subscribe(source => {
-        this.content.push(source);
-      })
+        // tap(key => {
+        //   console.log(key);
+        // }),
+        map(key => this.contentService.getSourceForSourceKey(this.game.id, key)),
+        tap(response => {
+          response.subscribe(source => {
+            this.content.push(source.text);
+          });
+        })
+      ).subscribe()
     );
   }
 
