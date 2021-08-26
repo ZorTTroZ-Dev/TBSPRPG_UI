@@ -13,6 +13,7 @@ describe('ContentComponent', () => {
   let component: ContentComponent;
   let getLastContentForGame: jasmine.Spy;
   let getContentForGameAfterPosition: jasmine.Spy;
+  let getSourceForSourceKey: jasmine.Spy;
   const testAdventure: Adventure = {
     id: uuidv4().toString(),
     name: 'demo'
@@ -28,13 +29,14 @@ describe('ContentComponent', () => {
     sourceKeys: [
       'one', 'two', 'three', 'four', 'five',
       'six', 'seven', 'eight', 'nine', 'ten'
-    ]
+    ],
+    sources: []
   };
 
   // setup the mock service
   const contentService = jasmine.createSpyObj(
     'ContentService',
-    ['getContentForGameAfterPosition', 'getLastContentForGame']);
+    ['getContentForGameAfterPosition', 'getLastContentForGame', 'getSourceForSourceKey']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -62,6 +64,11 @@ describe('ContentComponent', () => {
         sourceKeys: []
       }
     ));
+    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
+      {
+        text: 'test source'
+      }
+    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
@@ -83,6 +90,11 @@ describe('ContentComponent', () => {
         id: testGame.id,
         index: 12,
         sourceKeys: []
+      }
+    ));
+    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
+      {
+        text: 'test source'
       }
     ));
     component.game = testGame;

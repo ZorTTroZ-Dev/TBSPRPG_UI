@@ -35,9 +35,6 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
 
     this.subscriptions.add(
       this.contentObservable.pipe(
-        // tap(key => {
-        //   console.log(key);
-        // }),
         map(key => this.contentService.getSourceForSourceKey(this.game.id, key)),
         tap(response => {
           response.subscribe(source => {
