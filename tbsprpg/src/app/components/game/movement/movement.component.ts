@@ -4,6 +4,7 @@ import {MapService} from '../../../services/map.service';
 import {Route} from '../../../models/route';
 import {of, Subject, Subscription, timer} from 'rxjs';
 import {catchError, map, switchMap, takeUntil, tap} from 'rxjs/operators';
+import {ContentService} from '../../../services/content.service';
 
 @Component({
   selector: 'app-movement',
@@ -14,10 +15,12 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: Game;
   isMovementError: boolean;
   routes: Route[];
-  routesLoaded: Subject<Route[]>;
+  routesLoaded: Subject<Route>;
   private subscription: Subscription = new Subscription();
 
-  constructor(private mapService: MapService) { }
+  constructor(private mapService: MapService, private contentService: ContentService) {
+    this.routesLoaded = new Subject<Route>();
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -26,7 +29,18 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     this.routes = [];
     this.isMovementError = false;
-    this.routesLoaded = new Subject<Route[]>();
+
+    this.subscription.add(
+      this.routesLoaded.pipe(
+        tap(route => {
+          const response = this.contentService.getSourceForSourceKey(this.game.id, route.sourceKey);
+          response.subscribe(source => {
+            route.source = source.text;
+            this.routes.push(route);
+          });
+        })
+      ).subscribe()
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,8 +61,9 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
           switchMap(() => this.mapService.getRoutesForGame(this.game.id)),
           tap(routes => {
             if (routes !== null && routes.length > 0) {
-              this.routes.push(...routes);
-              this.routesLoaded.next(routes);
+              for (const route of routes) {
+                this.routesLoaded.next(route);
+              }
             }
           }),
           catchError(() => of(null))

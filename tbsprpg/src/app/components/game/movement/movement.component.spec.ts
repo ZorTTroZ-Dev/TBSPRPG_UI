@@ -7,11 +7,13 @@ import {MapService} from '../../../services/map.service';
 import {MovementComponent} from './movement.component';
 import {of} from 'rxjs';
 import {SimpleChange} from '@angular/core';
+import {ContentService} from '../../../services/content.service';
 
 describe('MovementComponent', () => {
   let fixture: ComponentFixture<MovementComponent>;
   let component: MovementComponent;
   let getRoutesForGame: jasmine.Spy;
+  let getSourceForSourceKey: jasmine.Spy;
   const testAdventure: Adventure = {
     id: uuidv4().toString(),
     name: 'demo'
@@ -31,11 +33,16 @@ describe('MovementComponent', () => {
     'MapService',
     ['getRoutesForGame']);
 
+  const contentService = jasmine.createSpyObj(
+    'ContentService',
+    ['getSourceForSourceKey']);
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MovementComponent],
       providers: [
-        {provide: MapService, useValue: mapService}
+        {provide: MapService, useValue: mapService},
+        {provide: ContentService, useValue: contentService}
       ]
     }).compileComponents();
 
@@ -50,6 +57,11 @@ describe('MovementComponent', () => {
   });
 
   it('should load the routes', fakeAsync(() => {
+    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
+      {
+        text: 'test source'
+      }
+    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
@@ -79,6 +91,11 @@ describe('MovementComponent', () => {
   }));
 
   it('should display spinner until routes load', fakeAsync(() => {
+    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
+      {
+        text: 'test source'
+      }
+    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
