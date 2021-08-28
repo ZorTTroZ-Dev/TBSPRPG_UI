@@ -16,6 +16,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   isMovementError: boolean;
   routes: Route[];
   routesLoaded: Subject<Route>;
+  routeTimeStamp: number;
   private subscription: Subscription = new Subscription();
 
   constructor(private mapService: MapService, private contentService: ContentService) {
@@ -29,6 +30,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     this.routes = [];
     this.isMovementError = false;
+    this.routeTimeStamp = 0;
 
     this.subscription.add(
       this.routesLoaded.pipe(
@@ -62,14 +64,48 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
           tap(routes => {
             if (routes !== null && routes.length > 0) {
               for (const route of routes) {
+                if (route.timeStamp > this.routeTimeStamp) {
+                  this.routeTimeStamp = route.timeStamp;
+                }
                 this.routesLoaded.next(route);
               }
+              this.pollRoutes();
             }
           }),
           catchError(() => of(null))
         ).subscribe()
       );
     }
+  }
+
+  pollRoutes(): void {
+    this.subscription.add(
+      timer(0, 10000).pipe(
+        switchMap(() => this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp)),
+        tap(routes => {
+          if (routes !== null && routes.length > 0) {
+            for (const route of routes) {
+              if (route.timeStamp > this.routeTimeStamp) {
+                this.routeTimeStamp = route.timeStamp;
+              }
+              this.routesLoaded.next(route);
+            }
+          }
+        })
+      ).subscribe()
+    );
+  }
+
+  takeRoute(routeId: string): void {
+    // when click route clicked
+    // show content loading spinner
+    // make request to back end to change location
+    // the content spinner should be replaced with new content
+    // the movement buttons should update
+    // how will we know if the new routes are new and not the old routes
+    //  I'll have to put a date on the routes or a date on when the route was updated
+    //  what if the location change fails and the routes don't update
+    console.log(routeId);
   }
 
 }

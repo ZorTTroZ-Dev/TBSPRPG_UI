@@ -6,6 +6,6 @@
 </div>
 <div>
     <ng-container *ngFor="let route of routes;">
-        <button>{{route.source}}</button>
+        <button (click)="takeRoute(route.id)">{{route.source}}</button>
     </ng-container>
 </div>
