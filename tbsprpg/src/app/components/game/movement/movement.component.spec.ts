@@ -14,6 +14,7 @@ describe('MovementComponent', () => {
   let component: MovementComponent;
   let getRoutesForGame: jasmine.Spy;
   let getSourceForSourceKey: jasmine.Spy;
+  let getRoutesForGameAfterTimeStamp: jasmine.Spy;
   const testAdventure: Adventure = {
     id: uuidv4().toString(),
     name: 'demo'
@@ -24,14 +25,14 @@ describe('MovementComponent', () => {
     userid: uuidv4()
   };
   const testRoutes: Route[] = [
-    { id: uuidv4().toString(), name: 'route one', sourceKey: 'route one', source: '' },
-    { id: uuidv4().toString(), name: 'route two', sourceKey: 'route two', source: '' }
+    { id: uuidv4().toString(), name: 'route one', sourceKey: 'route one', source: '', timeStamp: 42 },
+    { id: uuidv4().toString(), name: 'route two', sourceKey: 'route two', source: '', timeStamp: 42 }
   ];
 
   // setup the mock service
   const mapService = jasmine.createSpyObj(
     'MapService',
-    ['getRoutesForGame']);
+    ['getRoutesForGame', 'getRoutesForGameAfterTimeStamp']);
 
   const contentService = jasmine.createSpyObj(
     'ContentService',
@@ -47,6 +48,12 @@ describe('MovementComponent', () => {
     }).compileComponents();
 
     getRoutesForGame = mapService.getRoutesForGame.and.returnValue(of(testRoutes));
+    getRoutesForGameAfterTimeStamp = mapService.getRoutesForGameAfterTimeStamp.and.returnValue(of([]));
+    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
+      {
+        text: 'test source'
+      }
+    ));
     fixture = TestBed.createComponent(MovementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -57,11 +64,6 @@ describe('MovementComponent', () => {
   });
 
   it('should load the routes', fakeAsync(() => {
-    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
-      {
-        text: 'test source'
-      }
-    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
@@ -91,11 +93,6 @@ describe('MovementComponent', () => {
   }));
 
   it('should display spinner until routes load', fakeAsync(() => {
-    getSourceForSourceKey = contentService.getSourceForSourceKey.and.returnValue(of(
-      {
-        text: 'test source'
-      }
-    ));
     component.game = testGame;
     component.ngOnChanges({
       game: new SimpleChange(null, component.game, true)
@@ -105,6 +102,35 @@ describe('MovementComponent', () => {
     expect(fixture.nativeElement.querySelector('.movement-spinner')).not.toBeNull();
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.movement-spinner')).toBeNull();
+    component.ngOnDestroy();
+  }));
+
+  it('should poll for new routes', fakeAsync(() => {
+    component.game = testGame;
+    component.routeTimeStamp = 12;
+    getRoutesForGameAfterTimeStamp = mapService.getRoutesForGameAfterTimeStamp.and.returnValue(of(
+      [{
+        id: uuidv4().toString(),
+        timeStamp: 13,
+        sourceKeys: ['eleven']
+      }]
+    ));
+    component.pollRoutes();
+    tick();
+
+    expect(component.routeTimeStamp).toBe(13);
+    expect(component.routes.length).toBe(1);
+    component.ngOnDestroy();
+  }));
+
+  it('only update routes if new routes', fakeAsync(() => {
+    component.game = testGame;
+    component.routeTimeStamp = 12;
+    component.pollRoutes();
+    tick();
+
+    expect(component.routeTimeStamp).toBe(12);
+    expect(component.routes.length).toBe(0);
     component.ngOnDestroy();
   }));
 });

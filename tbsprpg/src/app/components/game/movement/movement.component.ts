@@ -84,6 +84,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
         switchMap(() => this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp)),
         tap(routes => {
           if (routes !== null && routes.length > 0) {
+            this.routes = [];
             for (const route of routes) {
               if (route.timeStamp > this.routeTimeStamp) {
                 this.routeTimeStamp = route.timeStamp;
