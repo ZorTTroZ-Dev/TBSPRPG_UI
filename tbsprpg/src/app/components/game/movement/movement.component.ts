@@ -83,6 +83,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
       timer(0, 10000).pipe(
         switchMap(() => this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp)),
         tap(routes => {
+          console.log(routes);
           if (routes !== null && routes.length > 0) {
             this.routes = [];
             for (const route of routes) {
@@ -106,7 +107,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
     // how will we know if the new routes are new and not the old routes
     //  I'll have to put a date on the routes or a date on when the route was updated
     //  what if the location change fails and the routes don't update
-    console.log(routeId);
+    this.mapService.changeLocationViaRoute(this.game.id, routeId).subscribe();
   }
 
 }

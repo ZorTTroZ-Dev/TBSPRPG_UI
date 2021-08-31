@@ -91,7 +91,9 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
         tap(content => {
           if (content !== null && content.id === this.game.id && content.index > this.contentIndex) {
             this.contentIndex = content.index;
-            this.content.push(...content.sourceKeys);
+            for (const key of content.sourceKeys) {
+              this.contentObservable.next(key);
+            }
           }
         })
       ).subscribe()

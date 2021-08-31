@@ -28,4 +28,11 @@ export class MapService extends BaseService {
         catchError(this.handleError<Route[]>('getRoutesForGameAfterTimeStamp', null))
       );
   }
+
+  changeLocationViaRoute(gameId: string, routeId: string): Observable<any> {
+    return this.http.get<any>(this.mapUrl + '/' + gameId + '/changelocation/' + routeId)
+      .pipe(
+        catchError(this.handleError<any>('startGame', null))
+      );
+  }
 }
