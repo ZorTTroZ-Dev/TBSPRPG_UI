@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Content} from '../models/content';
 import {Source} from '../models/source';
@@ -11,9 +11,19 @@ import {Source} from '../models/source';
 })
 export class ContentService extends BaseService {
   private contentUrl = '/api/contents';
+  private pollContentObservable: Subject<number>;
 
   constructor(http: HttpClient, ) {
     super(http);
+    this.pollContentObservable = new Subject<number>();
+  }
+
+  pollContent(trigger: number): void {
+    this.pollContentObservable.next(trigger);
+  }
+
+  getPollContent(): Observable<number> {
+    return this.pollContentObservable.asObservable();
   }
 
   getContentForGameAfterPosition(gameId: string, currentPosition: number): Observable<Content> {

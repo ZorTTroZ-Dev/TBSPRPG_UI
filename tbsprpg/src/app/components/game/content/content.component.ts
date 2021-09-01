@@ -43,6 +43,19 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
         })
       ).subscribe()
     );
+
+    this.subscriptions.add(
+      this.contentService.getPollContent().subscribe(() => {
+        this.contentService.getContentForGameAfterPosition(this.game.id, this.contentIndex).subscribe(content => {
+          if (content !== null && content.id === this.game.id && content.index > this.contentIndex) {
+            this.contentIndex = content.index;
+            for (const key of content.sourceKeys) {
+              this.contentObservable.next(key);
+            }
+          }
+        });
+      })
+    );
   }
 
   // called when the game is added to the component
@@ -86,17 +99,9 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     // check if the the contentIndex from the last retrieved entry is greater than the currentIndex
     // if it is add it to the content and update the contentIndex
     this.subscriptions.add(
-      timer(0, 10000).pipe(
-        switchMap(() => this.contentService.getContentForGameAfterPosition(this.game.id, this.contentIndex)),
-        tap(content => {
-          if (content !== null && content.id === this.game.id && content.index > this.contentIndex) {
-            this.contentIndex = content.index;
-            for (const key of content.sourceKeys) {
-              this.contentObservable.next(key);
-            }
-          }
-        })
-      ).subscribe()
+      timer(0, 10000).subscribe(tick => {
+        this.contentService.pollContent(tick);
+      })
     );
   }
 }
