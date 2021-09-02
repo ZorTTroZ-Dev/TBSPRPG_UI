@@ -103,12 +103,10 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   takeRoute(routeId: string): void {
-    // show content loading spinner
     // make request to back end to change location
-    // the content spinner should be replaced with new content
     // the movement buttons should update
     this.mapService.changeLocationViaRoute(this.game.id, routeId).subscribe(() => {
-      this.contentService.pollContent(1);
+      this.contentService.pollContent(-1);
       this.mapService.pollRoutes(1);
     });
   }

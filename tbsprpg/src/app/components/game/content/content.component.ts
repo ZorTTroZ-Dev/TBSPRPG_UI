@@ -15,6 +15,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   initialContentLoaded: Subject<Content>;
   contentObservable: Subject<string>;
   isContentError: boolean;
+  isContentLoading: boolean;
   content: string[];
   contentIndex: number;
   private subscriptions: Subscription = new Subscription();
@@ -32,6 +33,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     this.contentIndex = 0;
     this.content = [];
     this.isContentError = false;
+    this.isContentLoading = false;
 
     this.subscriptions.add(
       this.contentObservable.pipe(
@@ -45,9 +47,15 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     );
 
     this.subscriptions.add(
-      this.contentService.getPollContent().subscribe(() => {
+      this.contentService.getPollContent().subscribe(tick => {
+        if (tick < 0) {
+          this.isContentLoading = true;
+        }
         this.contentService.getContentForGameAfterPosition(this.game.id, this.contentIndex).subscribe(content => {
           if (content !== null && content.id === this.game.id && content.index > this.contentIndex) {
+            if (this.isContentLoading === true) {
+              this.isContentLoading = false;
+            }
             this.contentIndex = content.index;
             for (const key of content.sourceKeys) {
               this.contentObservable.next(key);
