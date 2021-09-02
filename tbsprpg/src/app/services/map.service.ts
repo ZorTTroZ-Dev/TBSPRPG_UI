@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {Route} from '../models/route';
 import {catchError} from 'rxjs/operators';
 
@@ -10,9 +10,19 @@ import {catchError} from 'rxjs/operators';
 })
 export class MapService extends BaseService {
   private mapUrl = '/api/maps';
+  private pollRoutesObservable: Subject<number>;
 
   constructor(http: HttpClient, ) {
     super(http);
+    this.pollRoutesObservable = new Subject<number>();
+  }
+
+  pollRoutes(trigger: number): void {
+    this.pollRoutesObservable.next(trigger);
+  }
+
+  getPollRoutes(): Observable<number> {
+    return this.pollRoutesObservable.asObservable();
   }
 
   getRoutesForGame(gameId: string): Observable<Route[]> {

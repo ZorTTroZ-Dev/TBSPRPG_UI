@@ -43,6 +43,22 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
         })
       ).subscribe()
     );
+
+    this.subscription.add(
+      this.mapService.getPollRoutes().subscribe(() => {
+        this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp).subscribe(routes => {
+          if (routes !== null && routes.length > 0) {
+            this.routes = [];
+            for (const route of routes) {
+              if (route.timeStamp > this.routeTimeStamp) {
+                this.routeTimeStamp = route.timeStamp;
+              }
+              this.routesLoaded.next(route);
+            }
+          }
+        });
+      })
+    );
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -80,34 +96,20 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
 
   pollRoutes(): void {
     this.subscription.add(
-      timer(0, 10000).pipe(
-        switchMap(() => this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp)),
-        tap(routes => {
-          if (routes !== null && routes.length > 0) {
-            this.routes = [];
-            for (const route of routes) {
-              if (route.timeStamp > this.routeTimeStamp) {
-                this.routeTimeStamp = route.timeStamp;
-              }
-              this.routesLoaded.next(route);
-            }
-          }
-        })
-      ).subscribe()
+      timer(0, 10000).subscribe(tick => {
+        this.mapService.pollRoutes(tick);
+      })
     );
   }
 
   takeRoute(routeId: string): void {
-    // when click route clicked
     // show content loading spinner
     // make request to back end to change location
     // the content spinner should be replaced with new content
     // the movement buttons should update
-    // how will we know if the new routes are new and not the old routes
-    //  I'll have to put a date on the routes or a date on when the route was updated
-    //  what if the location change fails and the routes don't update
     this.mapService.changeLocationViaRoute(this.game.id, routeId).subscribe(() => {
       this.contentService.pollContent(1);
+      this.mapService.pollRoutes(1);
     });
   }
 
