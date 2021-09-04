@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent implements OnInit {
-  email : string;
+  email: string;
 
   constructor(private router: Router) { }
 
@@ -15,9 +15,9 @@ export class LandingComponent implements OnInit {
   }
 
   getStarted(): void {
-    //check if we have an account for this email, use a user service
-    //if so and they're not logged in go to a login screen
-    //else go to a registration page
+    // check if we have an account for this email, use a user service
+    // if so and they're not logged in go to a login screen
+    // else go to a registration page
     this.router.navigate(['/login', {}]);
   }
 }

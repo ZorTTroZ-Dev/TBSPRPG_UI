@@ -2,6 +2,7 @@
 <ul class="adventures">
     <li *ngFor="let adventure of adventures">
         <span class="badge">{{adventure.id}}</span> {{adventure.name}}
+          <a routerLink="/game/{{adventure.name}}">play!</a>
   </li>
 </ul>
 

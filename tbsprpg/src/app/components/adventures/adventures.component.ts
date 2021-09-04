@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Adventure } from '../../models/adventure';
-import { AdventureService } from '../../services/adventure.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Adventure} from '../../models/adventure';
+import {AdventureService} from '../../services/adventure.service';
 
 @Component({
   selector: 'app-adventures',
