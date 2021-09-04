@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import {FormGroup, FormControl, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../../services/user.service';
@@ -11,7 +11,7 @@ import { UserService } from '../../../services/user.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  hide : boolean;
+  hide: boolean;
   loginError: boolean;
   loginForm = new FormGroup({
     email: new FormControl(''),
@@ -19,19 +19,19 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private router: Router,
-    private userService: UserService) { }
+              private userService: UserService) { }
 
   ngOnInit(): void {
     this.loginError = false;
   }
 
-  get email() { return this.loginForm.get('email'); }
+  get email(): AbstractControl { return this.loginForm.get('email'); }
 
   login(): void {
-    var loginData = this.loginForm.value;
+    const loginData = this.loginForm.value;
     this.userService.authenticate(loginData.email, loginData.password).subscribe(
-      usr => {
-        this.router.navigate(['/console', {}]);
+      () => {
+        this.router.navigate(['/adventure', {}]);
       },
       error => {
         this.loginError = true;
