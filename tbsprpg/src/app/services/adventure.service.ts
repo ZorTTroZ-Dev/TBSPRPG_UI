@@ -30,4 +30,11 @@ export class AdventureService extends BaseService{
       catchError(this.handleError<Adventure>('getAdventureByName', null))
     );
   }
+
+  getAdventuresCreatedBy(userId: string): Observable<Adventure[]> {
+    return this.http.get<Adventure[]>(this.adventuresUrl + '/CreatedBy=' + userId)
+      .pipe(
+        catchError(this.handleError<Adventure[]>('getAdventuresCreatedBy', []))
+      );
+  }
 }
