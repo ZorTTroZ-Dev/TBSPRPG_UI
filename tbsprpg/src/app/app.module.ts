@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 // main components
 import { AppComponent } from './app.component';
-import { AdventuresComponent } from './components/adventures/adventures.component';
 import { LandingComponent } from './components/mainsite/landing.component';
 import { LoginComponent } from './components/mainsite/login/login.component';
 import { RegistrationComponent } from './components/mainsite/registration/registration.component';
@@ -22,6 +21,17 @@ import { GameComponent } from './components/game/game.component';
 import { ContentComponent } from './components/game/content/content.component';
 import { VerbsComponent } from './components/game/verbs/verbs.component';
 import { MovementComponent } from './components/game/movement/movement.component';
+
+// adventure components
+import { AdventuresComponent } from './components/adventures/adventures.component';
+import { CreatorComponent } from './components/adventures/creator/creator.component';
+import { LocationComponent } from './components/adventures/location/location.component';
+import { RouteComponent } from './components/adventures/route/route.component';
+import { SourceComponent } from './components/adventures/source/source.component';
+import { SourceEditComponent } from './components/adventures/source/source-edit/source-edit.component';
+import { RouteEditComponent } from './components/adventures/route/route-edit/route-edit.component';
+import { LocationEditComponent } from './components/adventures/location/location-edit/location-edit.component';
+import { AdventureEditComponent } from './components/adventures/adventure-edit/adventure-edit.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
@@ -40,7 +50,15 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     ContentComponent,
     VerbsComponent,
     MovementComponent,
-    InventoryComponent
+    InventoryComponent,
+    CreatorComponent,
+    LocationComponent,
+    RouteComponent,
+    SourceComponent,
+    SourceEditComponent,
+    RouteEditComponent,
+    LocationEditComponent,
+    AdventureEditComponent
   ],
   imports: [
     BrowserModule,
