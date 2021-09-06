@@ -14,12 +14,12 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private userService: UserService) {}
 
-  //insert the authorization bearer token for each request to the back end
+  // insert the authorization bearer token for each request to the back end
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const jwttoken = this.userService.getAuthToken();
-    if(jwttoken) {
+    if (jwttoken) {
       const clonedReq = request.clone({
-        headers: request.headers.set("Authorization", "Bearer " + jwttoken)
+        headers: request.headers.set('Authorization', 'Bearer ' + jwttoken)
       });
       return next.handle(clonedReq);
     }
