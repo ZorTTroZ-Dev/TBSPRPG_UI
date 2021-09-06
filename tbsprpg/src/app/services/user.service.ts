@@ -5,13 +5,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user';
 
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userUrl : string = '/api/users';
+  private userUrl = '/api/users';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -20,19 +20,30 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAuthToken(): string {
-    return localStorage.getItem("jwttoken");
+    return sessionStorage.getItem('jwtToken');
   }
 
   setAuthToken(token: string): void {
-    localStorage.setItem("jwttoken", token);
+    sessionStorage.setItem('jwtToken', token);
   }
 
-  authenticate(email: string, password: string) : Observable<User> {
+  getUserId(): string {
+    return sessionStorage.getItem('userId');
+  }
+
+  setUserId(userId: string): void {
+    sessionStorage.setItem('userId', userId);
+  }
+
+  authenticate(email: string, password: string): Observable<User> {
     return this.http.post<User>(this.userUrl + '/authenticate', {
       username: email,
       password: password
     }, this.httpOptions).pipe(
-      tap(usr => this.setAuthToken(usr.token))
+      tap(usr => {
+        this.setAuthToken(usr.token);
+        this.setUserId(usr.id);
+      })
     );
   }
 }

@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Adventure } from '../models/adventure';
 import { BaseService } from './base.service';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,7 @@ export class AdventureService extends BaseService{
   }
 
   getAdventuresCreatedBy(userId: string): Observable<Adventure[]> {
-    return this.http.get<Adventure[]>(this.adventuresUrl + '/CreatedBy=' + userId)
+    return this.http.get<Adventure[]>(this.adventuresUrl + '?CreatedBy=' + userId)
       .pipe(
         catchError(this.handleError<Adventure[]>('getAdventuresCreatedBy', []))
       );
