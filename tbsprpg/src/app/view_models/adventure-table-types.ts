@@ -1,3 +1,3 @@
 export class AdventureTableTypes {
-  static OWNED_ADVENTURES = 'owned';
+  static CREATED_ADVENTURES = 'created';
 }

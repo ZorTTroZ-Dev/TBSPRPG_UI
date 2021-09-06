@@ -12,7 +12,7 @@ export class CreatorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.adventureTableType = AdventureTableTypes.OWNED_ADVENTURES;
+    this.adventureTableType = AdventureTableTypes.CREATED_ADVENTURES;
   }
 
 }

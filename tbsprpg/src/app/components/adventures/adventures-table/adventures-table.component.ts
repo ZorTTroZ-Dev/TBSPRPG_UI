@@ -23,7 +23,7 @@ export class AdventuresTableComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     // the game has changed, get most recent content for display, and start polling
     if (changes.tableType.currentValue) {
-      if (this.tableType === AdventureTableTypes.OWNED_ADVENTURES) {
+      if (this.tableType === AdventureTableTypes.CREATED_ADVENTURES) {
         this.getOwnedAdventures();
       }
     }
