@@ -38,7 +38,7 @@ export class UserService {
   authenticate(email: string, password: string): Observable<User> {
     return this.http.post<User>(this.userUrl + '/authenticate', {
       username: email,
-      password: password
+      password
     }, this.httpOptions).pipe(
       tap(usr => {
         this.setAuthToken(usr.token);

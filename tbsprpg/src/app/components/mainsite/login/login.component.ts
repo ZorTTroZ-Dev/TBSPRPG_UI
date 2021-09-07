@@ -25,7 +25,9 @@ export class LoginComponent implements OnInit {
     this.loginError = false;
   }
 
-  get email(): AbstractControl { return this.loginForm.get('email'); }
+  get email(): AbstractControl {
+    return this.loginForm.get('email');
+  }
 
   login(): void {
     const loginData = this.loginForm.value;
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
       },
       error => {
         this.loginError = true;
+        console.error(error);
       }
     );
   }
