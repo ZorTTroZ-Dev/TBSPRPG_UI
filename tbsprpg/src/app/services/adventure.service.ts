@@ -31,6 +31,13 @@ export class AdventureService extends BaseService{
     );
   }
 
+  getAdventureById(id: string): Observable<Adventure> {
+    return this.http.get<Adventure>(this.adventuresUrl + '/' + id)
+      .pipe(
+        catchError(this.handleError<Adventure>('getAdventureByName', null))
+      );
+  }
+
   getAdventuresCreatedBy(userId: string): Observable<Adventure[]> {
     return this.http.get<Adventure[]>(this.adventuresUrl + '?CreatedBy=' + userId)
       .pipe(
