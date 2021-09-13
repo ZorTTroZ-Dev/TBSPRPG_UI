@@ -4,21 +4,11 @@
       <app-creator-sidebar></app-creator-sidebar>
     </div>
     <div class="col py-3">
-      <h2>Adventure Creator</h2>
-      <h4>Your Adventures</h4>
+      <h1>Your Adventures</h1>
       <app-adventures-table [tableType]="adventureTableType"></app-adventures-table>
       <div>
         <a routerLink="/adventure-edit">new adventure</a>
       </div>
-
-      <p>There should be a side bar user can use to:</p>
-      <ul>
-        <li>Go back to Adventures Home page /adventures</li>
-        <li>Go to the Explore home page that lists and filters current adventures</li>
-        <li>See a list of adventures they've created, from which they can edit or debug</li>
-        <li>Insights in to their created adventures</li>
-        <li>At bottom: update personal preferences and log out</li>
-      </ul>
     </div>
   </div>
 </div>
