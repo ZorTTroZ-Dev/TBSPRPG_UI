@@ -34,6 +34,7 @@ import { RouteEditComponent } from './components/adventures/route/route-edit/rou
 import { LocationEditComponent } from './components/adventures/location/location-edit/location-edit.component';
 import { AdventureEditComponent } from './components/adventures/adventure-edit/adventure-edit.component';
 import { AdventuresTableComponent } from './components/adventures/adventures-table/adventures-table.component';
+import { CreatorSidebarComponent } from './components/adventures/creator-sidebar/creator-sidebar.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
@@ -61,7 +62,8 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     RouteEditComponent,
     LocationEditComponent,
     AdventureEditComponent,
-    AdventuresTableComponent
+    AdventuresTableComponent,
+    CreatorSidebarComponent
   ],
   imports: [
     BrowserModule,
