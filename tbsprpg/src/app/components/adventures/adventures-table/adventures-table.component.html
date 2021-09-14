@@ -4,14 +4,17 @@
       <tr>
         <th>id</th>
         <th>name</th>
-        <th>actions</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let adventure of adventures">
         <td>{{ adventure.id }}</td>
         <td>{{ adventure.name }}</td>
-        <td>some buttons</td>
+        <td>
+          <a routerLink="/adventure-edit/{{adventure.id}}" type="button" class="btn btn-dark me-2">Edit</a>
+          <a type="button" class="btn btn-dark">Delete</a>
+        </td>
       </tr>
     </tbody>
   </table>
