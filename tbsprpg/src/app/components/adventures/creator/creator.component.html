@@ -4,11 +4,14 @@
       <app-creator-sidebar></app-creator-sidebar>
     </div>
     <div class="col py-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/adventure">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Creator</li>
+        </ol>
+      </nav>
       <h1>Your Adventures</h1>
       <app-adventures-table [tableType]="adventureTableType"></app-adventures-table>
-      <div>
-        <a routerLink="/adventure-edit">new adventure</a>
-      </div>
     </div>
   </div>
 </div>
