@@ -25,16 +25,11 @@ import { MovementComponent } from './components/game/movement/movement.component
 
 // adventure components
 import { AdventuresComponent } from './components/adventures/adventures.component';
-import { CreatorComponent } from './components/adventures/creator/creator.component';
-import { LocationComponent } from './components/adventures/location/location.component';
-import { RouteComponent } from './components/adventures/route/route.component';
-import { SourceComponent } from './components/adventures/source/source.component';
-import { SourceEditComponent } from './components/adventures/source/source-edit/source-edit.component';
-import { RouteEditComponent } from './components/adventures/route/route-edit/route-edit.component';
-import { LocationEditComponent } from './components/adventures/location/location-edit/location-edit.component';
 import { AdventureEditComponent } from './components/adventures/adventure-edit/adventure-edit.component';
 import { AdventuresTableComponent } from './components/adventures/adventures-table/adventures-table.component';
-import { CreatorSidebarComponent } from './components/adventures/creator-sidebar/creator-sidebar.component';
+import { AdventureEditSidebarComponent } from './components/adventures/adventure-edit/adventure-edit-sidebar/adventure-edit-sidebar.component';
+import { AdventureCreatorComponent } from './components/adventures/adventure-creator/adventure-creator.component';
+import { AdventureCreatorSidebarComponent } from './components/adventures/adventure-creator/adventure-creator-sidebar/adventure-creator-sidebar.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
@@ -54,16 +49,11 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     VerbsComponent,
     MovementComponent,
     InventoryComponent,
-    CreatorComponent,
-    LocationComponent,
-    RouteComponent,
-    SourceComponent,
-    SourceEditComponent,
-    RouteEditComponent,
-    LocationEditComponent,
     AdventureEditComponent,
     AdventuresTableComponent,
-    CreatorSidebarComponent
+    AdventureEditSidebarComponent,
+    AdventureCreatorComponent,
+    AdventureCreatorSidebarComponent,
   ],
   imports: [
     BrowserModule,
