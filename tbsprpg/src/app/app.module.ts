@@ -25,11 +25,12 @@ import { MovementComponent } from './components/game/movement/movement.component
 
 // adventure components
 import { AdventuresComponent } from './components/adventures/adventures.component';
-import { AdventureEditComponent } from './components/adventures/adventure-edit/adventure-edit.component';
+import { AdventureEditComponent } from './components/adventures/adventure-details/adventure-edit/adventure-edit.component';
 import { AdventuresTableComponent } from './components/adventures/adventures-table/adventures-table.component';
-import { AdventureEditSidebarComponent } from './components/adventures/adventure-edit/adventure-edit-sidebar/adventure-edit-sidebar.component';
+import { AdventureDetailsSidebarComponent } from './components/adventures/adventure-details/adventure-details-sidebar/adventure-details-sidebar.component';
 import { AdventureCreatorComponent } from './components/adventures/adventure-creator/adventure-creator.component';
 import { AdventureCreatorSidebarComponent } from './components/adventures/adventure-creator/adventure-creator-sidebar/adventure-creator-sidebar.component';
+import { AdventureDetailsComponent } from './components/adventures/adventure-details/adventure-details.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
@@ -51,9 +52,10 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     InventoryComponent,
     AdventureEditComponent,
     AdventuresTableComponent,
-    AdventureEditSidebarComponent,
+    AdventureDetailsSidebarComponent,
     AdventureCreatorComponent,
     AdventureCreatorSidebarComponent,
+    AdventureDetailsComponent,
   ],
   imports: [
     BrowserModule,

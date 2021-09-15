@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {of, Subscription} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
-import {AdventureService} from '../../../services/adventure.service';
+import {AdventureService} from '../../../../services/adventure.service';
 
 @Component({
   selector: 'app-adventure-edit',

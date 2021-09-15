@@ -6,7 +6,7 @@ import { LoginComponent } from './components/mainsite/login/login.component';
 import { GameComponent } from './components/game/game.component';
 import { AuthGuard } from './guards/auth.guard';
 import {AdventuresComponent} from './components/adventures/adventures.component';
-import {AdventureEditComponent} from './components/adventures/adventure-edit/adventure-edit.component';
+import {AdventureEditComponent} from './components/adventures/adventure-details/adventure-edit/adventure-edit.component';
 import {AdventureCreatorComponent} from './components/adventures/adventure-creator/adventure-creator.component';
 
 const routes: Routes = [
