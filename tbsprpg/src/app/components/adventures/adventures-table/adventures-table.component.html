@@ -8,12 +8,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let adventure of adventures">
+      <tr routerLink="/adventure-details/{{adventure.id}}" style="cursor: pointer;" *ngFor="let adventure of adventures">
         <td>{{ adventure.id }}</td>
         <td>{{ adventure.name }}</td>
-        <td>
-          <a routerLink="/adventure-edit/{{adventure.id}}" type="button" class="btn btn-dark me-2">Edit</a>
-          <a type="button" class="btn btn-dark">Delete</a>
+        <td class="text-end">
+          <a routerLink="/adventure-details/{{adventure.id}}" type="button" class="btn btn-dark">Info</a>
+          <a type="button" class="btn btn-dark mx-2">Delete</a>
         </td>
       </tr>
     </tbody>

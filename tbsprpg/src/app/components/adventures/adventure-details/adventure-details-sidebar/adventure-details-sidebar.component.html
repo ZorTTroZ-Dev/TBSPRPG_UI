@@ -1,1 +1,58 @@
-<p>adventure-edit-sidebar works!</p>
+<div class="d-flex flex-column flex-shrink-0 text-white min-vh-100">
+  <a routerLink="/adventure" class="d-flex align-items-center p-2 text-light text-decoration-none">
+    <i class="fs-4 bi-house"></i>
+    <span class="ms-2 fs-5 d-none d-sm-inline">TbspRpg</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column" id="details">
+    <li class="nav-item">
+      <a routerLink="/adventure-details" type="button" class="nav-link bg-light text-dark">
+        <i class="fs-4 bi-card-heading"></i> <span class="ms-2 d-none d-sm-inline">Details</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills flex-column" id="locations">
+    <li class="nav-item">
+      <a routerLink="/adventure-details-locations" type="button" class="nav-link text-light">
+        <i class="fs-4 bi-map"></i> <span class="ms-2 d-none d-sm-inline">Locations</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills flex-column" id="routes">
+    <li class="nav-item">
+      <a routerLink="/adventure-details-routes" type="button" class="nav-link text-light">
+        <i class="fs-4 bi-compass"></i> <span class="ms-2 d-none d-sm-inline">Routes</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills flex-column" id="sources">
+    <li class="nav-item">
+      <a routerLink="/adventure-details-sources" type="button" class="nav-link text-light">
+        <i class="fs-4 bi-blockquote-left"></i> <span class="ms-2 d-none d-sm-inline">Sources</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills flex-column mb-auto" id="games">
+    <li class="nav-item">
+      <a routerLink="/adventure-details-games" type="button" class="nav-link text-light">
+        <i class="fs-4 bi-controller"></i> <span class="ms-2 d-none d-sm-inline">Games</span>
+      </a>
+    </li>
+  </ul>
+  <hr>
+  <div class="dropdown pb-4">
+    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+      <span class="d-none d-sm-inline mx-1">user</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+      <li><a class="dropdown-item" href="#">New project...</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li>
+        <hr class="dropdown-divider">
+      </li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div>
+</div>
