@@ -11,6 +11,7 @@ import {AdventureDetailsComponent} from './components/adventures/adventure-detai
 
 const routes: Routes = [
   { path: 'adventure', component: AdventuresComponent, canActivate: [AuthGuard] },
+  { path: 'adventure-details/:adventureId/:location', component: AdventureDetailsComponent, canActivate: [AuthGuard] },
   { path: 'adventure-details/:adventureId', component: AdventureDetailsComponent, canActivate: [AuthGuard] },
   { path: 'adventure-creator', component: AdventureCreatorComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegistrationComponent },

@@ -11,7 +11,9 @@
           <li class="breadcrumb-item active" aria-current="page">Details</li>
         </ol>
       </nav>
-      <h1>Adventure Details</h1>
+      <div *ngIf="!location || location === 'home'">
+        <app-adventure-details-home></app-adventure-details-home>
+      </div>
     </div>
   </div>
 </div>
