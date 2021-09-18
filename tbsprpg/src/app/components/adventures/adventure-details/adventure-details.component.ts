@@ -29,6 +29,8 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
         map(params => {
           if (params.get('location')) {
             this.location = params.get('location');
+          } else {
+            this.location = 'home';
           }
           if (params.get('adventureId') === '') {
             return null;
@@ -47,5 +49,9 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  updateLocation(newLocation: string): void {
+    this.location = newLocation;
   }
 }

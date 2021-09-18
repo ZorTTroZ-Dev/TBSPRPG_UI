@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-adventure-details-sidebar',
@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adventure-details-sidebar.component.scss']
 })
 export class AdventureDetailsSidebarComponent implements OnInit {
+  @Input() location: string;
+  @Output() locationChange = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  updateLocation(newLocation: string): void {
+    this.locationChange.emit(newLocation);
+  }
 }

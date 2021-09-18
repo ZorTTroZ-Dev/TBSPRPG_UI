@@ -31,11 +31,12 @@ import { AdventureDetailsSidebarComponent } from './components/adventures/advent
 import { AdventureCreatorComponent } from './components/adventures/adventure-creator/adventure-creator.component';
 import { AdventureCreatorSidebarComponent } from './components/adventures/adventure-creator/adventure-creator-sidebar/adventure-creator-sidebar.component';
 import { AdventureDetailsComponent } from './components/adventures/adventure-details/adventure-details.component';
+import { AdventureDetailsHomeComponent } from './components/adventures/adventure-details/adventure-details-home/adventure-details-home.component';
+import { AdventureDetailsLocationsComponent } from './components/adventures/adventure-details/adventure-details-locations/adventure-details-locations.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { InventoryComponent } from './components/game/inventory/inventory.component';
-import { AdventureDetailsHomeComponent } from './components/adventures/adventure-details/adventure-details-home/adventure-details-home.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { AdventureDetailsHomeComponent } from './components/adventures/adventure
     AdventureCreatorSidebarComponent,
     AdventureDetailsComponent,
     AdventureDetailsHomeComponent,
+    AdventureDetailsLocationsComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,35 +6,40 @@
   <hr>
   <ul class="nav nav-pills flex-column" id="details">
     <li class="nav-item">
-      <a routerLink="/adventure-details" type="button" class="nav-link bg-light text-dark">
+      <a (click)="updateLocation('home')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'home', 'text-light': location !== 'home'}">
         <i class="fs-4 bi-card-heading"></i> <span class="ms-2 d-none d-sm-inline">Details</span>
       </a>
     </li>
   </ul>
   <ul class="nav nav-pills flex-column" id="locations">
     <li class="nav-item">
-      <a routerLink="/adventure-details-locations" type="button" class="nav-link text-light">
+      <a (click)="updateLocation('locations')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'locations', 'text-light': location !== 'locations'}">
         <i class="fs-4 bi-map"></i> <span class="ms-2 d-none d-sm-inline">Locations</span>
       </a>
     </li>
   </ul>
   <ul class="nav nav-pills flex-column" id="routes">
     <li class="nav-item">
-      <a routerLink="/adventure-details-routes" type="button" class="nav-link text-light">
+      <a routerLink="/adventure-details-routes" type="button" class="nav-link text-light"
+         [ngClass]="{'bg-light text-dark': location === 'routes', 'text-light': location !== 'routes'}">
         <i class="fs-4 bi-compass"></i> <span class="ms-2 d-none d-sm-inline">Routes</span>
       </a>
     </li>
   </ul>
   <ul class="nav nav-pills flex-column" id="sources">
     <li class="nav-item">
-      <a routerLink="/adventure-details-sources" type="button" class="nav-link text-light">
+      <a routerLink="/adventure-details-sources" type="button" class="nav-link text-light"
+         [ngClass]="{'bg-light text-dark': location === 'sources', 'text-light': location !== 'sources'}">
         <i class="fs-4 bi-blockquote-left"></i> <span class="ms-2 d-none d-sm-inline">Sources</span>
       </a>
     </li>
   </ul>
   <ul class="nav nav-pills flex-column mb-auto" id="games">
     <li class="nav-item">
-      <a routerLink="/adventure-details-games" type="button" class="nav-link text-light">
+      <a routerLink="/adventure-details-games" type="button" class="nav-link text-light"
+         [ngClass]="{'bg-light text-dark': location === 'games', 'text-light': location !== 'games'}">
         <i class="fs-4 bi-controller"></i> <span class="ms-2 d-none d-sm-inline">Games</span>
       </a>
     </li>

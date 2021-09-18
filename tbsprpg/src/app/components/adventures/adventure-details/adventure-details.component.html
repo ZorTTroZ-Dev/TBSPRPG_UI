@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row flex-nowrap">
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-      <app-adventure-details-sidebar></app-adventure-details-sidebar>
+      <app-adventure-details-sidebar [location]="location" (locationChange)="updateLocation($event)"></app-adventure-details-sidebar>
     </div>
     <div class="col py-3">
       <nav aria-label="breadcrumb">
@@ -11,8 +11,11 @@
           <li class="breadcrumb-item active" aria-current="page">{{adventure.name}}</li>
         </ol>
       </nav>
-      <div *ngIf="!location || location === 'home'">
+      <div *ngIf="location === 'home'">
         <app-adventure-details-home [adventure]="adventure"></app-adventure-details-home>
+      </div>
+      <div *ngIf="location === 'locations'">
+        <app-adventure-details-locations></app-adventure-details-locations>
       </div>
     </div>
   </div>
