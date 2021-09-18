@@ -8,11 +8,11 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/adventure">Home</a></li>
           <li class="breadcrumb-item"><a routerLink="/adventure-creator">Creator</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Details</li>
+          <li class="breadcrumb-item active" aria-current="page">{{adventure.name}}</li>
         </ol>
       </nav>
       <div *ngIf="!location || location === 'home'">
-        <app-adventure-details-home></app-adventure-details-home>
+        <app-adventure-details-home [adventure]="adventure"></app-adventure-details-home>
       </div>
     </div>
   </div>

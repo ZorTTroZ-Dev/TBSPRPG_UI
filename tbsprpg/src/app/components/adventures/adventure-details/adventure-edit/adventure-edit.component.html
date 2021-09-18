@@ -1,5 +1,6 @@
 <div>
-  <form (ngSubmit)="updateAdventure()" [formGroup]="adventureForm">
+<!--  <form (ngSubmit)="updateAdventure()" [formGroup]="adventureForm">-->
+  <form [formGroup]="adventureForm">
     <label for="name">Name: </label>
     <input id="name" type="text" formControlName="name">
     <br>

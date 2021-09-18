@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Adventure} from '../../../../models/adventure';
 
 @Component({
   selector: 'app-adventure-details-home',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adventure-details-home.component.scss']
 })
 export class AdventureDetailsHomeComponent implements OnInit {
+  @Input() adventure: Adventure;
 
   constructor() { }
 

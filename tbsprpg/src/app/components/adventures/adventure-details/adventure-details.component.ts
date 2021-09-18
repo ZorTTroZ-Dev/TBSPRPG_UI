@@ -13,7 +13,7 @@ import {Adventure} from '../../../models/adventure';
 
 export class AdventureDetailsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  private adventure: Adventure;
+  adventure: Adventure;
   location: string = null;
 
   constructor(private route: ActivatedRoute,
