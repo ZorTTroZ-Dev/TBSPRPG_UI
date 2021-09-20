@@ -1,0 +1,16 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/adventure">Home</a></li>
+    <li class="breadcrumb-item"><a routerLink="/adventure-creator">Creator</a></li>
+    <li *ngIf="adventure"
+        class="breadcrumb-item">
+      <a *ngIf="sidebarLocation !== 'home'" (click)="updateSidebarLocation('home')">
+        {{adventure.name}}
+      </a>
+      <span *ngIf="sidebarLocation === 'home'">{{adventure.name}}</span>
+    </li>
+    <li *ngIf="sidebarLocation !== 'home'" class="breadcrumb-item active">
+      {{sidebarLocation.charAt(0).toUpperCase() + sidebarLocation.slice(1)}}
+    </li>
+  </ol>
+</nav>

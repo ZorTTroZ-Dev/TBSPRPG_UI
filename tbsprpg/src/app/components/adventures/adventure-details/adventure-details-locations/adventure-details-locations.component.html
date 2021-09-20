@@ -1,1 +1,23 @@
-<p>adventure-details-locations works!</p>
+<div *ngIf="locations.length > 0">
+  <table datatable class="row-border hover">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr routerLink="/adventure-details/{{location.id}}"
+        style="cursor: pointer;" *ngFor="let location of locations">
+      <td>{{ location.id }}</td>
+      <td>{{ location.name }}</td>
+      <td class="text-end">
+        <a (click)="updateLocations(location)"
+           type="button" class="btn btn-dark">Edit</a>
+        <a type="button" class="btn btn-dark mx-2">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

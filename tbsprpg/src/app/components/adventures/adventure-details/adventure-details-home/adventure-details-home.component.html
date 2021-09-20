@@ -1,8 +1,8 @@
-<h1>
+<h1 *ngIf="adventure">
   {{adventure.name}}
 </h1>
 <h6 class="text-muted">Published: 09/15/21</h6>
-<small class="text-muted">{{adventure.id}}</small>
+<small *ngIf="adventure" class="text-muted">{{adventure.id}}</small>
 
 <div class="card" style="width: 25rem;">
   <div class="card-body">

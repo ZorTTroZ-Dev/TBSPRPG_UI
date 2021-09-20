@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AdventureService} from '../../../services/adventure.service';
 import {map, switchMap} from 'rxjs/operators';
 import {Adventure} from '../../../models/adventure';
+import {Location} from '../../../models/location';
 
 @Component({
   selector: 'app-adventure-details',
@@ -14,7 +15,8 @@ import {Adventure} from '../../../models/adventure';
 export class AdventureDetailsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   adventure: Adventure;
-  location: string = null;
+  location: Location;
+  sidebarLocation: string = null;
 
   constructor(private route: ActivatedRoute,
               private adventureService: AdventureService) { }
@@ -28,9 +30,9 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
       this.route.paramMap.pipe(
         map(params => {
           if (params.get('location')) {
-            this.location = params.get('location');
+            this.sidebarLocation = params.get('location');
           } else {
-            this.location = 'home';
+            this.sidebarLocation = 'home';
           }
           if (params.get('adventureId') === '') {
             return null;
@@ -51,7 +53,11 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  updateLocation(newLocation: string): void {
-    this.location = newLocation;
+  updateSidebarLocation(newLocation: string): void {
+    this.sidebarLocation = newLocation;
+  }
+
+  updateAdventureLocation(location: Location): void {
+    this.location = location;
   }
 }

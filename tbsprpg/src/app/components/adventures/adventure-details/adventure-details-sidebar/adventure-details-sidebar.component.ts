@@ -7,14 +7,14 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class AdventureDetailsSidebarComponent implements OnInit {
   @Input() location: string;
-  @Output() locationChange = new EventEmitter<string>();
+  @Output() sidebarLocationChange = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  updateLocation(newLocation: string): void {
-    this.locationChange.emit(newLocation);
+  updateSidebarLocation(newLocation: string): void {
+    this.sidebarLocationChange.emit(newLocation);
   }
 }

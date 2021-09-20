@@ -37,6 +37,8 @@ import { AdventureDetailsLocationsComponent } from './components/adventures/adve
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { InventoryComponent } from './components/game/inventory/inventory.component';
+import { AdventureDetailsLocationEditComponent } from './components/adventures/adventure-details/adventure-details-location-edit/adventure-details-location-edit.component';
+import { AdventureDetailsBreadcrumbsComponent } from './components/adventures/adventure-details/adventure-details-breadcrumbs/adventure-details-breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,8 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     AdventureDetailsComponent,
     AdventureDetailsHomeComponent,
     AdventureDetailsLocationsComponent,
+    AdventureDetailsLocationEditComponent,
+    AdventureDetailsBreadcrumbsComponent,
   ],
   imports: [
     BrowserModule,

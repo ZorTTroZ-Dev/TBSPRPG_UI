@@ -6,7 +6,7 @@
   <hr>
   <ul class="nav nav-pills flex-column" id="details">
     <li class="nav-item">
-      <a (click)="updateLocation('home')" type="button" class="nav-link"
+      <a (click)="updateSidebarLocation('home')" type="button" class="nav-link"
          [ngClass]="{'bg-light text-dark': location === 'home', 'text-light': location !== 'home'}">
         <i class="fs-4 bi-card-heading"></i> <span class="ms-2 d-none d-sm-inline">Details</span>
       </a>
@@ -14,8 +14,9 @@
   </ul>
   <ul class="nav nav-pills flex-column" id="locations">
     <li class="nav-item">
-      <a (click)="updateLocation('locations')" type="button" class="nav-link"
-         [ngClass]="{'bg-light text-dark': location === 'locations', 'text-light': location !== 'locations'}">
+      <a (click)="updateSidebarLocation('locations')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'locations' || location === 'location-edit',
+         'text-light': location !== 'locations' && location !== 'location-edit'}">
         <i class="fs-4 bi-map"></i> <span class="ms-2 d-none d-sm-inline">Locations</span>
       </a>
     </li>
