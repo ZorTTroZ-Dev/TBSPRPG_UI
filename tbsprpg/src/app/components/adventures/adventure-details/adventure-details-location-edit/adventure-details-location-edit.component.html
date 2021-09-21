@@ -1,2 +1,75 @@
-<p>adventure-details-location-edit works!</p>
-<p>{{location.id}} {{location.name}}</p>
+<div class="card">
+  <div class="card-header">
+    <h3>Edit Location</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="locationForm">
+      <div class="form-floating">
+        <input type="text" class="form-control" id="name" placeholder="location name" value="{{location.name}}">
+        <label for="name">Location Name:</label>
+      </div>
+      <div class="form-floating mt-2">
+        <textarea class="form-control" placeholder="Place content here" id="content" style="height: 100px"></textarea>
+        <label for="content">Content</label>
+      </div>
+      <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!locationForm.valid">update</button>
+    </form>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h5>Route Name One</h5>
+      </div>
+      <div class="card-body">
+        <form class="form-floating">
+          <input type="text" class="form-control" id="route-name" placeholder="route name">
+          <label for="name">Route Name:</label>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h5>Route Name Two</h5>
+      </div>
+      <div class="card-body">
+        <form class="form-floating">
+          <input type="text" class="form-control" id="route-name" placeholder="route name">
+          <label for="name">Route Name:</label>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h5>Route Name Three</h5>
+      </div>
+      <div class="card-body">
+        <form class="form-floating">
+          <input type="text" class="form-control" id="route-name" placeholder="route name">
+          <label for="name">Route Name:</label>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <h5>Route Name Four</h5>
+      </div>
+      <div class="card-body">
+        <form class="form-floating">
+          <input type="text" class="form-control" id="route-name" placeholder="route name">
+          <label for="name">Route Name:</label>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
