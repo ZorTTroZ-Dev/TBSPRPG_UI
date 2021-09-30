@@ -1,4 +1,7 @@
 export interface Source {
+  id: string;
+  key: string;
+  adventureid: string;
   text: string;
 }
 

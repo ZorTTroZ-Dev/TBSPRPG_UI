@@ -5,11 +5,11 @@
   <div class="card-body">
     <form [formGroup]="locationForm">
       <div class="form-floating">
-        <input type="text" class="form-control" id="name" placeholder="location name" value="{{location.name}}">
+        <input type="text" class="form-control" id="name" formControlName="name">
         <label for="name">Location Name:</label>
       </div>
       <div class="form-floating mt-2">
-        <textarea class="form-control" placeholder="Place content here" id="content" style="height: 100px"></textarea>
+        <textarea class="form-control" id="content" style="height: 100px" formControlName="content"></textarea>
         <label for="content">Content</label>
       </div>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!locationForm.valid">Update</button>
