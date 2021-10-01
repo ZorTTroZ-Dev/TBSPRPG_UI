@@ -8,6 +8,10 @@
         <input type="text" class="form-control" id="name" formControlName="name">
         <label for="name">Location Name:</label>
       </div>
+      <div class="mt-2">
+        <input type="checkbox" class="btn-check" id="initial" formControlName="initial" autocomplete="off">
+        <label class="btn btn-outline-dark" for="initial">Initial</label><br>
+      </div>
       <app-adventure-details-source-edit [source]="locationForm.get('source')"></app-adventure-details-source-edit>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!locationForm.valid">Update</button>
     </form>
