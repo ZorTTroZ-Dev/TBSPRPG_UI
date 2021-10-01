@@ -33,12 +33,13 @@ import { AdventureCreatorSidebarComponent } from './components/adventures/advent
 import { AdventureDetailsComponent } from './components/adventures/adventure-details/adventure-details.component';
 import { AdventureDetailsHomeComponent } from './components/adventures/adventure-details/adventure-details-home/adventure-details-home.component';
 import { AdventureDetailsLocationsComponent } from './components/adventures/adventure-details/adventure-details-locations/adventure-details-locations.component';
+import { AdventureDetailsLocationEditComponent } from './components/adventures/adventure-details/adventure-details-location-edit/adventure-details-location-edit.component';
+import { AdventureDetailsBreadcrumbsComponent } from './components/adventures/adventure-details/adventure-details-breadcrumbs/adventure-details-breadcrumbs.component';
+import { AdventureDetailsSourceEditComponent } from './components/adventures/adventure-details/adventure-details-source-edit/adventure-details-source-edit.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { InventoryComponent } from './components/game/inventory/inventory.component';
-import { AdventureDetailsLocationEditComponent } from './components/adventures/adventure-details/adventure-details-location-edit/adventure-details-location-edit.component';
-import { AdventureDetailsBreadcrumbsComponent } from './components/adventures/adventure-details/adventure-details-breadcrumbs/adventure-details-breadcrumbs.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { AdventureDetailsBreadcrumbsComponent } from './components/adventures/ad
     AdventureDetailsLocationsComponent,
     AdventureDetailsLocationEditComponent,
     AdventureDetailsBreadcrumbsComponent,
+    AdventureDetailsSourceEditComponent,
   ],
   imports: [
     BrowserModule,
