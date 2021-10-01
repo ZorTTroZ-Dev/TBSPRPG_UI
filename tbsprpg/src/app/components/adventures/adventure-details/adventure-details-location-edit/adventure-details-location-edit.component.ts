@@ -11,6 +11,7 @@ import {SourcesService} from '../../../../services/sources.service';
 })
 export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
+  private sourceFormGroupKey = 'source';
   locationForm = new FormGroup({
     id: new FormControl(''),
     name: new FormControl(''),
@@ -35,11 +36,9 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
       this.locationForm.patchValue(this.location);
       // look up the content for the location source key
       this.subscriptions.add(
-        this.sourcesService.getSourceForAdventureForKey(
-          this.location.adventureId,
-          this.location.sourceKey, 'en')
-          .subscribe(result => {
-            this.locationForm.controls['source'].patchValue(result);
+        this.sourcesService.getSourceForAdventureForKey(this.location.adventureId,
+          this.location.sourceKey, 'en').subscribe(result => {
+            this.locationForm.controls[this.sourceFormGroupKey].patchValue(result);
         })
       );
     }
