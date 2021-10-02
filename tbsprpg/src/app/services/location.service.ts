@@ -21,4 +21,10 @@ export class LocationService extends BaseService{
         catchError(this.handleError<Location[]>('getLocationsForAdventure', null))
       );
   }
+
+  updateLocation(locationData: any): Observable<any> {
+    return this.http.post<any>(this.locationUrl, locationData).pipe(
+      catchError(this.handleError<any>('updateLocation', null))
+    );
+  }
 }

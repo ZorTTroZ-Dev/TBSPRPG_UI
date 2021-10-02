@@ -17,6 +17,8 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
     name: new FormControl(''),
     initial: new FormControl(''),
     source: new FormGroup({
+      id: new FormControl(''),
+      key: new FormControl(''),
       text: new FormControl('')
     })
   });
@@ -44,4 +46,10 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
     }
   }
 
+  updateLocation(): void {
+    // post the form group contents to the server
+    console.log(this.locationForm.value);
+    // send the values to the update values endpoint
+    // display a message on the screen how the update went
+  }
 }
