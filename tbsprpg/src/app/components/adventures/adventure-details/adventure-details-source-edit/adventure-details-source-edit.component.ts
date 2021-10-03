@@ -7,7 +7,7 @@ import {FormGroup} from '@angular/forms';
   styleUrls: ['./adventure-details-source-edit.component.scss']
 })
 export class AdventureDetailsSourceEditComponent implements OnInit {
-  @Input() source: FormGroup;
+  @Input() form: FormGroup;
 
   constructor() { }
 

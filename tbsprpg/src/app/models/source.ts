@@ -1,7 +1,7 @@
 export interface Source {
   id: string;
   key: string;
-  adventureid: string;
+  adventureId: string;
   text: string;
 }
 
