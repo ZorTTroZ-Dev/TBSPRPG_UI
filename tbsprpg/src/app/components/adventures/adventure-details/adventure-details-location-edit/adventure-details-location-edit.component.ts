@@ -3,6 +3,7 @@ import {Location} from '../../../../models/location';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {SourcesService} from '../../../../services/sources.service';
+import {LocationService} from '../../../../services/location.service';
 
 @Component({
   selector: 'app-adventure-details-location-edit',
@@ -30,7 +31,8 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
   });
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private sourcesService: SourcesService) { }
+  constructor(private sourcesService: SourcesService,
+              private locationService: LocationService) { }
 
   ngOnInit(): void {
   }
@@ -53,9 +55,11 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
   }
 
   updateLocation(): void {
-    // post the form group contents to the server
-    console.log(this.locationForm.value);
-    // send the values to the update values endpoint
-    // display a message on the screen how the update went
+    this.subscriptions.add(
+      this.locationService.updateLocation(this.location.id, this.locationForm.value).subscribe(result => {
+        // we'll want to pop up a message if the update is cool
+        console.log(result);
+      })
+    );
   }
 }
