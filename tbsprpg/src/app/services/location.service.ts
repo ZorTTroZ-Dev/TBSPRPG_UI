@@ -22,8 +22,8 @@ export class LocationService extends BaseService{
       );
   }
 
-  updateLocation(locationId: string, locationData: any): Observable<any> {
-    return this.http.put<any>(this.locationUrl + '/' + locationId, locationData).pipe(
+  updateLocation(locationData: any): Observable<any> {
+    return this.http.put<any>(this.locationUrl, locationData).pipe(
       catchError(this.handleError<any>('updateLocation', null))
     );
   }

@@ -26,7 +26,8 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
       id: new FormControl(''),
       key: new FormControl(''),
       adventureId: new FormControl(''),
-      text: new FormControl('')
+      text: new FormControl(''),
+      language: new FormControl('')
     })
   });
   private subscriptions: Subscription = new Subscription();
@@ -56,7 +57,7 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
 
   updateLocation(): void {
     this.subscriptions.add(
-      this.locationService.updateLocation(this.location.id, this.locationForm.value).subscribe(result => {
+      this.locationService.updateLocation(this.locationForm.value).subscribe(result => {
         // we'll want to pop up a message if the update is cool
         console.log(result);
       })
