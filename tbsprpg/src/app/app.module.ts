@@ -16,6 +16,7 @@ import { LandingComponent } from './components/mainsite/landing.component';
 import { LoginComponent } from './components/mainsite/login/login.component';
 import { RegistrationComponent } from './components/mainsite/registration/registration.component';
 import { ToolbarComponent } from './components/mainsite/toolbar/toolbar.component';
+import { NotificationComponent } from './components/mainsite/notification/notification.component';
 
 // game components
 import { GameComponent } from './components/game/game.component';
@@ -66,6 +67,7 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     AdventureDetailsLocationEditComponent,
     AdventureDetailsBreadcrumbsComponent,
     AdventureDetailsSourceEditComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,

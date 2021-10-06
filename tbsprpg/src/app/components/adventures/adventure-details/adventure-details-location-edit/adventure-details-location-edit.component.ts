@@ -4,6 +4,8 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {SourcesService} from '../../../../services/sources.service';
 import {LocationService} from '../../../../services/location.service';
+import {NotificationService} from '../../../../services/notification.service';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
 
 @Component({
   selector: 'app-adventure-details-location-edit',
@@ -33,7 +35,8 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
   private subscriptions: Subscription = new Subscription();
 
   constructor(private sourcesService: SourcesService,
-              private locationService: LocationService) { }
+              private locationService: LocationService,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -60,6 +63,11 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
       this.locationService.updateLocation(this.locationForm.value).subscribe(result => {
         // we'll want to pop up a message if the update is cool
         console.log(result);
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'location updated'
+        };
+        this.notificationService.postNotification(notification);
       })
     );
   }
