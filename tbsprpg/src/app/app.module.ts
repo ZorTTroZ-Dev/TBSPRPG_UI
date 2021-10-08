@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { DataTablesModule } from 'angular-datatables';
+import { ToastrModule } from 'ngx-toastr';
 
 // main components
 import { AppComponent } from './app.component';
@@ -76,7 +77,8 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    DataTablesModule
+    DataTablesModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     httpInterceptorProviders
