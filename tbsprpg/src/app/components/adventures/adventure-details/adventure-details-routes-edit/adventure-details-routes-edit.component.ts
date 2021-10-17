@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {Location} from '../../../../models/location';
 import {Subscription} from 'rxjs';
 import {RoutesService} from '../../../../services/routes.service';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
 
 @Component({
@@ -13,11 +13,10 @@ import {Route} from '../../../../models/route';
 export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
   private subscriptions: Subscription = new Subscription();
-  routesForm = new FormArray( []);
+  routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
 
-  constructor(private routesService: RoutesService,
-              private formBuilder: FormBuilder) { }
+  constructor(private routesService: RoutesService, ) { }
 
   ngOnInit(): void {
   }
@@ -27,16 +26,14 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   }
 
   addRouteToForm(route: Route): void {
-    this.routesForm.push(
-      this.formBuilder.group({
+    this.routesFormArray.push(new FormGroup({
         id: new FormControl(route.id),
         name: new FormControl(route.name),
         sourceKey: new FormControl(route.sourceKey),
         successSourceKey: new FormControl(route.successSourceKey),
         locationId: new FormControl(route.locationId),
         destinationLocationId: new FormControl(route.destinationLocationId)
-      })
-    );
+    }));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,13 +44,12 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
           routes.forEach(route => {
             this.addRouteToForm(route);
           });
-          console.log(this.routesForm);
         })
       );
     }
   }
 
-  updateRoutes(): void {
-    console.log(this.routesForm);
-  }
+  // updateRoutes(): void {
+  //   console.log(this.routesFormArray);
+  // }
 }

@@ -4,20 +4,18 @@
     <button class="btn btn-dark float-end me-2"><span class="bi-plus"></span>Add Route</button>
   </div>
   <div class="row row-cols-1 row-cols-md-3 g-4 mt-3 ms-2">
-    <form [formGroup]="routesForm" (submit)="updateRoutes()">
-      <div *ngFor="let route of routes; let i = index" [formGroup]="routesForm.at(i)" class="col">
+    <div *ngFor="let route of routes; let i = index" class="col">
+      <form [formGroup]="routesFormArray[i]">
         <div class="card">
           <div class="card-header">
-            <h5>{{route.name}} {{i}}</h5>
+            <h5>{{route.name}}</h5>
           </div>
-          <div class="card-body">
-            <form class="form-floating">
-              <input type="text" class="form-control" id="name" formControlName="name">
-              <label for="name">Route Name:</label>
-            </form>
+          <div class="card-body form-floating">
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <label for="name">Route Name:</label>
           </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
