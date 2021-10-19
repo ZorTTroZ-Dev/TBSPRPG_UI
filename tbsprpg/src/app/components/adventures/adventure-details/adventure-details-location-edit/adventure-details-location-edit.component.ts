@@ -16,6 +16,7 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
   @Input() location: Location;
   private sourceFormGroupKey = 'source';
   private locationFormGroupKey = 'location';
+  sourceLabel = 'Location Content';
   locationForm = new FormGroup({
     location: new FormGroup( {
       id: new FormControl(''),

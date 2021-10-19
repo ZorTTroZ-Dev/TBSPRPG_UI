@@ -19,6 +19,7 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   routeLoaded: Subject<Route>;
   routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
+  routeSourceLabel = 'Button Text';
 
   constructor(private routesService: RoutesService,
               private sourcesService: SourcesService) {

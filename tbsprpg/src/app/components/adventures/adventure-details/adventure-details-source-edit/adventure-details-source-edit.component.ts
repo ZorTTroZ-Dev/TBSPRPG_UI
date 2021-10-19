@@ -8,10 +8,15 @@ import {FormGroup} from '@angular/forms';
 })
 export class AdventureDetailsSourceEditComponent implements OnInit {
   @Input() form: FormGroup;
+  @Input() label: string;
+  defaultLabel = 'Source Text';
 
   constructor() { }
 
   ngOnInit(): void {
+    if (this.label === undefined) {
+      this.label = this.defaultLabel;
+    }
   }
 
 }
