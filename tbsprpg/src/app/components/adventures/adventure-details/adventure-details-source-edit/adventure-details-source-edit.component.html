@@ -6,7 +6,7 @@
 <!--    </select>-->
 <!--    <label for="language">Source Language</label>-->
 <!--  </div>-->
-  <div formGroupName="source">
+  <div [formGroupName]="sourceFormGroupName">
     <div class="form-floating mt-2">
       <textarea class="form-control" id="content" style="height: 100px" formControlName="text"></textarea>
       <label for="content">{{label}}</label>

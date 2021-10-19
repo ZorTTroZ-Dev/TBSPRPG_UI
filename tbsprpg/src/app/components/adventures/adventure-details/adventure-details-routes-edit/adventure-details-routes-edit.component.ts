@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Location} from '../../../../models/location';
-import {Subject, Subscription} from 'rxjs';
+import {forkJoin, Subject, Subscription} from 'rxjs';
 import {RoutesService} from '../../../../services/routes.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
@@ -20,6 +20,9 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
   routeSourceLabel = 'Button Text';
+  routeSourceFormGroupName = 'buttonSource';
+  routeSourceSuccessLabel = 'Route Taken';
+  routeSourceSuccessFormGroupName = 'successSource';
 
   constructor(private routesService: RoutesService,
               private sourcesService: SourcesService) {
@@ -30,13 +33,11 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
     this.subscriptions.add(
       this.routeLoaded.pipe(
         tap(route => {
-          this.sourcesService.getSourceForAdventureForKey(
-            this.location.adventureId,
-            route.sourceKey,
-            'en').subscribe(source => {
-            // add the source and the route to the form
+          const sourceRequest = this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, route.sourceKey, 'en');
+          const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, route.successSourceKey, 'en');
+          forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
             this.routes.push(route);
-            this.addRouteToForm(route, source);
+            this.addRouteToForm(route, results, [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
           });
         })
       ).subscribe()
@@ -47,7 +48,7 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
     this.subscriptions.unsubscribe();
   }
 
-  addRouteToForm(route: Route, source: Source): void {
+  addRouteToForm(route: Route, source: Source[], sourceFieldName: string[]): void {
     this.routesFormArray.push(new FormGroup({
       route: new FormGroup({
         id: new FormControl(route.id),
@@ -57,11 +58,18 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
         locationId: new FormControl(route.locationId),
         destinationLocationId: new FormControl(route.destinationLocationId)
       }),
-      source: new FormGroup({
-        id: new FormControl(source.id),
-        key: new FormControl(source.key),
-        adventureId: new FormControl(source.adventureId),
-        text: new FormControl(source.text),
+      [sourceFieldName[0]]: new FormGroup({
+        id: new FormControl(source[0].id),
+        key: new FormControl(source[0].key),
+        adventureId: new FormControl(source[0].adventureId),
+        text: new FormControl(source[0].text),
+        language: new FormControl('')
+      }),
+      [sourceFieldName[1]]: new FormGroup({
+        id: new FormControl(source[1].id),
+        key: new FormControl(source[1].key),
+        adventureId: new FormControl(source[1].adventureId),
+        text: new FormControl(source[1].text),
         language: new FormControl('')
       })
     }));

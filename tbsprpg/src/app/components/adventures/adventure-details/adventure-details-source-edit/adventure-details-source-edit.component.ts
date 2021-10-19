@@ -9,7 +9,9 @@ import {FormGroup} from '@angular/forms';
 export class AdventureDetailsSourceEditComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() label: string;
+  @Input() sourceFormGroupName: string;
   defaultLabel = 'Source Text';
+  defaultFormGroupName = 'source';
 
   constructor() { }
 
@@ -17,6 +19,10 @@ export class AdventureDetailsSourceEditComponent implements OnInit {
     if (this.label === undefined) {
       this.label = this.defaultLabel;
     }
+    if (this.sourceFormGroupName === undefined) {
+      this.sourceFormGroupName = this.defaultFormGroupName;
+    }
+    console.log(this.form);
   }
 
 }
