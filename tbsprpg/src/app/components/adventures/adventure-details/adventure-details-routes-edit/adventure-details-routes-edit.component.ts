@@ -6,6 +6,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
 import {SourcesService} from '../../../../services/sources.service';
 import {tap} from 'rxjs/operators';
+import {Source} from '../../../../models/source';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
@@ -32,7 +33,9 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
             this.location.adventureId,
             route.sourceKey,
             'en').subscribe(source => {
-            console.log(source);
+            // add the source and the route to the form
+            this.routes.push(route);
+            this.addRouteToForm(route, source);
           });
         })
       ).subscribe()
@@ -43,7 +46,7 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
     this.subscriptions.unsubscribe();
   }
 
-  addRouteToForm(route: Route): void {
+  addRouteToForm(route: Route, source: Source): void {
     this.routesFormArray.push(new FormGroup({
       route: new FormGroup({
         id: new FormControl(route.id),
@@ -52,6 +55,13 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
         successSourceKey: new FormControl(route.successSourceKey),
         locationId: new FormControl(route.locationId),
         destinationLocationId: new FormControl(route.destinationLocationId)
+      }),
+      source: new FormGroup({
+        id: new FormControl(source.id),
+        key: new FormControl(source.key),
+        adventureId: new FormControl(source.adventureId),
+        text: new FormControl(source.text),
+        language: new FormControl('')
       })
     }));
   }
@@ -60,9 +70,7 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
     if (changes.location.currentValue) {
       this.subscriptions.add(
         this.routesService.getRoutesForLocation(this.location.id).subscribe(routes => {
-          this.routes = routes;
           routes.forEach(route => {
-            this.addRouteToForm(route);
             this.routeLoaded.next(route);
           });
         })
