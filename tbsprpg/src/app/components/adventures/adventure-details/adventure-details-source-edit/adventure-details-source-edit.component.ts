@@ -22,7 +22,6 @@ export class AdventureDetailsSourceEditComponent implements OnInit {
     if (this.sourceFormGroupName === undefined) {
       this.sourceFormGroupName = this.defaultFormGroupName;
     }
-    console.log(this.form);
   }
 
 }

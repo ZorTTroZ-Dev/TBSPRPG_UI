@@ -9,11 +9,14 @@
         <div formGroupName="route">
           <div class="card">
             <div class="card-header">
-              <h5>{{route.name}}</h5>
+              <span class="h5">{{route.name}}</span>
+              <button class="btn btn-dark float-end me-2"><span class="bi-x"></span>Remove Route</button>
             </div>
-            <div class="card-body form-floating">
-              <input type="text" class="form-control" id="name" formControlName="name">
-              <label for="name">Route Name:</label>
+            <div class="card-body">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="name" formControlName="name">
+                <label for="name">Route Name:</label>
+              </div>
               <app-adventure-details-source-edit
                 [form]="routesFormArray[i]"
                 [label]="routeSourceLabel"
@@ -24,10 +27,24 @@
                 [label]="routeSourceSuccessLabel"
                 [sourceFormGroupName]="routeSourceSuccessFormGroupName"
               ></app-adventure-details-source-edit>
+              <!-- Display a drop down of locations for the destination location -->
+              <div>Destination Location</div>
+              <div class="form-floating mt-2">
+                <select class="form-select" id="destinationLocation" formControlName="destinationLocationId">
+                  <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
+                </select>
+                <label for="destinationLocation">Select Location:</label>
+              </div>
+              <div> - or - </div>
+              <div class="form-floating">
+                <input type="text" class="form-control" id="newDestinationLocationName" formControlName="newDestinationLocationName">
+                <label for="name">New Location Name:</label>
+              </div>
             </div>
           </div>
         </div>
       </form>
     </div>
   </div>
+  <button class="btn btn-dark float-end mt-2 me-2">Update Routes</button>
 </div>

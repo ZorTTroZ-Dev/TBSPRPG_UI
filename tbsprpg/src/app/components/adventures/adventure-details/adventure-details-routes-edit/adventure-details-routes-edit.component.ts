@@ -7,6 +7,7 @@ import {Route} from '../../../../models/route';
 import {SourcesService} from '../../../../services/sources.service';
 import {tap} from 'rxjs/operators';
 import {Source} from '../../../../models/source';
+import {LocationService} from '../../../../services/location.service';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
@@ -23,9 +24,11 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   routeSourceFormGroupName = 'buttonSource';
   routeSourceSuccessLabel = 'Route Taken';
   routeSourceSuccessFormGroupName = 'successSource';
+  locations: Location[] = [];
 
   constructor(private routesService: RoutesService,
-              private sourcesService: SourcesService) {
+              private sourcesService: SourcesService,
+              private locationsService: LocationService) {
     this.routeLoaded = new Subject<Route>();
   }
 
@@ -56,7 +59,8 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
         sourceKey: new FormControl(route.sourceKey),
         successSourceKey: new FormControl(route.successSourceKey),
         locationId: new FormControl(route.locationId),
-        destinationLocationId: new FormControl(route.destinationLocationId)
+        destinationLocationId: new FormControl(route.destinationLocationId),
+        newDestinationLocationName: new FormControl('')
       }),
       [sourceFieldName[0]]: new FormGroup({
         id: new FormControl(source[0].id),
@@ -82,6 +86,11 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
           routes.forEach(route => {
             this.routeLoaded.next(route);
           });
+        })
+      );
+      this.subscriptions.add(
+        this.locationsService.getLocationsForAdventure(this.location.adventureId).subscribe(locations => {
+          this.locations = locations;
         })
       );
     }
