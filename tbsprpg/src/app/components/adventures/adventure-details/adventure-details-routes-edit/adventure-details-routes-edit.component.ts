@@ -21,7 +21,7 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
   routeSourceLabel = 'Button Text';
-  routeSourceFormGroupName = 'buttonSource';
+  routeSourceFormGroupName = 'source';
   routeSourceSuccessLabel = 'Route Taken';
   routeSourceSuccessFormGroupName = 'successSource';
   locations: Location[] = [];
@@ -96,7 +96,9 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
     }
   }
 
-  // updateRoutes(): void {
-  //   console.log(this.routesFormArray);
-  // }
+  updateRoutes(): void {
+    for (const value of this.routesFormArray.values()) {
+      console.log(value.value);
+    }
+  }
 }
