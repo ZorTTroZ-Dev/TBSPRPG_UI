@@ -56,8 +56,6 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   }
 
   addRoute(): void {
-    // create a new route object, add it to the list of routes
-    // add the route with it's empty source to the forms
     this.subscriptions.add(
       this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, NIL, 'en').subscribe(result => {
         const newRoute = {
@@ -75,7 +73,11 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
         this.routes.push(newRoute);
       })
     );
+  }
 
+  removeRoute(routeIndex: number): void {
+    this.routes.splice(routeIndex, 1);
+    this.routesFormArray.splice(routeIndex, 1);
   }
 
   addRouteToForm(route: Route, source: Source[], sourceFieldName: string[]): void {
