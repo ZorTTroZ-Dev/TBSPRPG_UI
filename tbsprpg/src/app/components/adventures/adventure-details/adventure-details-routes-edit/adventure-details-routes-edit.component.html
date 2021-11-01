@@ -9,7 +9,7 @@
         <div formGroupName="route">
           <div class="card">
             <div class="card-header">
-              <span class="h5">{{route.name}}</span>
+              <span class="h5">{{routesFormArray[i].get('route.name').value}}</span>
               <button class="btn btn-dark float-end me-2" (click)="removeRoute(i)"><span class="bi-x"></span>Remove</button>
             </div>
             <div class="card-body">
