@@ -62,9 +62,8 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
 
   updateLocation(): void {
     this.subscriptions.add(
-      this.locationService.updateLocation(this.locationForm.value).subscribe(result => {
+      this.locationService.updateLocation(this.locationForm.value).subscribe(() => {
         // we'll want to pop up a message if the update is cool
-        console.log(result);
         const notification: Notification = {
           type: NOTIFICATION_TYPE_SUCCESS,
           message: 'location updated'

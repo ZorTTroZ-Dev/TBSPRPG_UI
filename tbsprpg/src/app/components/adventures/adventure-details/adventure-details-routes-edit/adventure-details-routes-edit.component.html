@@ -1,7 +1,7 @@
 <div class="card mt-5">
   <div class="card-header">
     <span class="h3">Edit Routes</span>
-    <button class="btn btn-dark float-end me-2"><span class="bi-plus"></span>Add Route</button>
+    <button class="btn btn-dark float-end me-2" (click)="addRoute()"><span class="bi-plus"></span>Add</button>
   </div>
   <div class="row row-cols-1 row-cols-md-2 m-3">
     <div *ngFor="let route of routes; let i = index" class="col">
@@ -10,7 +10,7 @@
           <div class="card">
             <div class="card-header">
               <span class="h5">{{route.name}}</span>
-              <button class="btn btn-dark float-end me-2"><span class="bi-x"></span>Remove Route</button>
+              <button class="btn btn-dark float-end me-2"><span class="bi-x"></span>Remove</button>
             </div>
             <div class="card-body">
               <div class="form-floating">

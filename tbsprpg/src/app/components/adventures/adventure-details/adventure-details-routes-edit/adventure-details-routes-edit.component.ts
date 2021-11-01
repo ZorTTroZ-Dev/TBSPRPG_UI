@@ -8,6 +8,9 @@ import {SourcesService} from '../../../../services/sources.service';
 import {tap} from 'rxjs/operators';
 import {Source} from '../../../../models/source';
 import {LocationService} from '../../../../services/location.service';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
+import {NIL} from 'uuid';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
@@ -28,7 +31,8 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
 
   constructor(private routesService: RoutesService,
               private sourcesService: SourcesService,
-              private locationsService: LocationService) {
+              private locationsService: LocationService,
+              private notificationService: NotificationService) {
     this.routeLoaded = new Subject<Route>();
   }
 
@@ -49,6 +53,29 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  addRoute(): void {
+    // create a new route object, add it to the list of routes
+    // add the route with it's empty source to the forms
+    this.subscriptions.add(
+      this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, NIL, 'en').subscribe(result => {
+        const newRoute = {
+          id: NIL,
+          name: 'new route',
+          sourceKey: NIL,
+          successSourceKey: NIL,
+          locationId: this.location.id,
+          destinationLocationId: this.location.id,
+          timeStamp: 0,
+          source: ''
+        };
+        const newRouteSources = [result, result];
+        this.addRouteToForm(newRoute, newRouteSources, [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
+        this.routes.push(newRoute);
+      })
+    );
+
   }
 
   addRouteToForm(route: Route, source: Source[], sourceFieldName: string[]): void {
@@ -106,6 +133,11 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
     this.subscriptions.add(
       this.routesService.updateRoutes(routesToPut).subscribe(result => {
         console.log(result);
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'routes updated'
+        };
+        this.notificationService.postNotification(notification);
       })
     );
   }
