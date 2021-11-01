@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Source} from '../models/source';
 import {catchError} from 'rxjs/operators';
 import {Route} from '../models/route';
 
@@ -21,5 +20,11 @@ export class RoutesService extends BaseService{
       .pipe(
         catchError(this.handleError<Route[]>('getRoutesForLocation', null))
       );
+  }
+
+  updateRoutes(routeData: any): Observable<any> {
+    return this.http.put<any>(this.routesUrl, routeData).pipe(
+      catchError(this.handleError<any>('updateRoutes', null))
+    );
   }
 }

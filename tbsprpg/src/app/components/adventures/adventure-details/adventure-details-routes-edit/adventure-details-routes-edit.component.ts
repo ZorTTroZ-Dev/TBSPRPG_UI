@@ -64,17 +64,19 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
       }),
       [sourceFieldName[0]]: new FormGroup({
         id: new FormControl(source[0].id),
+        name: new FormControl(source[0].name),
         key: new FormControl(source[0].key),
         adventureId: new FormControl(source[0].adventureId),
         text: new FormControl(source[0].text),
-        language: new FormControl('')
+        language: new FormControl(source[0].language)
       }),
       [sourceFieldName[1]]: new FormGroup({
         id: new FormControl(source[1].id),
+        name: new FormControl(source[1].name),
         key: new FormControl(source[1].key),
         adventureId: new FormControl(source[1].adventureId),
         text: new FormControl(source[1].text),
-        language: new FormControl('')
+        language: new FormControl(source[1].language)
       })
     }));
   }
@@ -97,8 +99,14 @@ export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, O
   }
 
   updateRoutes(): void {
+    const routesToPut = [];
     for (const value of this.routesFormArray.values()) {
-      console.log(value.value);
+      routesToPut.push(value.value);
     }
+    this.subscriptions.add(
+      this.routesService.updateRoutes(routesToPut).subscribe(result => {
+        console.log(result);
+      })
+    );
   }
 }

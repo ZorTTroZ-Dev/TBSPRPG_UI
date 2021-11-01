@@ -27,6 +27,7 @@ export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges,
     }),
     source: new FormGroup({
       id: new FormControl(''),
+      name: new FormControl(''),
       key: new FormControl(''),
       adventureId: new FormControl(''),
       text: new FormControl(''),
