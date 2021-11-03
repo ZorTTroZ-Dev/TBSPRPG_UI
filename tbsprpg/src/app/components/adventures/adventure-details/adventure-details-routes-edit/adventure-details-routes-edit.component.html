@@ -1,44 +1,56 @@
+<!-- I really hate this component, too many divs -->
 <div class="card mt-5">
   <div class="card-header">
     <span class="h3">Edit Routes</span>
     <button class="btn btn-dark float-end me-2" (click)="addRoute()"><span class="bi-plus"></span>Add</button>
   </div>
-  <div class="row row-cols-1 row-cols-md-2 m-3">
+  <div class="row row-cols-1 m-3">
     <div *ngFor="let route of routes; let i = index" class="col">
       <form [formGroup]="routesFormArray[i]">
-        <div formGroupName="route">
+        <div formGroupName="route" class="mt-2">
           <div class="card">
             <div class="card-header">
               <span class="h5">{{routesFormArray[i].get('route.name').value}}</span>
               <button class="btn btn-dark float-end me-2" (click)="removeRoute(i)"><span class="bi-x"></span>Remove</button>
             </div>
             <div class="card-body">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="name" formControlName="name">
-                <label for="name">Route Name:</label>
-              </div>
-              <app-adventure-details-source-edit
-                [form]="routesFormArray[i]"
-                [label]="routeSourceLabel"
-                [sourceFormGroupName]="routeSourceFormGroupName"
-              ></app-adventure-details-source-edit>
-              <app-adventure-details-source-edit
-                [form]="routesFormArray[i]"
-                [label]="routeSourceSuccessLabel"
-                [sourceFormGroupName]="routeSourceSuccessFormGroupName"
-              ></app-adventure-details-source-edit>
-              <!-- Display a drop down of locations for the destination location -->
-              <div>Destination Location</div>
-              <div class="form-floating mt-2">
-                <select class="form-select" id="destinationLocation" formControlName="destinationLocationId">
-                  <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
-                </select>
-                <label for="destinationLocation">Select Location:</label>
-              </div>
-              <div> - or - </div>
-              <div class="form-floating">
-                <input type="text" class="form-control" id="newDestinationLocationName" formControlName="newDestinationLocationName">
-                <label for="name">New Location Name:</label>
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="name" formControlName="name">
+                      <label for="name">Route Name:</label>
+                    </div>
+                    <app-adventure-details-source-edit
+                      [form]="routesFormArray[i]"
+                      [label]="routeSourceLabel"
+                      [sourceFormGroupName]="routeSourceFormGroupName"
+                    ></app-adventure-details-source-edit>
+                  </div>
+                  <div class="col">
+                    <div>Destination Location</div>
+                    <div class="form-floating mt-2">
+                      <select class="form-select" id="destinationLocation" formControlName="destinationLocationId">
+                        <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
+                      </select>
+                      <label for="destinationLocation">Select Location:</label>
+                    </div>
+                    <div> - or - </div>
+                    <div class="form-floating">
+                      <input type="text" class="form-control" id="newDestinationLocationName" formControlName="newDestinationLocationName">
+                      <label for="name">New Location Name:</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <app-adventure-details-source-edit
+                      [form]="routesFormArray[i]"
+                      [label]="routeSourceSuccessLabel"
+                      [sourceFormGroupName]="routeSourceSuccessFormGroupName"
+                    ></app-adventure-details-source-edit>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
