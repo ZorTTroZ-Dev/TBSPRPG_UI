@@ -6,10 +6,10 @@ import {Location} from '../../../../models/location';
 
 @Component({
   selector: 'app-adventure-details-locations',
-  templateUrl: './adventure-details-locations.component.html',
-  styleUrls: ['./adventure-details-locations.component.scss']
+  templateUrl: './ad-locations.component.html',
+  styleUrls: ['./ad-locations.component.scss']
 })
-export class AdventureDetailsLocationsComponent implements OnInit, OnChanges, OnDestroy {
+export class AdLocationsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
   locations: Location[];
   private subscriptions: Subscription = new Subscription();

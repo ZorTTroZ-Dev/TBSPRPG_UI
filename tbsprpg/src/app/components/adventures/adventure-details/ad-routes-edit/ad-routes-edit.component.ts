@@ -14,10 +14,10 @@ import {NIL} from 'uuid';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
-  templateUrl: './adventure-details-routes-edit.component.html',
-  styleUrls: ['./adventure-details-routes-edit.component.scss']
+  templateUrl: './ad-routes-edit.component.html',
+  styleUrls: ['./ad-routes-edit.component.scss']
 })
-export class AdventureDetailsRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
+export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
   private subscriptions: Subscription = new Subscription();
   routeLoaded: Subject<Route>;

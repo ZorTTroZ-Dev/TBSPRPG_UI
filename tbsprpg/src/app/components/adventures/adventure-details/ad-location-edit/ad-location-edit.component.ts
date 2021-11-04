@@ -9,10 +9,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 
 @Component({
   selector: 'app-adventure-details-location-edit',
-  templateUrl: './adventure-details-location-edit.component.html',
-  styleUrls: ['./adventure-details-location-edit.component.scss']
+  templateUrl: './ad-location-edit.component.html',
+  styleUrls: ['./ad-location-edit.component.scss']
 })
-export class AdventureDetailsLocationEditComponent implements OnInit, OnChanges, OnDestroy {
+export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
   private sourceFormGroupKey = 'source';
   private locationFormGroupKey = 'location';

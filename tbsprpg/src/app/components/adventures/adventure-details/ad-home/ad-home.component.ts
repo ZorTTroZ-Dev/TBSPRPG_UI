@@ -3,10 +3,10 @@ import {Adventure} from '../../../../models/adventure';
 
 @Component({
   selector: 'app-adventure-details-home',
-  templateUrl: './adventure-details-home.component.html',
-  styleUrls: ['./adventure-details-home.component.scss']
+  templateUrl: './ad-home.component.html',
+  styleUrls: ['./ad-home.component.scss']
 })
-export class AdventureDetailsHomeComponent implements OnInit {
+export class AdHomeComponent implements OnInit {
   @Input() adventure: Adventure;
 
   constructor() { }

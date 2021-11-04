@@ -2,10 +2,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-adventure-details-sidebar',
-  templateUrl: './adventure-details-sidebar.component.html',
-  styleUrls: ['./adventure-details-sidebar.component.scss']
+  templateUrl: './ad-sidebar.component.html',
+  styleUrls: ['./ad-sidebar.component.scss']
 })
-export class AdventureDetailsSidebarComponent implements OnInit {
+export class AdSidebarComponent implements OnInit {
   @Input() location: string;
   @Output() sidebarLocationChange = new EventEmitter<string>();
 

@@ -3,10 +3,10 @@ import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-adventure-details-source-edit',
-  templateUrl: './adventure-details-source-edit.component.html',
-  styleUrls: ['./adventure-details-source-edit.component.scss']
+  templateUrl: './ad-source-edit.component.html',
+  styleUrls: ['./ad-source-edit.component.scss']
 })
-export class AdventureDetailsSourceEditComponent implements OnInit {
+export class AdSourceEditComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() label: string;
   @Input() sourceFormGroupName: string;

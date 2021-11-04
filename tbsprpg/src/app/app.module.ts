@@ -26,22 +26,21 @@ import { MovementComponent } from './components/game/movement/movement.component
 
 // adventure components
 import { AdventuresComponent } from './components/adventures/adventures.component';
-import { AdventureEditComponent } from './components/adventures/adventure-details/adventure-edit/adventure-edit.component';
 import { AdventuresTableComponent } from './components/adventures/adventures-table/adventures-table.component';
-import { AdventureDetailsSidebarComponent } from './components/adventures/adventure-details/adventure-details-sidebar/adventure-details-sidebar.component';
+import { AdSidebarComponent } from './components/adventures/adventure-details/ad-sidebar/ad-sidebar.component';
 import { AdventureCreatorComponent } from './components/adventures/adventure-creator/adventure-creator.component';
 import { AdventureCreatorSidebarComponent } from './components/adventures/adventure-creator/adventure-creator-sidebar/adventure-creator-sidebar.component';
 import { AdventureDetailsComponent } from './components/adventures/adventure-details/adventure-details.component';
-import { AdventureDetailsHomeComponent } from './components/adventures/adventure-details/adventure-details-home/adventure-details-home.component';
-import { AdventureDetailsLocationsComponent } from './components/adventures/adventure-details/adventure-details-locations/adventure-details-locations.component';
-import { AdventureDetailsLocationEditComponent } from './components/adventures/adventure-details/adventure-details-location-edit/adventure-details-location-edit.component';
+import { AdHomeComponent } from './components/adventures/adventure-details/ad-home/ad-home.component';
+import { AdLocationsComponent } from './components/adventures/adventure-details/ad-locations/ad-locations.component';
+import { AdLocationEditComponent } from './components/adventures/adventure-details/ad-location-edit/ad-location-edit.component';
 import { AdBreadcrumbsComponent } from './components/adventures/adventure-details/ad-breadcrumbs/ad-breadcrumbs.component';
-import { AdventureDetailsSourceEditComponent } from './components/adventures/adventure-details/adventure-details-source-edit/adventure-details-source-edit.component';
+import { AdSourceEditComponent } from './components/adventures/adventure-details/ad-source-edit/ad-source-edit.component';
 
 // directives
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { InventoryComponent } from './components/game/inventory/inventory.component';
-import { AdventureDetailsRoutesEditComponent } from './components/adventures/adventure-details/adventure-details-routes-edit/adventure-details-routes-edit.component';
+import { AdRoutesEditComponent } from './components/adventures/adventure-details/ad-routes-edit/ad-routes-edit.component';
 
 @NgModule({
   declarations: [
@@ -57,18 +56,17 @@ import { AdventureDetailsRoutesEditComponent } from './components/adventures/adv
     VerbsComponent,
     MovementComponent,
     InventoryComponent,
-    AdventureEditComponent,
     AdventuresTableComponent,
-    AdventureDetailsSidebarComponent,
+    AdSidebarComponent,
     AdventureCreatorComponent,
     AdventureCreatorSidebarComponent,
     AdventureDetailsComponent,
-    AdventureDetailsHomeComponent,
-    AdventureDetailsLocationsComponent,
-    AdventureDetailsLocationEditComponent,
+    AdHomeComponent,
+    AdLocationsComponent,
+    AdLocationEditComponent,
     AdBreadcrumbsComponent,
-    AdventureDetailsSourceEditComponent,
-    AdventureDetailsRoutesEditComponent,
+    AdSourceEditComponent,
+    AdRoutesEditComponent,
   ],
   imports: [
     BrowserModule,
