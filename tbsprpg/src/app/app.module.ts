@@ -35,7 +35,7 @@ import { AdventureDetailsComponent } from './components/adventures/adventure-det
 import { AdventureDetailsHomeComponent } from './components/adventures/adventure-details/adventure-details-home/adventure-details-home.component';
 import { AdventureDetailsLocationsComponent } from './components/adventures/adventure-details/adventure-details-locations/adventure-details-locations.component';
 import { AdventureDetailsLocationEditComponent } from './components/adventures/adventure-details/adventure-details-location-edit/adventure-details-location-edit.component';
-import { AdventureDetailsBreadcrumbsComponent } from './components/adventures/adventure-details/adventure-details-breadcrumbs/adventure-details-breadcrumbs.component';
+import { AdBreadcrumbsComponent } from './components/adventures/adventure-details/ad-breadcrumbs/ad-breadcrumbs.component';
 import { AdventureDetailsSourceEditComponent } from './components/adventures/adventure-details/adventure-details-source-edit/adventure-details-source-edit.component';
 
 // directives
@@ -66,7 +66,7 @@ import { AdventureDetailsRoutesEditComponent } from './components/adventures/adv
     AdventureDetailsHomeComponent,
     AdventureDetailsLocationsComponent,
     AdventureDetailsLocationEditComponent,
-    AdventureDetailsBreadcrumbsComponent,
+    AdBreadcrumbsComponent,
     AdventureDetailsSourceEditComponent,
     AdventureDetailsRoutesEditComponent,
   ],

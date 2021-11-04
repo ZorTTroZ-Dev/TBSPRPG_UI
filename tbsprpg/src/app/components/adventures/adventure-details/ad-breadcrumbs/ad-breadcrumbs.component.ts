@@ -4,10 +4,10 @@ import {Location} from '../../../../models/location';
 
 @Component({
   selector: 'app-adventure-details-breadcrumbs',
-  templateUrl: './adventure-details-breadcrumbs.component.html',
-  styleUrls: ['./adventure-details-breadcrumbs.component.scss']
+  templateUrl: './ad-breadcrumbs.component.html',
+  styleUrls: ['./ad-breadcrumbs.component.scss']
 })
-export class AdventureDetailsBreadcrumbsComponent implements OnInit {
+export class AdBreadcrumbsComponent implements OnInit {
   @Input() adventure: Adventure;
   @Input() location: Location;
   @Input() sidebarLocation: string;
