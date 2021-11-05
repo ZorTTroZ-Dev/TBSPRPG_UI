@@ -11,6 +11,7 @@ import {LocationService} from '../../../../services/location.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
 import {NotificationService} from '../../../../services/notification.service';
 import {NIL} from 'uuid';
+import {SettingService} from '../../../../services/setting.service';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
@@ -32,7 +33,8 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private routesService: RoutesService,
               private sourcesService: SourcesService,
               private locationsService: LocationService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private settingService: SettingService) {
     this.routeLoaded = new Subject<Route>();
   }
 
@@ -40,8 +42,14 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.add(
       this.routeLoaded.pipe(
         tap(route => {
-          const sourceRequest = this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, route.sourceKey, 'en');
-          const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, route.successSourceKey, 'en');
+          const sourceRequest = this.sourcesService.getSourceForAdventureForKey(
+            this.location.adventureId,
+            route.sourceKey,
+            this.settingService.getLanguage());
+          const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(
+            this.location.adventureId,
+            route.successSourceKey,
+            this.settingService.getLanguage());
           forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
             this.routes.push(route);
             this.addRouteToForm(route, results, [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
@@ -57,7 +65,10 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
 
   addRoute(): void {
     this.subscriptions.add(
-      this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, NIL, 'en').subscribe(result => {
+      this.sourcesService.getSourceForAdventureForKey(
+        this.location.adventureId, NIL,
+        this.settingService.getLanguage())
+      .subscribe(result => {
         const newRoute = this.routesService.createNewRoute(this.location.id);
         const newRouteSources = [result, result];
         this.addRouteToForm(newRoute, newRouteSources,

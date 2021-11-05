@@ -6,6 +6,7 @@ import {SourcesService} from '../../../../services/sources.service';
 import {LocationService} from '../../../../services/location.service';
 import {NotificationService} from '../../../../services/notification.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {SettingService} from '../../../../services/setting.service';
 
 @Component({
   selector: 'app-adventure-details-location-edit',
@@ -22,7 +23,8 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private sourcesService: SourcesService,
               private locationService: LocationService,
-              private notificationService: NotificationService) { }
+              private notificationService: NotificationService,
+              private settingService: SettingService) { }
 
   ngOnInit(): void { }
 
@@ -37,7 +39,7 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
       // look up the content for the location source key
       this.subscriptions.add(
         this.sourcesService.getSourceForAdventureForKey(this.location.adventureId,
-          this.location.sourceKey, 'en').subscribe(result => {
+          this.location.sourceKey, this.settingService.getLanguage()).subscribe(result => {
             this.locationForm.controls[this.sourceFormGroupKey].setValue(result);
         })
       );
