@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Location} from '../../../../models/location';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {SourcesService} from '../../../../services/sources.service';
 import {LocationService} from '../../../../services/location.service';
@@ -17,31 +17,14 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   private sourceFormGroupKey = 'source';
   private locationFormGroupKey = 'location';
   sourceLabel = 'Location Content';
-  locationForm = new FormGroup({
-    location: new FormGroup( {
-      id: new FormControl(''),
-      name: new FormControl(''),
-      initial: new FormControl(''),
-      sourceKey: new FormControl(''),
-      adventureId: new FormControl('')
-    }),
-    source: new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl(''),
-      key: new FormControl(''),
-      adventureId: new FormControl(''),
-      text: new FormControl(''),
-      language: new FormControl('')
-    })
-  });
+  locationForm: FormGroup;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private sourcesService: SourcesService,
               private locationService: LocationService,
               private notificationService: NotificationService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
@@ -49,6 +32,7 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.location.currentValue) {
+      this.createLocationForm();
       this.locationForm.controls[this.locationFormGroupKey].setValue(this.location);
       // look up the content for the location source key
       this.subscriptions.add(
@@ -58,6 +42,13 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
         })
       );
     }
+  }
+
+  createLocationForm(): void {
+    this.locationForm = new FormGroup({
+      location: this.locationService.createFormGroupForLocation(null),
+      source: this.sourcesService.createFormGroupForSource(null)
+    });
   }
 
   updateLocation(): void {

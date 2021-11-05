@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Location} from '../models/location';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,25 @@ export class LocationService extends BaseService{
 
   constructor(http: HttpClient) {
     super(http);
+  }
+
+  createFormGroupForLocation(location: Location): FormGroup {
+    if (location !== null) {
+      return new FormGroup( {
+        id: new FormControl(location.id),
+        name: new FormControl(location.name),
+        initial: new FormControl(location.initial),
+        sourceKey: new FormControl(location.sourceKey),
+        adventureId: new FormControl(location.adventureId)
+      });
+    }
+    return new FormGroup( {
+      id: new FormControl(''),
+      name: new FormControl(''),
+      initial: new FormControl(''),
+      sourceKey: new FormControl(''),
+      adventureId: new FormControl('')
+    });
   }
 
   getLocationsForAdventure(adventureId: string): Observable<Location[]> {

@@ -4,6 +4,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Source} from '../models/source';
 import {catchError} from 'rxjs/operators';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,27 @@ export class SourcesService extends BaseService {
 
   constructor(http: HttpClient, ) {
     super(http);
+  }
+
+  createFormGroupForSource(source: Source): FormGroup {
+    if (source !== null) {
+      return new FormGroup({
+        id: new FormControl(source.id),
+        name: new FormControl(source.name),
+        key: new FormControl(source.key),
+        adventureId: new FormControl(source.adventureId),
+        text: new FormControl(source.text),
+        language: new FormControl(source.language)
+      });
+    }
+    return new FormGroup({
+      id: new FormControl(''),
+      name: new FormControl(''),
+      key: new FormControl(''),
+      adventureId: new FormControl(''),
+      text: new FormControl(''),
+      language: new FormControl('')
+    });
   }
 
   getSourceForAdventureForKey(adventureId: string,

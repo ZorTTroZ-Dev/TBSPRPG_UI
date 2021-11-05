@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {Location} from '../../../../models/location';
 import {forkJoin, Subject, Subscription} from 'rxjs';
 import {RoutesService} from '../../../../services/routes.service';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
 import {SourcesService} from '../../../../services/sources.service';
 import {tap} from 'rxjs/operators';
@@ -58,18 +58,10 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   addRoute(): void {
     this.subscriptions.add(
       this.sourcesService.getSourceForAdventureForKey(this.location.adventureId, NIL, 'en').subscribe(result => {
-        const newRoute = {
-          id: NIL,
-          name: 'new route',
-          sourceKey: NIL,
-          successSourceKey: NIL,
-          locationId: this.location.id,
-          destinationLocationId: this.location.id,
-          timeStamp: 0,
-          source: ''
-        };
+        const newRoute = this.routesService.createNewRoute(this.location.id);
         const newRouteSources = [result, result];
-        this.addRouteToForm(newRoute, newRouteSources, [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
+        this.addRouteToForm(newRoute, newRouteSources,
+          [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
         this.routes.push(newRoute);
       })
     );
@@ -82,31 +74,9 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
 
   addRouteToForm(route: Route, source: Source[], sourceFieldName: string[]): void {
     this.routesFormArray.push(new FormGroup({
-      route: new FormGroup({
-        id: new FormControl(route.id),
-        name: new FormControl(route.name),
-        sourceKey: new FormControl(route.sourceKey),
-        successSourceKey: new FormControl(route.successSourceKey),
-        locationId: new FormControl(route.locationId),
-        destinationLocationId: new FormControl(route.destinationLocationId),
-        newDestinationLocationName: new FormControl('')
-      }),
-      [sourceFieldName[0]]: new FormGroup({
-        id: new FormControl(source[0].id),
-        name: new FormControl(source[0].name),
-        key: new FormControl(source[0].key),
-        adventureId: new FormControl(source[0].adventureId),
-        text: new FormControl(source[0].text),
-        language: new FormControl(source[0].language)
-      }),
-      [sourceFieldName[1]]: new FormGroup({
-        id: new FormControl(source[1].id),
-        name: new FormControl(source[1].name),
-        key: new FormControl(source[1].key),
-        adventureId: new FormControl(source[1].adventureId),
-        text: new FormControl(source[1].text),
-        language: new FormControl(source[1].language)
-      })
+      route: this.routesService.createFormGroupForRoute(route),
+      [sourceFieldName[0]]: this.sourcesService.createFormGroupForSource(source[0]),
+      [sourceFieldName[1]]: this.sourcesService.createFormGroupForSource(source[1])
     }));
   }
 
