@@ -6,7 +6,6 @@ import {FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
 import {SourcesService} from '../../../../services/sources.service';
 import {tap} from 'rxjs/operators';
-import {Source} from '../../../../models/source';
 import {LocationService} from '../../../../services/location.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
 import {NotificationService} from '../../../../services/notification.service';
@@ -24,10 +23,6 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   routeLoaded: Subject<Route>;
   routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
-  routeSourceLabel = 'Button Text';
-  routeSourceFormGroupName = 'source';
-  routeSourceSuccessLabel = 'Route Taken';
-  routeSourceSuccessFormGroupName = 'successSource';
   locations: Location[] = [];
 
   constructor(private routesService: RoutesService,
@@ -52,7 +47,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
             this.settingService.getLanguage());
           forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
             this.routes.push(route);
-            this.addRouteToForm(route, results, [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
+            this.routesFormArray.push(this.routesService.createFormGroupForRouteWithSource(route, results[0], results[1]));
           });
         })
       ).subscribe()
@@ -70,9 +65,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
         this.settingService.getLanguage())
       .subscribe(result => {
         const newRoute = this.routesService.createNewRoute(this.location.id);
-        const newRouteSources = [result, result];
-        this.addRouteToForm(newRoute, newRouteSources,
-          [this.routeSourceFormGroupName, this.routeSourceSuccessFormGroupName]);
+        this.routesFormArray.push(this.routesService.createFormGroupForRouteWithSource(newRoute, result, result));
         this.routes.push(newRoute);
       })
     );
@@ -81,14 +74,6 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   removeRoute(routeIndex: number): void {
     this.routes.splice(routeIndex, 1);
     this.routesFormArray.splice(routeIndex, 1);
-  }
-
-  addRouteToForm(route: Route, source: Source[], sourceFieldName: string[]): void {
-    this.routesFormArray.push(new FormGroup({
-      route: this.routesService.createFormGroupForRoute(route),
-      [sourceFieldName[0]]: this.sourcesService.createFormGroupForSource(source[0]),
-      [sourceFieldName[1]]: this.sourcesService.createFormGroupForSource(source[1])
-    }));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

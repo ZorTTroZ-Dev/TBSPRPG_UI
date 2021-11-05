@@ -6,14 +6,19 @@ import {catchError} from 'rxjs/operators';
 import {Route} from '../models/route';
 import {FormControl, FormGroup} from '@angular/forms';
 import {NIL} from 'uuid';
+import {Source} from '../models/source';
+import {SourcesService} from './sources.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoutesService extends BaseService{
   private routesUrl = '/api/routes';
+  public routeSourceFormGroupName = 'source';
+  public routeSourceSuccessFormGroupName = 'successSource';
 
-  constructor(http: HttpClient, ) {
+  constructor(http: HttpClient,
+              private sourcesService: SourcesService) {
     super(http);
   }
 
@@ -39,6 +44,14 @@ export class RoutesService extends BaseService{
       locationId: new FormControl(route.locationId),
       destinationLocationId: new FormControl(route.destinationLocationId),
       newDestinationLocationName: new FormControl('')
+    });
+  }
+
+  createFormGroupForRouteWithSource(route: Route, sourceKey: Source, successSourceKey: Source): FormGroup {
+    return new FormGroup({
+      route: this.createFormGroupForRoute(route),
+      [this.routeSourceFormGroupName]: this.sourcesService.createFormGroupForSource(sourceKey),
+      [this.routeSourceSuccessFormGroupName]: this.sourcesService.createFormGroupForSource(successSourceKey)
     });
   }
 

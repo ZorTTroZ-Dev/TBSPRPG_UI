@@ -1,0 +1,42 @@
+<form [formGroup]="routeForm">
+  <div formGroupName="route" class="mt-2">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <label for="name">Route Name:</label>
+          </div>
+          <app-adventure-details-source-edit
+            [form]="routeForm"
+            [label]="routeSourceLabel"
+            [sourceFormGroupName]="routeSourceFormGroupName"
+          ></app-adventure-details-source-edit>
+        </div>
+        <div class="col">
+          <div>Destination Location</div>
+          <div class="form-floating mt-2">
+            <select class="form-select" id="destinationLocation" formControlName="destinationLocationId">
+              <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
+            </select>
+            <label for="destinationLocation">Select Location:</label>
+          </div>
+          <div> - or - </div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="newDestinationLocationName" formControlName="newDestinationLocationName">
+            <label for="name">New Location Name:</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <app-adventure-details-source-edit
+            [form]="routeForm"
+            [label]="routeSourceSuccessLabel"
+            [sourceFormGroupName]="routeSourceSuccessFormGroupName"
+          ></app-adventure-details-source-edit>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

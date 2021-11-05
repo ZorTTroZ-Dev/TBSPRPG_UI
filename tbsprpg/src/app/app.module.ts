@@ -41,6 +41,7 @@ import { AdSourceEditComponent } from './components/adventures/adventure-details
 import { FocusOnShowDirectiveDirective } from './directives/focus-on-show-directive.directive';
 import { InventoryComponent } from './components/game/inventory/inventory.component';
 import { AdRoutesEditComponent } from './components/adventures/adventure-details/ad-routes-edit/ad-routes-edit.component';
+import { AdRouteEditComponent } from './components/adventures/adventure-details/ad-route-edit/ad-route-edit.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { AdRoutesEditComponent } from './components/adventures/adventure-details
     AdBreadcrumbsComponent,
     AdSourceEditComponent,
     AdRoutesEditComponent,
+    AdRouteEditComponent,
   ],
   imports: [
     BrowserModule,
