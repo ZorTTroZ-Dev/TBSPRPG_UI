@@ -29,7 +29,7 @@ export class RoutesService extends BaseService{
       sourceKey: NIL,
       successSourceKey: NIL,
       locationId: initialLocationId,
-      destinationLocationId: initialLocationId,
+      destinationLocationId: NIL,
       timeStamp: 0,
       source: ''
     };
