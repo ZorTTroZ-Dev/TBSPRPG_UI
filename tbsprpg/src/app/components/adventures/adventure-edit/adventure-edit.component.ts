@@ -35,7 +35,6 @@ export class AdventureEditComponent implements OnInit, OnChanges, OnDestroy {
         this.sourcesService.getSourceForAdventureForKey(this.adventure.id,
           this.adventure.sourceKey, this.settingService.getLanguage()).subscribe(result => {
           this.adventureForm = this.adventureService.createAdventureFormGroupWithSource(this.adventure, result);
-          console.log(this.adventureForm);
         })
       );
     }

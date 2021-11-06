@@ -2,7 +2,7 @@
   <div class="card-header">
     <h3>Edit Location</h3>
   </div>
-  <div class="card-body">
+  <div class="card-body" *ngIf="locationForm">
     <form [formGroup]="locationForm" (ngSubmit)="updateLocation()">
       <div formGroupName="location">
         <div class="form-floating">

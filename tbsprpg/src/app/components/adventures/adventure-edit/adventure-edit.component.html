@@ -2,7 +2,7 @@
   <div class="card-header">
     <h3>Edit Adventure</h3>
   </div>
-  <div class="card-body">
+  <div class="card-body" *ngIf="adventureForm">
     <form [formGroup]="adventureForm" (ngSubmit)="updateAdventure()">
       <div formGroupName="adventure">
         <div class="form-floating">
