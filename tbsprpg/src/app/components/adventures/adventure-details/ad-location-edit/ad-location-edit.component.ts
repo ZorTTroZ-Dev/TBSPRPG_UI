@@ -34,7 +34,7 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.location.currentValue) {
-      this.createLocationForm();
+      this.locationForm = this.locationService.createEmptyLocationFormGroupWithSource();
       this.locationForm.controls[this.locationFormGroupKey].setValue(this.location);
       // look up the content for the location source key
       this.subscriptions.add(
@@ -44,13 +44,6 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
         })
       );
     }
-  }
-
-  createLocationForm(): void {
-    this.locationForm = new FormGroup({
-      location: this.locationService.createFormGroupForLocation(null),
-      source: this.sourcesService.createFormGroupForSource(null)
-    });
   }
 
   updateLocation(): void {

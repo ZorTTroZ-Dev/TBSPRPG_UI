@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Location} from '../models/location';
 import {FormControl, FormGroup} from '@angular/forms';
+import {SourcesService} from './sources.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class LocationService extends BaseService{
   private locationUrl = '/api/locations';
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private sourcesService: SourcesService) {
     super(http);
   }
 
@@ -32,6 +33,13 @@ export class LocationService extends BaseService{
       initial: new FormControl(''),
       sourceKey: new FormControl(''),
       adventureId: new FormControl('')
+    });
+  }
+
+  createEmptyLocationFormGroupWithSource(): FormGroup {
+    return new FormGroup({
+      location: this.createFormGroupForLocation(null),
+      source: this.sourcesService.createFormGroupForSource(null)
     });
   }
 
