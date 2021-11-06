@@ -12,6 +12,15 @@
       </a>
     </li>
   </ul>
+  <ul class="nav nav-pills flex-column" id="edit">
+    <li class="nav-item">
+      <a (click)="updateSidebarLocation('adventure-edit')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'adventure-edit',
+         'text-light': location !== 'adventure-edit'}">
+        <i class="fs-4 bi-pencil"></i> <span class="ms-2 d-none d-sm-inline">Edit</span>
+      </a>
+    </li>
+  </ul>
   <ul class="nav nav-pills flex-column" id="locations">
     <li class="nav-item">
       <a (click)="updateSidebarLocation('locations')" type="button" class="nav-link"
