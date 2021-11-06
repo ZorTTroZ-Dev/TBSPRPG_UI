@@ -17,17 +17,7 @@ export class SourcesService extends BaseService {
   }
 
   createFormGroupForSource(source: Source): FormGroup {
-    if (source !== null) {
-      return new FormGroup({
-        id: new FormControl(source.id),
-        name: new FormControl(source.name),
-        key: new FormControl(source.key),
-        adventureId: new FormControl(source.adventureId),
-        text: new FormControl(source.text),
-        language: new FormControl(source.language)
-      });
-    }
-    return new FormGroup({
+    const formGroup = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(''),
       key: new FormControl(''),
@@ -35,6 +25,10 @@ export class SourcesService extends BaseService {
       text: new FormControl(''),
       language: new FormControl('')
     });
+    if (source !== null) {
+      formGroup.setValue(source);
+    }
+    return formGroup;
   }
 
   getSourceForAdventureForKey(adventureId: string,

@@ -15,8 +15,6 @@ import {SettingService} from '../../../../services/setting.service';
 })
 export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
-  private sourceFormGroupKey = 'source';
-  private locationFormGroupKey = 'location';
   sourceLabel = 'Location Content';
   locationForm: FormGroup;
   private subscriptions: Subscription = new Subscription();
@@ -34,13 +32,11 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.location.currentValue) {
-      this.locationForm = this.locationService.createEmptyLocationFormGroupWithSource();
-      this.locationForm.controls[this.locationFormGroupKey].setValue(this.location);
       // look up the content for the location source key
       this.subscriptions.add(
         this.sourcesService.getSourceForAdventureForKey(this.location.adventureId,
           this.location.sourceKey, this.settingService.getLanguage()).subscribe(result => {
-            this.locationForm.controls[this.sourceFormGroupKey].setValue(result);
+          this.locationForm = this.locationService.createLocationFormGroupWithSource(this.location, result);
         })
       );
     }
