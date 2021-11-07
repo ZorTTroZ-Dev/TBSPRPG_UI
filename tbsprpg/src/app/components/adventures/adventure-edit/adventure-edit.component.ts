@@ -5,6 +5,8 @@ import {Subscription} from 'rxjs';
 import {SourcesService} from '../../../services/sources.service';
 import {SettingService} from '../../../services/setting.service';
 import {AdventureService} from '../../../services/adventure.service';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../models/notification';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-adventure-edit',
@@ -20,7 +22,8 @@ export class AdventureEditComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(private sourcesService: SourcesService,
               private settingService: SettingService,
-              private adventureService: AdventureService) { }
+              private adventureService: AdventureService,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -41,7 +44,15 @@ export class AdventureEditComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   updateAdventure(): void {
-
+    this.subscriptions.add(
+      this.adventureService.updateAdventure(this.adventureForm.value).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'adventure updated'
+        };
+        this.notificationService.postNotification(notification);
+      })
+    );
   }
 
 }

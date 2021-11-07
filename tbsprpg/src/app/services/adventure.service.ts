@@ -36,6 +36,12 @@ export class AdventureService extends BaseService{
     });
   }
 
+  updateAdventure(adventureData: any): Observable<any> {
+    return this.http.put<any>(this.adventuresUrl, adventureData).pipe(
+      catchError(this.handleError<any>('updateLocation', null))
+    );
+  }
+
   getAdventures(): Observable<Adventure[]> {
     return this.http.get<Adventure[]>(this.adventuresUrl)
     .pipe(
