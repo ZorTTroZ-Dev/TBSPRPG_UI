@@ -60,4 +60,8 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
   updateAdventureLocation(location: Location): void {
     this.location = location;
   }
+
+  updateAdventureEdit(adventure: Adventure): void {
+    this.adventure = adventure;
+  }
 }

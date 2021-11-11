@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../models/adventure';
 import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
@@ -16,6 +16,7 @@ import {NotificationService} from '../../../services/notification.service';
 
 export class AdventureEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Output() editAdventureChange = new EventEmitter<Adventure>();
   adventureForm: FormGroup;
   sourceLabel: 'Adventure Content';
   private subscriptions: Subscription = new Subscription();
@@ -51,6 +52,7 @@ export class AdventureEditComponent implements OnInit, OnChanges, OnDestroy {
           message: 'adventure updated'
         };
         this.notificationService.postNotification(notification);
+        this.editAdventureChange.emit(this.adventureForm.value.adventure);
       })
     );
   }
