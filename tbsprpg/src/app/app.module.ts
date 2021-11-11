@@ -43,6 +43,7 @@ import { InventoryComponent } from './components/game/inventory/inventory.compon
 import { AdRoutesEditComponent } from './components/adventures/adventure-details/ad-routes-edit/ad-routes-edit.component';
 import { AdRouteEditComponent } from './components/adventures/adventure-details/ad-route-edit/ad-route-edit.component';
 import { AdventureEditComponent } from './components/adventures/adventure-edit/adventure-edit.component';
+import { AdventureExplorerComponent } from './components/adventures/adventure-explorer/adventure-explorer.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AdventureEditComponent } from './components/adventures/adventure-edit/a
     AdRoutesEditComponent,
     AdRouteEditComponent,
     AdventureEditComponent,
+    AdventureExplorerComponent,
   ],
   imports: [
     BrowserModule,
