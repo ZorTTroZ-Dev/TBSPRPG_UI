@@ -38,11 +38,11 @@ export class GameComponent implements OnInit, OnDestroy {
         map(params => {
           if (params.get('adventure') === '') {
             this.isGameError = true;
-            throw new Error('adventure name parameter not provided');
+            throw new Error('adventure id parameter not provided');
           }
           return params.get('adventure');
         }),
-        switchMap(adventureName => this.adventureService.getAdventureByName(adventureName)),
+        switchMap(adventureId => this.adventureService.getAdventureById(adventureId)),
         tap(adventure => this.adventure = adventure), // save the adventure
         switchMap(adventure => this.gameService.startGame(adventure.id)),
         switchMap(() => timer(0, 500)),  // start a timer to load the game every half second
