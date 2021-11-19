@@ -18,6 +18,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   isContentLoading: boolean;
   content: string[];
   contentIndex: number;
+  contentMap: Map<string, string>;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private contentService: ContentService) {
@@ -34,13 +35,15 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
     this.content = [];
     this.isContentError = false;
     this.isContentLoading = false;
+    this.contentMap = new Map<string, string>();
 
     this.subscriptions.add(
       this.contentObservable.pipe(
         map(key => this.contentService.getSourceForSourceKey(this.game.id, key)),
         tap(response => {
           response.subscribe(source => {
-            this.content.push(source.text);
+            this.contentMap.set(source.key, source.text);
+            // this.content.push(source.key);
           });
         })
       ).subscribe()
@@ -58,6 +61,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
             }
             this.contentIndex = content.index;
             for (const key of content.sourceKeys) {
+              this.content.push(key);
               this.contentObservable.next(key);
             }
           }
@@ -91,6 +95,7 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
             if (content !== null && content.id === this.game.id) {
               this.contentIndex = content.index;
               for (const key of content.sourceKeys.reverse()) {
+                this.content.push(key);
                 this.contentObservable.next(key);
               }
               this.initialContentLoaded.next(content);

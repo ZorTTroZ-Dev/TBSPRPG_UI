@@ -5,8 +5,8 @@
   <span class="sr-only">Loading Content...</span>
 </div>
 <div>
-  <p class="content-item" *ngFor="let item of content; let i = index">
-    {{i}} {{item}}
+  <p class="content-item" *ngFor="let item of content">
+    {{contentMap.get(item)}}
   </p>
   <p class="content-update" role="status" *ngIf="isContentLoading">
     <span class="sr-only">Loading Content...</span>
