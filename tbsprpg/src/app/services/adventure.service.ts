@@ -22,17 +22,19 @@ export class AdventureService extends BaseService{
     const formGroup = new FormGroup({
       id: new FormControl(''),
       name: new FormControl(''),
-      sourceKey: new FormControl(''),
+      initialSourceKey: new FormControl(''),
+      descriptionSourceKey: new FormControl(''),
       createdByUserId: new FormControl('')
     });
     formGroup.setValue(adventure);
     return formGroup;
   }
 
-  createAdventureFormGroupWithSource(adventure: Adventure, source: Source): FormGroup {
+  createAdventureFormGroupWithSource(adventure: Adventure, source: Source, descriptionSource: Source): FormGroup {
     return new FormGroup({
       adventure: this.createFormGroupForAdventure(adventure),
-      source: this.sourcesService.createFormGroupForSource(source)
+      initialSource: this.sourcesService.createFormGroupForSource(source),
+      descriptionSource: this.sourcesService.createFormGroupForSource(descriptionSource)
     });
   }
 

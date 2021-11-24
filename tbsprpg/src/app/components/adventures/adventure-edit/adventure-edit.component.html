@@ -10,7 +10,14 @@
           <label for="name">Adventure Name:</label>
         </div>
       </div>
-      <app-adventure-details-source-edit [form]="adventureForm" [label]="sourceLabel"></app-adventure-details-source-edit>
+      <app-adventure-details-source-edit
+        [sourceFormGroupName]="initialSourceFormGroupName"
+        [form]="adventureForm" [label]="sourceLabel">
+      </app-adventure-details-source-edit>
+      <app-adventure-details-source-edit
+        [sourceFormGroupName]="descriptionSourceFormGroupName"
+        [form]="adventureForm" [label]="descriptionSourceLabel">
+      </app-adventure-details-source-edit>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!adventureForm.valid">Update</button>
     </form>
   </div>
