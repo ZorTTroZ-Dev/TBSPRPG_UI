@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
-import { Game } from '../models/game';
-import { BaseService } from './base.service';
+import {Game} from '../models/game';
+import {BaseService} from './base.service';
 
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,17 @@ export class GameService extends BaseService {
 
   constructor(http: HttpClient, ) {
     super(http);
+  }
+
+  getGamesForAdventure(adventureId: string): Observable<Game[]> {
+    const options = {
+      params: new HttpParams()
+        .set('adventureId', adventureId)
+    };
+    return this.http.get<Game[]>(this.gamesUrl, options)
+      .pipe(
+        catchError(this.handleError<Game[]>('getGamesForAdventure', null))
+      );
   }
 
   getGameForAdventure(adventureId: string): Observable<Game> {

@@ -32,7 +32,7 @@
         <app-adventure-edit [adventure]="adventure" (editAdventureChange)="updateAdventureEdit($event)"></app-adventure-edit>
       </div>
       <div *ngIf="sidebarLocation === 'games'">
-        <app-ad-games></app-ad-games>
+        <app-ad-games [adventure]="adventure"></app-ad-games>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 export interface Game {
-    id: string,
-    userid: string,
-    adventureid: string
+    id: string;
+    userId: string;
+    adventureId: string;
 }
