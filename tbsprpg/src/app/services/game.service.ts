@@ -17,6 +17,13 @@ export class GameService extends BaseService {
     super(http);
   }
 
+  deleteGame(game: Game): Observable<any> {
+    return this.http.delete(this.gamesUrl + '/' + game.id)
+      .pipe(
+        catchError(this.handleError<any>('deleteGame', null))
+      );
+  }
+
   getGamesForAdventure(adventureId: string): Observable<Game[]> {
     const options = {
       params: new HttpParams()

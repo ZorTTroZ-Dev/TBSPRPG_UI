@@ -12,7 +12,7 @@
       <td>{{ game.id }}</td>
       <td>{{ game.userId }}</td>
       <td class="text-end">
-        <a type="button" class="btn btn-dark mx-2">Delete</a>
+        <a (click)="deleteGame(game)" type="button" class="btn btn-dark mx-2">Delete</a>
       </td>
     </tr>
     </tbody>

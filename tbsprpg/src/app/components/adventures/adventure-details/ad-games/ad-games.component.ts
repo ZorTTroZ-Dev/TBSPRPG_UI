@@ -35,4 +35,11 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  deleteGame(game: Game): void {
+    this.subscriptions.add(
+      this.gameService.deleteGame(game).subscribe(() => {
+        console.log('game deleted');
+      })
+    );
+  }
 }
