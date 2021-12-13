@@ -32,8 +32,12 @@ export class LoginComponent implements OnInit {
   login(): void {
     const loginData = this.loginForm.value;
     this.userService.authenticate(loginData.email, loginData.password).subscribe(
-      () => {
-        this.router.navigate(['/adventure', {}]);
+      user => {
+        if (user.permissions && user.permissions.includes('adventure_edit')) {
+          this.router.navigate(['/adventure', {}]);
+        } else {
+          this.router.navigate(['/adventure-explorer', {}]);
+        }
       },
       error => {
         this.loginError = true;
