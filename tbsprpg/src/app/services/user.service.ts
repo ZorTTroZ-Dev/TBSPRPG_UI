@@ -35,6 +35,14 @@ export class UserService {
     sessionStorage.setItem('userId', userId);
   }
 
+  getUser(): User {
+    return JSON.parse(sessionStorage.getItem('user'));
+  }
+
+  setUser(user: User): void {
+    sessionStorage.setItem('user', JSON.stringify(user));
+  }
+
   authenticate(email: string, password: string): Observable<User> {
     return this.http.post<User>(this.userUrl + '/authenticate', {
       username: email,
@@ -43,6 +51,7 @@ export class UserService {
       tap(usr => {
         this.setAuthToken(usr.token);
         this.setUserId(usr.id);
+        this.setUser(usr);
       })
     );
   }

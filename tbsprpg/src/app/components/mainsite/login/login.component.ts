@@ -3,6 +3,7 @@ import {FormGroup, FormControl, AbstractControl} from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../../services/user.service';
+import {PERMISSION_ADVENTURE_EDIT} from '../../../guards/permission.guard';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     const loginData = this.loginForm.value;
     this.userService.authenticate(loginData.email, loginData.password).subscribe(
       user => {
-        if (user.permissions && user.permissions.includes('adventure_edit')) {
+        if (user.permissions && user.permissions.includes(PERMISSION_ADVENTURE_EDIT)) {
           this.router.navigate(['/adventure', {}]);
         } else {
           this.router.navigate(['/adventure-explorer', {}]);

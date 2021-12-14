@@ -9,13 +9,46 @@ import {AdventuresComponent} from './components/adventures/adventures.component'
 import {AdventureCreatorComponent} from './components/adventures/adventure-creator/adventure-creator.component';
 import {AdventureDetailsComponent} from './components/adventures/adventure-details/adventure-details.component';
 import {AdventureExplorerComponent} from './components/adventures/adventure-explorer/adventure-explorer.component';
+import {PERMISSION_ADVENTURE_EDIT, PermissionGuard} from './guards/permission.guard';
 
 const routes: Routes = [
-  { path: 'adventure', component: AdventuresComponent, canActivate: [AuthGuard] },
-  { path: 'adventure-details/:adventureId/:location', component: AdventureDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'adventure-details/:adventureId', component: AdventureDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'adventure-creator', component: AdventureCreatorComponent, canActivate: [AuthGuard] },
-  { path: 'adventure-explorer', component: AdventureExplorerComponent, canActivate: [AuthGuard] },
+  {
+    path: 'adventure',
+    component: AdventuresComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {
+      permissions: [PERMISSION_ADVENTURE_EDIT]
+    }
+  },
+  {
+    path: 'adventure-details/:adventureId/:location',
+    component: AdventureDetailsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {
+      permissions: [PERMISSION_ADVENTURE_EDIT]
+    }
+  },
+  {
+    path: 'adventure-details/:adventureId',
+    component: AdventureDetailsComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {
+      permissions: [PERMISSION_ADVENTURE_EDIT]
+    }
+  },
+  {
+    path: 'adventure-creator',
+    component: AdventureCreatorComponent,
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {
+      permissions: [PERMISSION_ADVENTURE_EDIT]
+    }
+  },
+  {
+    path: 'adventure-explorer',
+    component: AdventureExplorerComponent,
+    canActivate: [AuthGuard]
+  },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'game/:adventure', component: GameComponent, canActivate: [AuthGuard] },
