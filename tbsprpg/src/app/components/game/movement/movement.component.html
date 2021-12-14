@@ -1,11 +1,11 @@
 <div class="movement-error" *ngIf="isMovementError">
   An error occurred while loading game movement options!
 </div>
-<div class="movement-spinner" role="status" *ngIf="routes.length === 0  && !isMovementError">
+<div class="spinner-boarder" role="status" *ngIf="routes.length === 0  && !isMovementError">
   <span class="sr-only">Loading Movement...</span>
 </div>
 <div>
     <ng-container *ngFor="let route of routes;">
-        <button (click)="takeRoute(route.id)">{{route.source}}</button>
+        <button class="btn btn-dark" (click)="takeRoute(route.id)">{{route.source}}</button>
     </ng-container>
 </div>

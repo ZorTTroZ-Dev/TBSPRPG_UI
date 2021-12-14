@@ -1,7 +1,7 @@
 <div class="content-error" *ngIf="isContentError">
   An error occurred while loading game content!
 </div>
-<div class="content-spinner" role="status" *ngIf="content.length === 0  && !isContentError">
+<div class="spinner-border" role="status" *ngIf="content.length === 0  && !isContentError">
   <span class="sr-only">Loading Content...</span>
 </div>
 <div>
