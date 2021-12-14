@@ -43,6 +43,13 @@ export class UserService {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
+  userHasPermissions(permissions: string[]): boolean {
+    const user = this.getUser();
+    return !(user === null
+      || (permissions.length > 0 && user.permissions === null)
+      || permissions.filter(perm => !user.permissions.includes(perm)).length > 0);
+  }
+
   authenticate(email: string, password: string): Observable<User> {
     return this.http.post<User>(this.userUrl + '/authenticate', {
       username: email,
