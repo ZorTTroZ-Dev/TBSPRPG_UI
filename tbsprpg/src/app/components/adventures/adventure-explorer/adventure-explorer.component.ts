@@ -5,6 +5,8 @@ import {Subject, Subscription} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
 import {SettingService} from '../../../services/setting.service';
 import {SourcesService} from '../../../services/sources.service';
+import {UserService} from '../../../services/user.service';
+import {PERMISSION_ADVENTURE_EDIT} from '../../../guards/permission.guard';
 
 @Component({
   selector: 'app-adventure-explorer',
@@ -15,15 +17,19 @@ export class AdventureExplorerComponent implements OnInit, OnDestroy {
   adventures: Adventure[];
   adventureSubject: Subject<Adventure>;
   sourceMap = new Map();
+  showBreadcrumbs: boolean;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private adventureService: AdventureService,
               private sourcesService: SourcesService,
-              private settingService: SettingService) {
+              private settingService: SettingService,
+              private userService: UserService) {
     this.adventureSubject = new Subject<Adventure>();
   }
 
   ngOnInit(): void {
+    this.showBreadcrumbs = this.userService.userHasPermissions([PERMISSION_ADVENTURE_EDIT]);
+
     this.subscriptions.add(
       this.adventureSubject.pipe(
         switchMap(adventure => this.sourcesService.getSourceForAdventureForKey(
