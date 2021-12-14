@@ -1,8 +1,8 @@
 <div class="movement-error" *ngIf="isMovementError">
   An error occurred while loading game movement options!
 </div>
-<div class="spinner-boarder" role="status" *ngIf="routes.length === 0  && !isMovementError">
-  <span class="sr-only">Loading Movement...</span>
+<div class="spinner-border" role="status" *ngIf="routes.length === 0  && !isMovementError">
+  <span class="visually-hidden">Loading Movement...</span>
 </div>
 <div>
     <ng-container *ngFor="let route of routes;">
