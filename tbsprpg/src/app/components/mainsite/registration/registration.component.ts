@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-registration',
@@ -7,16 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  hide : boolean;
-  
-  constructor(private router: Router) { }
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+    remember: new FormControl(false)
+  });
+
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  register() : void {
-    //post to the users service to create a new user
-    //everything goes ok go to the console
-    this.router.navigate(['/console', {}]);
+  register(): void {
+    console.log('register');
   }
 }
