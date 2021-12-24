@@ -52,7 +52,7 @@ export class UserService {
 
   authenticate(email: string, password: string): Observable<User> {
     return this.http.post<User>(this.userUrl + '/authenticate', {
-      username: email,
+      email,
       password
     }, this.httpOptions).pipe(
       tap(usr => {
