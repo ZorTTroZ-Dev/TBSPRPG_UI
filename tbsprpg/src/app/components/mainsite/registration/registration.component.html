@@ -1,1 +1,22 @@
-<p>registration works!</p>
+<div class="row align-items-center g-lg-5 py-5">
+  <div class="col-md-10 mx-auto col-lg-5">
+    <form class="p-4 p-md-5 border rounded-3 bg-light" (ngSubmit)="register()" [formGroup]="registerForm">
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+        <label for="floatingInput">Email Address</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingReenterPassword" placeholder="Re-Enter Password" formControlName="reenterPassword">
+        <label for="floatingReenterPassword">Re-Enter Password</label>
+      </div>
+      <button type="submit" class="w-100 btn btn-lg btn-dark">Register</button>
+      <hr>
+      <small class="text-muted">By clicking Register, you agree to the terms of use.</small>
+    </form>
+  </div>
+</div>
+
