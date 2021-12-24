@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           }
         }, () => {
           // authentication failed; either they entered the wrong email address or password
-          this.router.navigate(['/register', {}]);
+          this.router.navigate(['/signin-failed', {}]);
         }
       )
     );

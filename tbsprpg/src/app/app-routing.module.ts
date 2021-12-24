@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LandingComponent} from './components/mainsite/landing.component';
 import {RegistrationComponent} from './components/mainsite/registration/registration.component';
-import {LoginComponent} from './components/mainsite/login/login.component';
 import {GameComponent} from './components/game/game.component';
 import {AuthGuard} from './guards/auth.guard';
 import {AdventuresComponent} from './components/adventures/adventures.component';
@@ -10,6 +9,8 @@ import {AdventureCreatorComponent} from './components/adventures/adventure-creat
 import {AdventureDetailsComponent} from './components/adventures/adventure-details/adventure-details.component';
 import {AdventureExplorerComponent} from './components/adventures/adventure-explorer/adventure-explorer.component';
 import {PERMISSION_ADVENTURE_EDIT, PermissionGuard} from './guards/permission.guard';
+import {LoginFailedComponent} from './components/mainsite/login-failed/login-failed.component';
+import {RegistrationVerifyComponent} from './components/mainsite/registration-verify/registration-verify.component';
 
 const routes: Routes = [
   {
@@ -50,7 +51,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'register', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'register-verify', component: RegistrationVerifyComponent },
+  { path: 'signin-failed', component: LoginFailedComponent },
   { path: 'game/:adventure', component: GameComponent, canActivate: [AuthGuard] },
   { path: 'game', component: GameComponent, canActivate: [AuthGuard] },
   { path: '', component: LandingComponent }

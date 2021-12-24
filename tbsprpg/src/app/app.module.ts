@@ -45,6 +45,8 @@ import { AdRouteEditComponent } from './components/adventures/adventure-details/
 import { AdventureEditComponent } from './components/adventures/adventure-edit/adventure-edit.component';
 import { AdventureExplorerComponent } from './components/adventures/adventure-explorer/adventure-explorer.component';
 import { AdGamesComponent } from './components/adventures/adventure-details/ad-games/ad-games.component';
+import { RegistrationVerifyComponent } from './components/mainsite/registration-verify/registration-verify.component';
+import { LoginFailedComponent } from './components/mainsite/login-failed/login-failed.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { AdGamesComponent } from './components/adventures/adventure-details/ad-g
     AdventureEditComponent,
     AdventureExplorerComponent,
     AdGamesComponent,
+    RegistrationVerifyComponent,
+    LoginFailedComponent,
   ],
   imports: [
     BrowserModule,
