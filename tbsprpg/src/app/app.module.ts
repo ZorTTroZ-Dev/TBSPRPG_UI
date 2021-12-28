@@ -47,6 +47,7 @@ import { AdventureExplorerComponent } from './components/adventures/adventure-ex
 import { AdGamesComponent } from './components/adventures/adventure-details/ad-games/ad-games.component';
 import { RegistrationVerifyComponent } from './components/mainsite/registration-verify/registration-verify.component';
 import { LoginFailedComponent } from './components/mainsite/login-failed/login-failed.component';
+import { PasswordValidatorDirective } from './directives/password-validator.directive';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { LoginFailedComponent } from './components/mainsite/login-failed/login-f
     AdGamesComponent,
     RegistrationVerifyComponent,
     LoginFailedComponent,
+    PasswordValidatorDirective,
   ],
   imports: [
     BrowserModule,

@@ -1,19 +1,42 @@
 <div class="row align-items-center g-lg-5 py-5">
   <div class="col-md-10 mx-auto col-lg-5">
-    <form class="p-4 p-md-5 border rounded-3 bg-light" (ngSubmit)="register()" [formGroup]="registerForm">
+    <form class="p-4 p-md-5 border rounded-3 bg-light" (ngSubmit)="register()" [formGroup]="registerForm" appPasswordValidator>
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" formControlName="email">
+        <input type="email" class="form-control"
+               id="floatingInput"
+               formControlName="email"
+               placeholder="Email Address"
+               [ngClass]="{'is-invalid': emailInvalid()}">
         <label for="floatingInput">Email Address</label>
+        <div class="invalid-feedback">
+          <span *ngIf="email.errors?.['required']">Please enter your email address.</span>
+          <span *ngIf="email.errors?.['email']">Please enter a valid email address.</span>
+        </div>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" formControlName="password">
+        <input type="password" class="form-control"
+               id="floatingPassword"
+               placeholder="Password"
+               formControlName="password"
+               [ngClass]="{'is-invalid': passwordInvalid()}">
         <label for="floatingPassword">Password</label>
+        <div class="invalid-feedback">
+          <span *ngIf="password.errors?.['required']">Please enter a password.</span>
+        </div>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingReenterPassword" placeholder="Re-Enter Password" formControlName="reenterPassword">
-        <label for="floatingReenterPassword">Re-Enter Password</label>
+        <input type="password" class="form-control"
+               id="floatingConfirmPassword"
+               formControlName="confirmPassword"
+               placeholder="Confirm Password"
+               [ngClass]="{'is-invalid': confirmPasswordInvalid()}">
+        <label for="floatingConfirmPassword">Confirm Password</label>
+        <div class="invalid-feedback">
+          <span *ngIf="confirmPassword.errors?.['required']">Please confirm your password.</span>
+          <span *ngIf="registerForm.errors?.['confirmPassword']">Passwords must match.</span>
+        </div>
       </div>
-      <button type="submit" class="w-100 btn btn-lg btn-dark">Register</button>
+      <button type="submit" class="w-100 btn btn-lg btn-dark" [disabled]="!this.registerForm.valid">Register</button>
       <hr>
       <small class="text-muted">By clicking Register, you agree to the terms of use.</small>
     </form>
