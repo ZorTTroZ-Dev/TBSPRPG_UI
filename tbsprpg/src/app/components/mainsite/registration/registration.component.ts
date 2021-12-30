@@ -16,8 +16,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     confirmPassword: new FormControl('', Validators.required)
   }, {validators: confirmPasswordValidator});
   private subscriptions: Subscription = new Subscription();
+  registrationFailed: boolean;
 
-  constructor(private usersService: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -54,11 +55,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
   register(): void {
     const registrationData = this.registerForm.value;
+    this.registrationFailed = false;
     console.log(registrationData);
-    // post to api endpoint on success open model to ask for registration key sent to user's email address
-    // on failure display message why registration failed
-    // if email already exists also show link to recover password page
-    document.getElementById('openVerifyRegistrationModal').click();
+    this.subscriptions.add(
+      this.userService.register(registrationData).subscribe(
+        user => {
+          if (user !== null) {
+            document.getElementById('openVerifyRegistrationModal').click();
+          } else {
+            this.registrationFailed = true;
+          }
+        }
+      )
+    );
   }
 
   ngOnDestroy(): void {

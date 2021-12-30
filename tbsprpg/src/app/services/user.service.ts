@@ -5,19 +5,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../models/user';
 
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
+import {BaseService} from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends BaseService {
   private userUrl = '/api/users';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
   getAuthToken(): string {
     return sessionStorage.getItem('jwtToken');
@@ -60,6 +63,12 @@ export class UserService {
         this.setUserId(usr.id);
         this.setUser(usr);
       })
+    );
+  }
+
+  register(registrationData: any): Observable<User> {
+    return this.http.post<any>(this.userUrl + '/register', registrationData).pipe(
+      catchError(this.handleError<any>('register', null))
     );
   }
 }
