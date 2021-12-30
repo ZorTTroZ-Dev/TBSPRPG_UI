@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {UserService} from '../../../services/user.service';
 import {Subscription} from 'rxjs';
 import {confirmPasswordValidator} from '../../../directives/password-validator.directive';
+import {User} from '../../../models/user';
 
 @Component({
   selector: 'app-registration',
@@ -17,11 +18,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }, {validators: confirmPasswordValidator});
   private subscriptions: Subscription = new Subscription();
   registrationFailed: boolean;
+  user: User;
 
   constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   get email(): AbstractControl {
     return this.registerForm.get('email');
@@ -61,6 +62,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.userService.register(registrationData).subscribe(
         user => {
           if (user !== null) {
+            this.user = user;
             document.getElementById('openVerifyRegistrationModal').click();
           } else {
             this.registrationFailed = true;

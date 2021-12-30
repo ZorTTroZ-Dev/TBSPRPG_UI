@@ -7,13 +7,26 @@
         <h5 class="modal-title" id="staticBackdropLabel">Verify Registration</h5>
 <!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-<!--        <button type="button" class="btn btn-outline-dark">Re-Send Code</button>-->
-        <button type="button" class="btn btn-dark">Verify</button>
-      </div>
+      <form class="border rounded-3 bg-light" (ngSubmit)="verify()" [formGroup]="verificationForm" appPasswordValidator>
+        <div class="modal-body">
+          <div class="mb-3">Please enter the code that was sent to the given email address to verify your account.</div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control"
+                   id="floatingInput"
+                   formControlName="code"
+                   placeholder="Registration Code"
+                   [ngClass]="{'is-invalid': codeInvalid()}">
+            <label for="floatingInput">Registration Code</label>
+            <div class="invalid-feedback">
+              <span *ngIf="code.errors?.['required']">Please enter your registration code.</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!--        <button type="button" class="btn btn-outline-dark">Re-Send Code</button>-->
+          <button type="submit" class="btn btn-dark">Verify</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
