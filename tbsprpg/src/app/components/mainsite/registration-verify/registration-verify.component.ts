@@ -1,19 +1,24 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../../../models/user';
+import {Subscription} from 'rxjs';
+import {UserService} from '../../../services/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-registration-verify',
   templateUrl: './registration-verify.component.html',
   styleUrls: ['./registration-verify.component.scss']
 })
-export class RegistrationVerifyComponent implements OnInit {
+export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   @Input() user: User;
   verificationForm = new FormGroup({
     code: new FormControl('', Validators.required)
   });
+  private subscriptions: Subscription = new Subscription();
+  verificationFailed: boolean;
 
-  constructor() { }
+  constructor(private router: Router, private userService: UserService) { }
 
   get code(): AbstractControl {
     return this.verificationForm.get('code');
@@ -32,6 +37,26 @@ export class RegistrationVerifyComponent implements OnInit {
   }
 
   verify(): void {
-    console.log(this.user);
+    const verificationFormData = this.verificationForm.value;
+    this.verificationFailed = false;
+    this.subscriptions.add(
+      this.userService.registerVerify(this.user.id, verificationFormData.code).subscribe(
+        user => {
+          if (user !== null) {
+            // they've logged in we can go the correct page
+            this.router.navigate([
+              this.userService.getLandingPage(user), {}
+            ]);
+          } else {
+            this.verificationForm.reset();
+            this.verificationFailed = true;
+          }
+        }
+      )
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -3,7 +3,6 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import {UserService} from '../../../services/user.service';
-import {PERMISSION_ADVENTURE_EDIT} from '../../../guards/permission.guard';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -30,11 +29,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.userService.authenticate(loginData.email, loginData.password).subscribe(
         user => {
-          if (user.permissions && user.permissions.includes(PERMISSION_ADVENTURE_EDIT)) {
-            this.router.navigate(['/adventure', {}]);
-          } else {
-            this.router.navigate(['/adventure-explorer', {}]);
-          }
+          this.router.navigate([
+            this.userService.getLandingPage(user), {}
+          ]);
         }, () => {
           // authentication failed; either they entered the wrong email address or password
           this.router.navigate(['/signin-failed', {}]);

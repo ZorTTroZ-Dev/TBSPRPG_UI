@@ -57,7 +57,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   register(): void {
     const registrationData = this.registerForm.value;
     this.registrationFailed = false;
-    console.log(registrationData);
     this.subscriptions.add(
       this.userService.register(registrationData).subscribe(
         user => {
@@ -65,6 +64,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
             this.user = user;
             document.getElementById('openVerifyRegistrationModal').click();
           } else {
+            this.registerForm.reset();
             this.registrationFailed = true;
           }
         }

@@ -9,6 +9,9 @@
       </div>
       <form class="border rounded-3 bg-light" (ngSubmit)="verify()" [formGroup]="verificationForm" appPasswordValidator>
         <div class="modal-body">
+          <div class="mb-3" *ngIf="verificationFailed">
+            Please check your code and try again.
+          </div>
           <div class="mb-3">Please enter the code that was sent to the given email address to verify your account.</div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control"
@@ -24,7 +27,7 @@
         </div>
         <div class="modal-footer">
           <!--        <button type="button" class="btn btn-outline-dark">Re-Send Code</button>-->
-          <button type="submit" class="btn btn-dark">Verify</button>
+          <button type="submit" class="btn btn-dark" [disabled]="!this.verificationForm.valid">Verify</button>
         </div>
       </form>
     </div>
