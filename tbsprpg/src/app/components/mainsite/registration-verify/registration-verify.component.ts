@@ -17,6 +17,8 @@ export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   });
   private subscriptions: Subscription = new Subscription();
   verificationFailed: boolean;
+  codeResent: boolean;
+  codeResendFailed: boolean;
 
   constructor(private router: Router, private userService: UserService) { }
 
@@ -34,6 +36,22 @@ export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+  }
+
+  resendCode(): void {
+    this.codeResent = false;
+    this.codeResendFailed = false;
+    this.subscriptions.add(
+      this.userService.registerResend(this.user.id).subscribe(
+        user => {
+          if (user !== null) {
+            this.codeResent = true;
+          } else {
+            this.codeResendFailed = true;
+          }
+        }
+      )
+    );
   }
 
   verify(): void {

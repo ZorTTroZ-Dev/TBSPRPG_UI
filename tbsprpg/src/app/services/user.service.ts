@@ -94,4 +94,12 @@ export class UserService extends BaseService {
       catchError(this.handleError<User>('register/verify', null))
     );
   }
+
+  registerResend(userId: string): Observable<User> {
+    return this.http.post<User>(this.userUrl + '/register/resend', {
+      userId
+    }, this.httpOptions).pipe(
+      catchError(this.handleError<User>('register/resend', null))
+    );
+  }
 }

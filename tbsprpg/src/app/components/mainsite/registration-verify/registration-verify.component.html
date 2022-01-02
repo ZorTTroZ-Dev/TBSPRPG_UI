@@ -12,6 +12,12 @@
           <div class="mb-3" *ngIf="verificationFailed">
             Please check your code and try again.
           </div>
+          <div class="mb-3" *ngIf="codeResent">
+            A new code has been sent to your email address, please enter the new code.
+          </div>
+          <div class="mb-3" *ngIf="codeResendFailed">
+            We could not send you a new registration code, try again later.
+          </div>
           <div class="mb-3">Please enter the code that was sent to the given email address to verify your account.</div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control"
@@ -27,7 +33,7 @@
         </div>
         <div class="modal-footer">
           <button [hidden]="true" id="closeVerifyRegistrationModal" data-bs-dismiss="modal">Close</button>
-          <!--        <button type="button" class="btn btn-outline-dark">Re-Send Code</button>-->
+          <button type="button" class="btn btn-outline-dark" (click)="resendCode()">Re-Send Code</button>
           <button type="submit" class="btn btn-dark" [disabled]="!this.verificationForm.valid">Verify</button>
         </div>
       </form>
