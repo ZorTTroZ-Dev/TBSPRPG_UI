@@ -43,7 +43,7 @@ export class RegistrationVerifyComponent implements OnInit, OnDestroy {
       this.userService.registerVerify(this.user.id, verificationFormData.code).subscribe(
         user => {
           if (user !== null) {
-            // they've logged in we can go the correct page
+            document.getElementById('closeVerifyRegistrationModal').click();
             this.router.navigate([
               this.userService.getLandingPage(user), {}
             ]);

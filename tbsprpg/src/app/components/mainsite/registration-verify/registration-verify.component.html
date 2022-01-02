@@ -1,3 +1,4 @@
+<button [hidden]="true" id="openVerifyRegistrationModal" data-bs-toggle="modal" data-bs-target="#registerVerifyModal">om</button>
 <div class="modal fade" id="registerVerifyModal"
      data-bs-backdrop="static" data-bs-keyboard="false"
      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -5,7 +6,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Verify Registration</h5>
-<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
       </div>
       <form class="border rounded-3 bg-light" (ngSubmit)="verify()" [formGroup]="verificationForm" appPasswordValidator>
         <div class="modal-body">
@@ -26,6 +26,7 @@
           </div>
         </div>
         <div class="modal-footer">
+          <button [hidden]="true" id="closeVerifyRegistrationModal" data-bs-dismiss="modal">Close</button>
           <!--        <button type="button" class="btn btn-outline-dark">Re-Send Code</button>-->
           <button type="submit" class="btn btn-dark" [disabled]="!this.verificationForm.valid">Verify</button>
         </div>
