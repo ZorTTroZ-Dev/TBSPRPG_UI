@@ -57,6 +57,9 @@ export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   verify(): void {
     const verificationFormData = this.verificationForm.value;
     this.verificationFailed = false;
+    if (this.user === undefined) {
+      this.user = this.userService.getUser();
+    }
     this.subscriptions.add(
       this.userService.registerVerify(this.user.id, verificationFormData.code).subscribe(
         user => {
@@ -72,6 +75,7 @@ export class RegistrationVerifyComponent implements OnInit, OnDestroy {
         }
       )
     );
+
   }
 
   ngOnDestroy(): void {

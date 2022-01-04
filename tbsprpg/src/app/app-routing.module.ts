@@ -11,51 +11,63 @@ import {AdventureExplorerComponent} from './components/adventures/adventure-expl
 import {PERMISSION_ADVENTURE_EDIT, PermissionGuard} from './guards/permission.guard';
 import {LoginFailedComponent} from './components/mainsite/login-failed/login-failed.component';
 import {RegistrationVerifyComponent} from './components/mainsite/registration-verify/registration-verify.component';
+import {RegistrationCompleteGuard} from './guards/registration-complete.guard';
 
 const routes: Routes = [
+  { path: '', component: LandingComponent },
   {
-    path: 'adventure',
-    component: AdventuresComponent,
-    canActivate: [AuthGuard, PermissionGuard],
-    data: {
-      permissions: [PERMISSION_ADVENTURE_EDIT]
-    }
-  },
-  {
-    path: 'adventure-details/:adventureId/:location',
-    component: AdventureDetailsComponent,
-    canActivate: [AuthGuard, PermissionGuard],
-    data: {
-      permissions: [PERMISSION_ADVENTURE_EDIT]
-    }
-  },
-  {
-    path: 'adventure-details/:adventureId',
-    component: AdventureDetailsComponent,
-    canActivate: [AuthGuard, PermissionGuard],
-    data: {
-      permissions: [PERMISSION_ADVENTURE_EDIT]
-    }
-  },
-  {
-    path: 'adventure-creator',
-    component: AdventureCreatorComponent,
-    canActivate: [AuthGuard, PermissionGuard],
-    data: {
-      permissions: [PERMISSION_ADVENTURE_EDIT]
-    }
-  },
-  {
-    path: 'adventure-explorer',
-    component: AdventureExplorerComponent,
-    canActivate: [AuthGuard]
+    path: '',
+    canActivate: [AuthGuard, RegistrationCompleteGuard],
+    children: [
+      {
+        path: 'adventure',
+        component: AdventuresComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permissions: [PERMISSION_ADVENTURE_EDIT]
+        }
+      },
+      {
+        path: 'adventure-details/:adventureId/:location',
+        component: AdventureDetailsComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permissions: [PERMISSION_ADVENTURE_EDIT]
+        }
+      },
+      {
+        path: 'adventure-details/:adventureId',
+        component: AdventureDetailsComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permissions: [PERMISSION_ADVENTURE_EDIT]
+        }
+      },
+      {
+        path: 'adventure-creator',
+        component: AdventureCreatorComponent,
+        canActivate: [PermissionGuard],
+        data: {
+          permissions: [PERMISSION_ADVENTURE_EDIT]
+        }
+      },
+      {
+        path: 'adventure-explorer',
+        component: AdventureExplorerComponent
+      },
+      {
+        path: 'game/:adventure',
+        component: GameComponent
+      },
+      {
+        path: 'game',
+        component: GameComponent
+      }
+    ]
   },
   { path: 'register', component: RegistrationComponent },
   { path: 'register-verify', component: RegistrationVerifyComponent },
   { path: 'signin-failed', component: LoginFailedComponent },
-  { path: 'game/:adventure', component: GameComponent, canActivate: [AuthGuard] },
-  { path: 'game', component: GameComponent, canActivate: [AuthGuard] },
-  { path: '', component: LandingComponent }
 ];
 
 @NgModule({
