@@ -6,7 +6,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 #copy code this won't copy node_modules or .git and .gitignore because of .dockerignore
-COPY . /app
+COPY ./tbsprpg /app
 
 #install the npm packages
 RUN npm install
