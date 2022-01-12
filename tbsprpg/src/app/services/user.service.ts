@@ -13,7 +13,7 @@ import {PERMISSION_ADVENTURE_EDIT} from '../guards/permission.guard';
   providedIn: 'root'
 })
 export class UserService extends BaseService {
-  private userUrl = '/api/users';
+  private userUrl: string;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,6 +21,7 @@ export class UserService extends BaseService {
 
   constructor(http: HttpClient) {
     super(http);
+    this.userUrl = this.getBaseUrl() + '/api/users';
   }
 
   getAuthToken(): string {
