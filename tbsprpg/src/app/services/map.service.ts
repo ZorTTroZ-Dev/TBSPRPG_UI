@@ -9,12 +9,13 @@ import {catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class MapService extends BaseService {
-  private mapUrl = '/api/maps';
+  private mapUrl: string;
   private pollRoutesObservable: Subject<number>;
 
   constructor(http: HttpClient, ) {
     super(http);
     this.pollRoutesObservable = new Subject<number>();
+    this.mapUrl = this.getBaseUrl() + '/api/maps';
   }
 
   pollRoutes(trigger: number): void {

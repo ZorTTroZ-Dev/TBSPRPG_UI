@@ -10,10 +10,11 @@ import {FormControl, FormGroup} from '@angular/forms';
   providedIn: 'root'
 })
 export class SourcesService extends BaseService {
-  private sourcesUrl = '/api/sources';
+  private sourcesUrl: string;
 
   constructor(http: HttpClient, ) {
     super(http);
+    this.sourcesUrl = this.getBaseUrl() + '/api/sources';
   }
 
   createFormGroupForSource(source: Source): FormGroup {

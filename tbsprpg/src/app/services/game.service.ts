@@ -11,10 +11,11 @@ import {catchError} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class GameService extends BaseService {
-  private gamesUrl = '/api/games';
+  private gamesUrl: string;
 
   constructor(http: HttpClient, ) {
     super(http);
+    this.gamesUrl = this.getBaseUrl() + '/api/games';
   }
 
   deleteGame(game: Game): Observable<any> {

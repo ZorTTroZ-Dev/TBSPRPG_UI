@@ -10,12 +10,13 @@ import {Source} from '../models/source';
   providedIn: 'root'
 })
 export class ContentService extends BaseService {
-  private contentUrl = '/api/contents';
+  private contentUrl: string;
   private pollContentObservable: Subject<number>;
 
   constructor(http: HttpClient, ) {
     super(http);
     this.pollContentObservable = new Subject<number>();
+    this.contentUrl = this.getBaseUrl() + '/api/contents';
   }
 
   pollContent(trigger: number): void {

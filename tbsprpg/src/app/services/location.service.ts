@@ -12,10 +12,11 @@ import {Source} from '../models/source';
   providedIn: 'root'
 })
 export class LocationService extends BaseService{
-  private locationUrl = '/api/locations';
+  private locationUrl: string;
 
   constructor(http: HttpClient, private sourcesService: SourcesService) {
     super(http);
+    this.locationUrl = this.getBaseUrl() + '/api/locations';
   }
 
   createFormGroupForLocation(location: Location): FormGroup {

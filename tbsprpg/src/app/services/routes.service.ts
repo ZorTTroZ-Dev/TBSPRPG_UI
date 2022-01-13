@@ -20,6 +20,7 @@ export class RoutesService extends BaseService{
   constructor(http: HttpClient,
               private sourcesService: SourcesService) {
     super(http);
+    this.routesUrl = this.getBaseUrl() + '/api/routes';
   }
 
   createNewRoute(initialLocationId: string): Route {

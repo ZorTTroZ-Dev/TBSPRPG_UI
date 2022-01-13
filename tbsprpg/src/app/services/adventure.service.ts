@@ -12,10 +12,11 @@ import {SourcesService} from './sources.service';
   providedIn: 'root'
 })
 export class AdventureService extends BaseService{
-  private adventuresUrl = '/api/adventures';
+  private adventuresUrl: string;
 
   constructor(http: HttpClient, private sourcesService: SourcesService) {
     super(http);
+    this.adventuresUrl = this.getBaseUrl() + '/api/adventures';
   }
 
   createFormGroupForAdventure(adventure: Adventure): FormGroup {
