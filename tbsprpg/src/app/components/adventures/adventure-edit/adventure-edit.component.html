@@ -2,23 +2,5 @@
   <div class="card-header">
     <h3>Edit Adventure</h3>
   </div>
-  <div class="card-body" *ngIf="adventureForm">
-    <form [formGroup]="adventureForm" (ngSubmit)="updateAdventure()">
-      <div formGroupName="adventure">
-        <div class="form-floating">
-          <input type="text" class="form-control" id="name" formControlName="name">
-          <label for="name">Adventure Name:</label>
-        </div>
-      </div>
-      <app-adventure-details-source-edit
-        [sourceFormGroupName]="initialSourceFormGroupName"
-        [form]="adventureForm" [label]="sourceLabel">
-      </app-adventure-details-source-edit>
-      <app-adventure-details-source-edit
-        [sourceFormGroupName]="descriptionSourceFormGroupName"
-        [form]="adventureForm" [label]="descriptionSourceLabel">
-      </app-adventure-details-source-edit>
-      <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!adventureForm.valid">Update</button>
-    </form>
-  </div>
+  <app-ae-form [adventure]="adventure" (editAdventureChange)="updateAdventureEdit($event)"></app-ae-form>
 </div>
