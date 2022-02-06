@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Adventure} from '../../../../models/adventure';
+import {AdventureService} from '../../../../services/adventure.service';
 
 @Component({
   selector: 'app-adventure-new',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adventure-new.component.scss']
 })
 export class AdventureNewComponent implements OnInit {
+  adventure: Adventure;
 
-  constructor() { }
+  constructor(private adventureService: AdventureService) { }
 
   ngOnInit(): void {
+    this.adventure = this.adventureService.createNewAdventure();
   }
 
+  updateAdventureEdit(adventure: Adventure): void {
+    this.adventure = adventure;
+  }
 }

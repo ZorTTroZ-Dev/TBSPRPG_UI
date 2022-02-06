@@ -17,6 +17,9 @@
         <h1>Your Adventures</h1>
         <app-adventures-table [tableType]="adventureTableType"></app-adventures-table>
       </div>
+      <div *ngIf="sidebarLocation === 'new_adventure'">
+        <app-adventure-new></app-adventure-new>
+      </div>
     </div>
   </div>
 </div>

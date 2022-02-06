@@ -6,7 +6,8 @@
   <hr>
   <ul class="nav nav-pills flex-column" id="adventures">
     <li class="nav-item">
-      <a routerLink="/creator" type="button" class="nav-link bg-light text-dark">
+      <a (click)="updateSidebarLocation('adventures')" class="nav-link" type="button"
+         [ngClass]="{'bg-light text-dark': location === 'adventures', 'text-light': location !== 'adventures'}">
         <i class="fs-4 bi-map"></i> <span class="ms-2 d-none d-sm-inline">Your Adventures</span>
       </a>
     </li>
@@ -20,7 +21,8 @@
   </ul>
   <ul class="nav nav-pills flex-column mb-auto" id="newadventure">
     <li class="nav-item">
-      <a routerLink="/adventure-edit" type="button" class="nav-link text-light">
+      <a (click)="updateSidebarLocation('new_adventure')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'new_adventure', 'text-light': location !== 'new_adventure'}">
         <i class="fs-4 bi-plus-circle"></i> <span class="ms-2 d-none d-sm-inline">New Adventure</span>
       </a>
     </li>

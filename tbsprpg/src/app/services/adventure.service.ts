@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import {Source} from '../models/source';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
+import {NIL} from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,16 @@ export class AdventureService extends BaseService{
   constructor(http: HttpClient, private sourcesService: SourcesService) {
     super(http);
     this.adventuresUrl = this.getBaseUrl() + '/api/adventures';
+  }
+
+  createNewAdventure(): Adventure {
+    return {
+      id: NIL,
+      name: 'new adventure',
+      descriptionSourceKey: NIL,
+      initialSourceKey: NIL,
+      createdByUserId: NIL
+    };
   }
 
   createFormGroupForAdventure(adventure: Adventure): FormGroup {
