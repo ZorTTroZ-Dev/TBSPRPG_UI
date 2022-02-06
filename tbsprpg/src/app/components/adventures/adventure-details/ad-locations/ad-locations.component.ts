@@ -37,6 +37,11 @@ export class AdLocationsComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  newLocation(): void {
+    this.updateSidebarLocation('location-edit');
+    this.updateAdventureLocation(this.locationService.createNewLocation(this.adventure.id));
+  }
+
   updateLocations(location: Location): void {
     this.updateSidebarLocation('location-edit');
     this.updateAdventureLocation(location);

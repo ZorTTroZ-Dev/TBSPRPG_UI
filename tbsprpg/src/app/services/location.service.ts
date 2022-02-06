@@ -7,6 +7,7 @@ import {Location} from '../models/location';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
 import {Source} from '../models/source';
+import {NIL} from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,16 @@ export class LocationService extends BaseService{
   constructor(http: HttpClient, private sourcesService: SourcesService) {
     super(http);
     this.locationUrl = this.getBaseUrl() + '/api/locations';
+  }
+
+  createNewLocation(adventureId: string): Location {
+    return {
+      id: NIL,
+      name: 'new location',
+      adventureId,
+      sourceKey: NIL,
+      initial: false
+    };
   }
 
   createFormGroupForLocation(location: Location): FormGroup {
