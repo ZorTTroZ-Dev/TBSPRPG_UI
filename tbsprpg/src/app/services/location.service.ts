@@ -26,7 +26,8 @@ export class LocationService extends BaseService{
       name: 'new location',
       adventureId,
       sourceKey: NIL,
-      initial: false
+      initial: false,
+      final: false
     };
   }
 
@@ -35,6 +36,7 @@ export class LocationService extends BaseService{
       id: new FormControl(''),
       name: new FormControl(''),
       initial: new FormControl(''),
+      final: new FormControl(''),
       sourceKey: new FormControl(''),
       adventureId: new FormControl('')
     });

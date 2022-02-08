@@ -14,6 +14,7 @@ import {ContentService} from '../../../services/content.service';
 export class MovementComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: Game;
   isMovementError: boolean;
+  finalLocation: boolean;
   routes: Route[];
   routesLoaded: Subject<Route>;
   routeTimeStamp: number;
@@ -35,6 +36,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
     this.subscription.add(
       this.routesLoaded.pipe(
         tap(route => {
+          if (route == null) { return; }
           const response = this.contentService.getSourceForSourceKey(this.game.id, route.sourceKey);
           response.subscribe(source => {
             route.source = source.text;
@@ -46,10 +48,14 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
 
     this.subscription.add(
       this.mapService.getPollRoutes().subscribe(() => {
-        this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp).subscribe(routes => {
-          if (routes !== null && routes.length > 0) {
+        this.mapService.getRoutesForGameAfterTimeStamp(this.game.id, this.routeTimeStamp).subscribe(locationRoutes => {
+          if (locationRoutes.location.final) {
+            this.finalLocation = true;
+            this.routesLoaded.next(null);
+          }
+          if (locationRoutes.routes !== null && locationRoutes.routes.length > 0) {
             this.routes = [];
-            for (const route of routes) {
+            for (const route of locationRoutes.routes) {
               if (route.timeStamp > this.routeTimeStamp) {
                 this.routeTimeStamp = route.timeStamp;
               }
@@ -77,9 +83,13 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
             return tic;
           }), // only try for 20 half seconds which is 10 seconds
           switchMap(() => this.mapService.getRoutesForGame(this.game.id)),
-          tap(routes => {
-            if (routes !== null && routes.length > 0) {
-              for (const route of routes) {
+          tap(locationRoutes => {
+            if (locationRoutes.location.final) {
+              this.finalLocation = true;
+              this.routesLoaded.next(null);
+            }
+            if (locationRoutes.routes !== null && locationRoutes.routes.length > 0) {
+              for (const route of locationRoutes.routes) {
                 if (route.timeStamp > this.routeTimeStamp) {
                   this.routeTimeStamp = route.timeStamp;
                 }
