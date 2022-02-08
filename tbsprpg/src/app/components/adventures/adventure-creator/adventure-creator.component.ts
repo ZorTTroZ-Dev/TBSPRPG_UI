@@ -8,11 +8,16 @@ import {AdventureTableTypes} from '../../../view_models/adventure-table-types';
 })
 export class AdventureCreatorComponent implements OnInit {
   adventureTableType: string;
+  sidebarLocation: string = null;
 
   constructor() { }
 
   ngOnInit(): void {
     this.adventureTableType = AdventureTableTypes.CREATED_ADVENTURES;
+    this.sidebarLocation = 'adventures';
   }
 
+  updateSidebarLocation(newLocation: string): void {
+    this.sidebarLocation = newLocation;
+  }
 }

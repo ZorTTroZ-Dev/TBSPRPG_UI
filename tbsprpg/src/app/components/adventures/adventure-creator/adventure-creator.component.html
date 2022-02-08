@@ -1,7 +1,10 @@
 <div class="container-fluid">
   <div class="row flex-nowrap">
     <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-      <app-adventure-creator-sidebar></app-adventure-creator-sidebar>
+      <app-adventure-creator-sidebar
+        [location]="sidebarLocation"
+        (sidebarLocationChange)="updateSidebarLocation($event)">
+      </app-adventure-creator-sidebar>
     </div>
     <div class="col py-3">
       <nav aria-label="breadcrumb">
@@ -10,8 +13,13 @@
           <li class="breadcrumb-item active" aria-current="page">Creator</li>
         </ol>
       </nav>
-      <h1>Your Adventures</h1>
-      <app-adventures-table [tableType]="adventureTableType"></app-adventures-table>
+      <div *ngIf="sidebarLocation === 'adventures'">
+        <h1>Your Adventures</h1>
+        <app-adventures-table [tableType]="adventureTableType"></app-adventures-table>
+      </div>
+      <div *ngIf="sidebarLocation === 'new_adventure'">
+        <app-adventure-new></app-adventure-new>
+      </div>
     </div>
   </div>
 </div>

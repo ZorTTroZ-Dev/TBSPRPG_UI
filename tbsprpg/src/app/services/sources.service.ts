@@ -5,12 +5,13 @@ import {Observable} from 'rxjs';
 import {Source} from '../models/source';
 import {catchError} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
+import {NIL} from 'uuid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SourcesService extends BaseService {
-  private sourcesUrl: string;
+  private readonly sourcesUrl: string;
 
   constructor(http: HttpClient, ) {
     super(http);
@@ -39,7 +40,11 @@ export class SourcesService extends BaseService {
         .set('key', key)
         .set('language', language)
     };
-    return this.http.get<Source>(this.sourcesUrl + '/adventure/' + adventureId, options)
+    let sourceUrl = this.sourcesUrl;
+    if (adventureId !== NIL) {
+      sourceUrl += '/adventure/' + adventureId;
+    }
+    return this.http.get<Source>(sourceUrl, options)
       .pipe(
         catchError(this.handleError<Source>('getSourceForAdventureForKey', null))
       );
