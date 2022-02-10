@@ -9,18 +9,20 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       <div class="col" *ngFor="let adventure of adventures">
         <div class="card shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-            <rect width="100%" height="100%" fill="#55595c"></rect>
-            <text x="10%" y="10%" fill="#eceeef" dy=".3em">{{adventure.name}}</text>
-          </svg>
+<!--          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">-->
+<!--            <rect width="100%" height="100%" fill="#55595c"></rect>-->
+<!--            <text x="10%" y="10%" fill="#eceeef" dy=".3em">{{adventure.name}}</text>-->
+<!--          </svg>-->
+          <h2 class="m-2">{{adventure.name}}</h2>
           <div class="card-body">
             <p class="card-text">{{sourceMap.get(adventure.id)}}</p>
             <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button routerLink="/game/{{adventure.id}}" type="button" class="btn btn-sm btn-outline-secondary">Play</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              </div>
-              <small class="text-muted">9 Reviews (5 stars)</small>
+              <button routerLink="/game/{{adventure.id}}" type="button" class="btn btn-dark">Play</button>
+<!--              <div class="btn-group">-->
+<!--                <button routerLink="/game/{{adventure.id}}" type="button" class="btn btn-sm btn-dark">Play</button>-->
+<!--                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
+<!--              </div>-->
+<!--              <small class="text-muted">9 Reviews (5 stars)</small>-->
             </div>
           </div>
         </div>

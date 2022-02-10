@@ -13,6 +13,10 @@
           <input type="checkbox" class="btn-check" id="initial" formControlName="initial" autocomplete="off">
           <label class="btn btn-outline-dark" for="initial">Initial</label><br>
         </div>
+        <div class="mt-2">
+          <input type="checkbox" class="btn-check" id="final" formControlName="final" autocomplete="off">
+          <label class="btn btn-outline-dark" for="final">Final</label><br>
+        </div>
       </div>
       <app-adventure-details-source-edit [form]="locationForm" [label]="sourceLabel"></app-adventure-details-source-edit>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!locationForm.valid">Update</button>
