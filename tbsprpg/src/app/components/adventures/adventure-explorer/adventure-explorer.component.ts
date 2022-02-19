@@ -41,7 +41,7 @@ export class AdventureExplorerComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.add(
-      this.adventureService.getAdventures().subscribe(result => {
+      this.adventureService.getPublishedAdventures().subscribe(result => {
         this.adventures = result;
         for (const adventure of this.adventures) {
           this.adventureSubject.next(adventure);

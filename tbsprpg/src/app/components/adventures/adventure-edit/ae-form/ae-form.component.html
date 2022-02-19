@@ -5,6 +5,10 @@
         <input type="text" class="form-control" id="name" formControlName="name">
         <label for="name">Adventure Name:</label>
       </div>
+      <div class="form-floating mt-2">
+        <input type="date" class="form-control" id="publishDate" formControlName="publishDate">
+        <label for="publishDate">Publish Date:</label>
+      </div>
     </div>
     <app-adventure-details-source-edit
       [sourceFormGroupName]="initialSourceFormGroupName"
