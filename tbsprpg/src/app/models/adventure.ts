@@ -4,4 +4,5 @@ export interface Adventure {
     initialSourceKey: string;
     descriptionSourceKey: string;
     createdByUserId: string;
+    publishDate: Date;
 }

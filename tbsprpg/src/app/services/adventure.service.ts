@@ -26,7 +26,8 @@ export class AdventureService extends BaseService{
       name: 'new adventure',
       descriptionSourceKey: NIL,
       initialSourceKey: NIL,
-      createdByUserId: NIL
+      createdByUserId: NIL,
+      publishDate: new Date()
     };
   }
 
@@ -36,9 +37,12 @@ export class AdventureService extends BaseService{
       name: new FormControl(''),
       initialSourceKey: new FormControl(''),
       descriptionSourceKey: new FormControl(''),
-      createdByUserId: new FormControl('')
+      createdByUserId: new FormControl(''),
+      publishDate: new FormControl('')
     });
     formGroup.setValue(adventure);
+    // set the publishing date to the format that the html input is expecting
+    formGroup.patchValue({publishDate: adventure.publishDate.toString().substring(0, 10)});
     return formGroup;
   }
 
@@ -61,6 +65,13 @@ export class AdventureService extends BaseService{
     .pipe(
       catchError(this.handleError<Adventure[]>('getAdventures', []))
     );
+  }
+
+  getPublishedAdventures(): Observable<Adventure[]> {
+    return this.http.get<Adventure[]>(this.adventuresUrl + '/published')
+      .pipe(
+        catchError(this.handleError<Adventure[]>('getPublishedAdventures', []))
+      );
   }
 
   getAdventureByName(name: string): Observable<Adventure> {
