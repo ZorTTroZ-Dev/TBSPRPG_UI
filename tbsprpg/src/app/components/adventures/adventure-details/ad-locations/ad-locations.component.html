@@ -11,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr routerLink="/adventure-details/{{location.id}}"
+    <tr (click)="updateLocations(location)"
         style="cursor: pointer;" *ngFor="let location of locations">
       <td>{{ location.id }}</td>
       <td>{{ location.name }} <i *ngIf="location.initial" class="fs-4 bi-star-fill"></i></td>
