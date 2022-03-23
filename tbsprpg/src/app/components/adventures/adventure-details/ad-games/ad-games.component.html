@@ -3,16 +3,16 @@
     <thead>
     <tr>
       <th>id</th>
-      <th>user id</th>
+      <th>user email</th>
       <th></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let game of games">
-      <td>{{ game.id }}</td>
-      <td>{{ game.userId }}</td>
+      <td>{{ game.game.id }}</td>
+      <td>{{ game.user.email }}</td>
       <td class="text-end">
-        <a (click)="deleteGame(game)" type="button" class="btn btn-dark mx-2">Delete</a>
+        <a (click)="deleteGame(game.game)" type="button" class="btn btn-dark mx-2">Delete</a>
       </td>
     </tr>
     </tbody>

@@ -3,6 +3,7 @@ import {Adventure} from '../../../../models/adventure';
 import {Subscription} from 'rxjs';
 import {GameService} from '../../../../services/game.service';
 import {Game} from '../../../../models/game';
+import {GameUser} from '../../../../models/gameUser';
 
 @Component({
   selector: 'app-ad-games',
@@ -11,7 +12,7 @@ import {Game} from '../../../../models/game';
 })
 export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
-  games: Game[];
+  games: GameUser[];
   private subscriptions: Subscription = new Subscription();
 
   constructor(private gameService: GameService) { }
@@ -25,7 +26,6 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
       this.subscriptions.add(
         this.gameService.getGamesForAdventure(this.adventure.id).subscribe(games => {
           this.games = games;
-          console.log(games);
         })
       );
     }
