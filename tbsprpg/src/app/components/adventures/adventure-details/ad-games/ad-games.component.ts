@@ -1,9 +1,10 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {GameService} from '../../../../services/game.service';
 import {Game} from '../../../../models/game';
 import {GameUser} from '../../../../models/gameUser';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-ad-games',
@@ -13,21 +14,30 @@ import {GameUser} from '../../../../models/gameUser';
 export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
   games: GameUser[];
+  gameObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private gameService: GameService) { }
-
-  ngOnInit(): void {
+  constructor(private gameService: GameService) {
     this.games = [];
+    this.gameObservable = new Subject<string>();
+
+    this.subscriptions.add(
+      this.gameObservable.pipe(
+        map(adventureId => this.gameService.getGamesForAdventure(adventureId)),
+        tap(response => {
+          response.subscribe(games => {
+            this.games = games;
+          });
+        })
+      ).subscribe()
+    );
   }
+
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.adventure.currentValue) {
-      this.subscriptions.add(
-        this.gameService.getGamesForAdventure(this.adventure.id).subscribe(games => {
-          this.games = games;
-        })
-      );
+      this.gameObservable.next(this.adventure.id);
     }
   }
 
@@ -39,6 +49,7 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.add(
       this.gameService.deleteGame(game).subscribe(() => {
         console.log('game deleted');
+        this.gameObservable.next(this.adventure.id);
       })
     );
   }
