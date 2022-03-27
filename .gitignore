@@ -151,3 +151,4 @@ testem.log
 Thumbs.db
 
 tbsprpg/.angular/*
+tbsprpg/.idea/*
