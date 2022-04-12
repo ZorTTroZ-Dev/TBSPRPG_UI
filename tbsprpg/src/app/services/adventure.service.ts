@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Adventure } from '../models/adventure';
-import { BaseService } from './base.service';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Adventure} from '../models/adventure';
+import {BaseService} from './base.service';
+import {Observable} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 import {Source} from '../models/source';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
@@ -92,6 +92,13 @@ export class AdventureService extends BaseService{
     return this.http.get<Adventure[]>(this.adventuresUrl + '?CreatedBy=' + userId)
       .pipe(
         catchError(this.handleError<Adventure[]>('getAdventuresCreatedBy', []))
+      );
+  }
+
+  deleteAdventure(adventure: Adventure): Observable<any> {
+    return this.http.delete(this.adventuresUrl + '/' + adventure.id)
+      .pipe(
+        catchError(this.handleError<any>('deleteAdventure', null))
       );
   }
 }
