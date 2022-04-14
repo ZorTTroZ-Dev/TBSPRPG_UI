@@ -5,6 +5,8 @@ import {GameService} from '../../../../services/game.service';
 import {Game} from '../../../../models/game';
 import {GameUser} from '../../../../models/gameUser';
 import {map, tap} from 'rxjs/operators';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-ad-games',
@@ -17,7 +19,7 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
   gameObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private gameService: GameService) {
+  constructor(private gameService: GameService, private notificationService: NotificationService) {
     this.games = [];
     this.gameObservable = new Subject<string>();
 
@@ -49,6 +51,11 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.add(
       this.gameService.deleteGame(game).subscribe(() => {
         console.log('game deleted');
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'game deleted'
+        };
+        this.notificationService.postNotification(notification);
         this.gameObservable.next(this.adventure.id);
       })
     );
