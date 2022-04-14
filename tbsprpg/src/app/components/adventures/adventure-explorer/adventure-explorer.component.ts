@@ -24,6 +24,7 @@ export class AdventureExplorerComponent implements OnInit, OnDestroy {
               private sourcesService: SourcesService,
               private settingService: SettingService,
               private userService: UserService) {
+    this.adventures = [];
     this.adventureSubject = new Subject<Adventure>();
   }
 

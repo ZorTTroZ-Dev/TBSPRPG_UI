@@ -25,7 +25,6 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
       this.subscriptions.add(
         this.gameService.getGamesForAdventure(this.adventure.id).subscribe(games => {
           this.games = games;
-          console.log(games);
         })
       );
     }
