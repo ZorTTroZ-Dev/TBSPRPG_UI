@@ -54,7 +54,6 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
             this.routesLoaded.next(null);
           }
           if (locationRoutes.routes !== null && locationRoutes.routes.length > 0) {
-            this.routes = [];
             for (const route of locationRoutes.routes) {
               if (route.timeStamp > this.routeTimeStamp) {
                 this.routeTimeStamp = route.timeStamp;
@@ -116,6 +115,7 @@ export class MovementComponent implements OnInit, OnChanges, OnDestroy {
     // make request to back end to change location
     // the movement buttons should update
     this.mapService.changeLocationViaRoute(this.game.id, routeId).subscribe(() => {
+      this.routes = [];
       this.contentService.pollContent(-1);
       this.mapService.pollRoutes(1);
     });

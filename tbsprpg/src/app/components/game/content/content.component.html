@@ -5,10 +5,8 @@
   <span class="visually-hidden">Loading Content...</span>
 </div>
 <div>
-  <p class="content-item" *ngFor="let item of content">
-    {{contentMap.get(item)}}
-  </p>
-  <p class="spinner-border" role="status" *ngIf="isContentLoading">
+  <div class="content-item" *ngFor="let item of content" [innerHTML]="contentMap.get(item)"></div>
+  <div class="spinner-border" role="status" *ngIf="isContentLoading">
     <span class="visually-hidden">Loading Content...</span>
-  </p>
+  </div>
 </div>

@@ -49,4 +49,21 @@ export class SourcesService extends BaseService {
         catchError(this.handleError<Source>('getSourceForAdventureForKey', null))
       );
   }
+
+  getProcessedSourceForAdventureForKey(adventureId: string,
+                                       key: string, language: string): Observable<Source> {
+    const options = {
+      params: new HttpParams()
+        .set('key', key)
+        .set('language', language)
+    };
+    let sourceUrl = this.sourcesUrl;
+    if (adventureId !== NIL) {
+      sourceUrl += '/adventure/' + adventureId + '/processed';
+    }
+    return this.http.get<Source>(sourceUrl, options)
+      .pipe(
+        catchError(this.handleError<Source>('getProcessedSourceForAdventureForKey', null))
+      );
+  }
 }

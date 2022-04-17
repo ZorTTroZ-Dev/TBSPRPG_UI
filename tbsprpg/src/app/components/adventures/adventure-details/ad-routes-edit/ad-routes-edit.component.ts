@@ -77,7 +77,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.location.currentValue) {
+    if (changes.location.currentValue && this.location.id !== NIL) {
       this.subscriptions.add(
         this.routesService.getRoutesForLocation(this.location.id).subscribe(routes => {
           routes.forEach(route => {
@@ -99,8 +99,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
       routesToPut.push(value.value);
     }
     this.subscriptions.add(
-      this.routesService.updateRoutes(routesToPut).subscribe(result => {
-        console.log(result);
+      this.routesService.updateRoutes(routesToPut).subscribe(() => {
         const notification: Notification = {
           type: NOTIFICATION_TYPE_SUCCESS,
           message: 'routes updated'
