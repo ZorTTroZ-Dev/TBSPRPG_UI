@@ -15,11 +15,15 @@ export class AdLocationsComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: Subscription = new Subscription();
   @Output() sidebarLocationChange = new EventEmitter<string>();
   @Output() adventureLocationChange = new EventEmitter<Location>();
+  dtOptions: DataTables.Settings = {};
 
   constructor(private locationService: LocationService) { }
 
   ngOnInit(): void {
     this.locations = [];
+    this.dtOptions = {
+      order: [[1, 'asc']]
+    };
   }
 
   ngOnDestroy(): void {
