@@ -32,7 +32,7 @@ export class AdventureExplorerComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(
       this.adventureSubject.pipe(
-        switchMap(adventure => this.sourcesService.getSourceForAdventureForKey(
+        switchMap(adventure => this.sourcesService.getProcessedSourceForAdventureForKey(
           adventure.id, adventure.descriptionSourceKey, this.settingService.getLanguage())),
         tap(source => {
           this.sourceMap.set(source.adventureId, source.text);
