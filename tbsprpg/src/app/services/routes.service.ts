@@ -28,7 +28,7 @@ export class RoutesService extends BaseService{
       id: NIL,
       name: 'new route',
       sourceKey: NIL,
-      successSourceKey: NIL,
+      routeTakenSourceKey: NIL,
       locationId: initialLocationId,
       destinationLocationId: NIL,
       timeStamp: 0,
@@ -41,7 +41,7 @@ export class RoutesService extends BaseService{
       id: new FormControl(route.id),
       name: new FormControl(route.name),
       sourceKey: new FormControl(route.sourceKey),
-      successSourceKey: new FormControl(route.successSourceKey),
+      routeTakenSourceKey: new FormControl(route.routeTakenSourceKey),
       locationId: new FormControl(route.locationId),
       destinationLocationId: new FormControl(route.destinationLocationId),
       newDestinationLocationName: new FormControl('')

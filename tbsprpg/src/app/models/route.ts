@@ -2,7 +2,7 @@ export interface Route {
   id: string;
   name: string;
   sourceKey: string;
-  successSourceKey: string;
+  routeTakenSourceKey: string;
   locationId: string;
   destinationLocationId: string;
   timeStamp: number;

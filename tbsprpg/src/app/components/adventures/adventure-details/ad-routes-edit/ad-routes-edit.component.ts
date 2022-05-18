@@ -43,7 +43,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
             this.settingService.getLanguage());
           const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(
             this.location.adventureId,
-            route.successSourceKey,
+            route.routeTakenSourceKey,
             this.settingService.getLanguage());
           forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
             this.routes.push(route);
