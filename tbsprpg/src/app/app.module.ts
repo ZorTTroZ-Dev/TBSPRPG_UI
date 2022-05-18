@@ -52,6 +52,8 @@ import {AdGamesComponent} from './components/adventures/adventure-details/ad-gam
 import {AeFormComponent} from './components/adventures/adventure-edit/ae-form/ae-form.component';
 import {AdventureNewComponent} from './components/adventures/adventure-creator/adventure-new/adventure-new.component';
 import { AdScriptsComponent } from './components/adventures/adventure-details/ad-scripts/ad-scripts.component';
+import { AdRoutesComponent } from './components/adventures/adventure-details/ad-routes/ad-routes.component';
+import { AdSourcesComponent } from './components/adventures/adventure-details/ad-sources/ad-sources.component';
 
 // directives
 import {FocusOnShowDirectiveDirective} from './directives/focus-on-show-directive.directive';
@@ -91,6 +93,8 @@ import {PasswordValidatorDirective} from './directives/password-validator.direct
     AeFormComponent,
     AdventureNewComponent,
     AdScriptsComponent,
+    AdRoutesComponent,
+    AdSourcesComponent,
   ],
   imports: [
     BrowserModule,
