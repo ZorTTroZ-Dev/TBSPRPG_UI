@@ -46,6 +46,14 @@
       </a>
     </li>
   </ul>
+  <ul class="nav nav-pills flex-column" id="scripts">
+    <li class="nav-item">
+      <a (click)="updateSidebarLocation('scripts')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'scripts', 'text-light': location !== 'scripts'}">
+        <i class="fs-4 bi-code-square"></i> <span class="ms-2 d-none d-sm-inline">Scripts</span>
+      </a>
+    </li>
+  </ul>
   <ul class="nav nav-pills flex-column mb-auto" id="games">
     <li class="nav-item">
       <a (click)="updateSidebarLocation('games')" type="button" class="nav-link"

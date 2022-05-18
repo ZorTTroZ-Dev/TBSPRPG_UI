@@ -51,6 +51,7 @@ import {AdventureExplorerComponent} from './components/adventures/adventure-expl
 import {AdGamesComponent} from './components/adventures/adventure-details/ad-games/ad-games.component';
 import {AeFormComponent} from './components/adventures/adventure-edit/ae-form/ae-form.component';
 import {AdventureNewComponent} from './components/adventures/adventure-creator/adventure-new/adventure-new.component';
+import { AdScriptsComponent } from './components/adventures/adventure-details/ad-scripts/ad-scripts.component';
 
 // directives
 import {FocusOnShowDirectiveDirective} from './directives/focus-on-show-directive.directive';
@@ -89,6 +90,7 @@ import {PasswordValidatorDirective} from './directives/password-validator.direct
     PasswordValidatorDirective,
     AeFormComponent,
     AdventureNewComponent,
+    AdScriptsComponent,
   ],
   imports: [
     BrowserModule,
