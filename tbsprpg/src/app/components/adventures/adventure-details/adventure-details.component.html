@@ -35,7 +35,14 @@
         <app-ad-games [adventure]="adventure"></app-ad-games>
       </div>
       <div *ngIf="sidebarLocation === 'scripts'">
-        <app-ad-scripts></app-ad-scripts>
+        <app-ad-scripts
+          [adventure]="adventure"
+          (sidebarLocationChange)="updateSidebarLocation($event)"
+          (adventureScriptChange)="updateAdventureScript($event)"
+        ></app-ad-scripts>
+      </div>
+      <div *ngIf="sidebarLocation === 'script-edit'">
+        <app-ad-script-edit [script]="script"></app-ad-script-edit>
       </div>
       <div *ngIf="sidebarLocation === 'routes'">
         <app-ad-routes></app-ad-routes>

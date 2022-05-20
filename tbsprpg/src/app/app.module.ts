@@ -58,6 +58,7 @@ import { AdSourcesComponent } from './components/adventures/adventure-details/ad
 // directives
 import {FocusOnShowDirectiveDirective} from './directives/focus-on-show-directive.directive';
 import {PasswordValidatorDirective} from './directives/password-validator.directive';
+import { AdScriptEditComponent } from './components/adventures/adventure-details/ad-script-edit/ad-script-edit.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +96,7 @@ import {PasswordValidatorDirective} from './directives/password-validator.direct
     AdScriptsComponent,
     AdRoutesComponent,
     AdSourcesComponent,
+    AdScriptEditComponent,
   ],
   imports: [
     BrowserModule,
