@@ -8,3 +8,5 @@ export interface Script {
 }
 
 export const LUA_SCRIPT_TYPE = 'lua';
+
+export const SCRIPT_TYPES: string[] = [LUA_SCRIPT_TYPE];

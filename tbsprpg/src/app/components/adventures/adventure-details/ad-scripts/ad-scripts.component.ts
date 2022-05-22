@@ -14,6 +14,7 @@ export class AdScriptsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
   @Output() sidebarLocationChange = new EventEmitter<string>();
   @Output() adventureScriptChange = new EventEmitter<Script>();
+  @Output() adventureScriptsChange = new EventEmitter<Script[]>();
   scripts: Script[];
   private subscriptions: Subscription = new Subscription();
   scriptObservable: Subject<string>;
@@ -26,7 +27,6 @@ export class AdScriptsComponent implements OnInit, OnChanges, OnDestroy {
       this.scriptObservable.pipe(
         map(adventureId => this.scriptService.getScriptsForAdventure(adventureId)),
         tap(response => {
-          console.log(response);
           response.subscribe(scripts => {
             this.scripts = scripts;
           });
@@ -51,6 +51,7 @@ export class AdScriptsComponent implements OnInit, OnChanges, OnDestroy {
   newScript(): void {
     this.updateSidebarLocation('script-edit');
     this.updateAdventureScript(this.scriptService.createNewScript(this.adventure.id));
+    this.adventureScriptsChange.emit(this.scripts);
   }
 
   updateSidebarLocation(newLocation: string): void {

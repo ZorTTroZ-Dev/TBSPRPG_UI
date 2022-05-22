@@ -18,6 +18,7 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
   adventure: Adventure;
   location: Location;
   script: Script;
+  scripts: Script[];
   sidebarLocation: string = null;
 
   constructor(private route: ActivatedRoute,
@@ -69,5 +70,9 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
 
   updateAdventureScript(script: Script): void {
     this.script = script;
+  }
+
+  updateAdventureScripts(scripts: Script[]): void {
+    this.scripts = scripts;
   }
 }
