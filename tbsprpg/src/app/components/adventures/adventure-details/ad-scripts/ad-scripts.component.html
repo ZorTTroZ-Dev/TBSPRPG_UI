@@ -1,3 +1,24 @@
 <div class="mb-3 float-end">
   <a (click)="newScript()" type="button" class="btn btn-dark">New Script</a>
 </div>
+<div *ngIf="scripts.length > 0">
+  <table datatable class="row-border hover">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr (click)="updateScript(script)" style="cursor: pointer;" *ngFor="let script of scripts">
+      <td>{{ script.id }}</td>
+      <td>{{ script.name }}</td>
+      <td class="text-end">
+        <a (click)="updateScript(script)" type="button" class="btn btn-dark">Edit</a>
+        <a type="button" class="btn btn-dark mx-2">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

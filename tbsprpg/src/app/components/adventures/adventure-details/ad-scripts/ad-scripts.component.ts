@@ -48,6 +48,12 @@ export class AdScriptsComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  updateScript(script: Script): void {
+    this.updateSidebarLocation('script-edit');
+    this.updateAdventureScript(script);
+    this.adventureScriptsChange.emit(this.scripts);
+  }
+
   newScript(): void {
     this.updateSidebarLocation('script-edit');
     this.updateAdventureScript(this.scriptService.createNewScript(this.adventure.id));

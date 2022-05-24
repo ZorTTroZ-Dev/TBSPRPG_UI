@@ -13,6 +13,9 @@ import {Script, SCRIPT_TYPES} from '../../../../models/script';
 import {FormGroup} from '@angular/forms';
 import {ScriptService} from '../../../../services/script.service';
 import * as ace from 'ace-builds';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {Subscription} from 'rxjs';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-ad-script-edit',
@@ -24,11 +27,12 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   @Input() scripts: Script[];
   scriptForm: FormGroup;
   scriptTypes: string[] = SCRIPT_TYPES;
+  private subscriptions: Subscription = new Subscription();
 
   @ViewChild('editor') private editor: ElementRef<HTMLElement>;
   aceEditor: ace.Ace.Editor;
 
-  constructor(private scriptService: ScriptService) { }
+  constructor(private scriptService: ScriptService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -40,6 +44,7 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   ngAfterViewInit(): void {
@@ -58,6 +63,15 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.scriptForm.patchValue({
       content: this.aceEditor.getValue()
     });
-    console.log(this.scriptForm.value);
+    // console.log(this.scriptForm.value);
+    this.subscriptions.add(
+      this.scriptService.updateScript(this.scriptForm.value).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'script updated'
+        };
+        this.notificationService.postNotification(notification);
+      })
+    );
   }
 }

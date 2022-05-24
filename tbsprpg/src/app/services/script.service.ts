@@ -51,4 +51,12 @@ export class ScriptService extends BaseService {
         catchError(this.handleError<Script[]>('getScriptsForAdventure', null))
       );
   }
+
+  updateScript(scriptData: any): Observable<any> {
+    return this.http.put<any>(this.scriptsUrl, {
+      script: scriptData
+    }).pipe(
+      catchError(this.handleError<any>('updateScript', null))
+    );
+  }
 }
