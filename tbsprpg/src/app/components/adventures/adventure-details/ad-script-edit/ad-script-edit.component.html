@@ -16,8 +16,8 @@
           <label for="type">Type:</label>
         </div>
         <div class="form-floating mt-2">
-          <select multiple class="form-select" id="includes">
-            <option *ngFor="let script of scripts" [value]="script.id">{{script.name}}</option>
+          <select multiple class="form-select" id="includes" formControlName="includes">
+            <option *ngFor="let script of scripts" [value]="script" [selected]="includedIds.includes(script.id)">{{script.name}}</option>
           </select>
           <label for="includes">Includes:</label>
         </div>

@@ -26,6 +26,7 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   @Input() script: Script;
   @Input() scripts: Script[];
   scriptForm: FormGroup;
+  includedIds: string[];
   scriptTypes: string[] = SCRIPT_TYPES;
   private subscriptions: Subscription = new Subscription();
 
@@ -40,6 +41,7 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.script.currentValue) {
       this.scriptForm = this.scriptService.createScriptFormGroup(this.script);
+      this.includedIds = this.scriptForm.value.includes.map(item => item.id);
     }
   }
 
