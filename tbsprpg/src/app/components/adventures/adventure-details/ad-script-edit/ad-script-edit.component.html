@@ -16,11 +16,21 @@
           <label for="type">Type:</label>
         </div>
         <div class="form-floating mt-2">
-          <select multiple class="form-select" id="includes" formControlName="includes">
-            <option *ngFor="let script of scripts" [value]="script" [selected]="includedIds.includes(script.id)">{{script.name}}</option>
+          <select class="form-select" id="selectIncludes" formControlName="includeSelect" (change)="includeScript()">
+            <option *ngFor="let script of scripts" [value]="script.id">
+              {{script.name}}
+            </option>
           </select>
-          <label for="includes">Includes:</label>
+          <label for="selectIncludes">Select Script to Include:</label>
         </div>
+        <div class="form-floating mt-2">
+          <span id="includes"
+                *ngFor="let script of script.includes"
+                class="badge rounded-pill bg-dark fs-6">
+            {{script.name}} <i (click)="removeScript(script.id)" class="bi-x" style="cursor:pointer;"></i>
+          </span>
+        </div>
+        <br>
         <div class="form-floating mt-2">
           <div class="app-ace-editor" #editor style="height: 500px;"></div>
         </div>

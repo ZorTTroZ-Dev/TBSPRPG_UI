@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {Script, SCRIPT_TYPES} from '../../../../models/script';
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {ScriptService} from '../../../../services/script.service';
 import * as ace from 'ace-builds';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
@@ -26,7 +26,6 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   @Input() script: Script;
   @Input() scripts: Script[];
   scriptForm: FormGroup;
-  includedIds: string[];
   scriptTypes: string[] = SCRIPT_TYPES;
   private subscriptions: Subscription = new Subscription();
 
@@ -41,7 +40,7 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.script.currentValue) {
       this.scriptForm = this.scriptService.createScriptFormGroup(this.script);
-      this.includedIds = this.scriptForm.value.includes.map(item => item.id);
+      this.scriptForm.addControl('includeSelect', new FormControl(''));
     }
   }
 
@@ -63,7 +62,8 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   updateScript(): void {
     this.scriptForm.patchValue({
-      content: this.aceEditor.getValue()
+      content: this.aceEditor.getValue(),
+      includes: this.script.includes
     });
     // console.log(this.scriptForm.value);
     this.subscriptions.add(
@@ -75,5 +75,14 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
         this.notificationService.postNotification(notification);
       })
     );
+  }
+
+  includeScript(): void {
+    const includeId = this.scriptForm.value.includeSelect;
+    this.script.includes.push(this.scripts.find(script => script.id === includeId));
+  }
+
+  removeScript(scriptId: string): void {
+    this.script.includes = this.script.includes.filter(script => script.id !== scriptId);
   }
 }
