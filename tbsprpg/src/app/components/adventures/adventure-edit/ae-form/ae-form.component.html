@@ -9,6 +9,22 @@
         <input type="date" class="form-control" id="publishDate" formControlName="publishDate">
         <label for="publishDate">Publish Date:</label>
       </div>
+      <div class="form-floating mt-2" *ngIf="scripts">
+        <select class="form-select" id="initializationScriptId" formControlName="initializationScriptId">
+          <option *ngFor="let script of scripts" [value]="script.id">
+            {{script.name}}
+          </option>
+        </select>
+        <label for="initializationScriptId">Initialization Script:</label>
+      </div>
+      <div class="form-floating mt-2" *ngIf="scripts">
+        <select class="form-select" id="terminationScriptId" formControlName="terminationScriptId">
+          <option *ngFor="let script of scripts" [value]="script.id">
+            {{script.name}}
+          </option>
+        </select>
+        <label for="terminationScriptId">Termination Script:</label>
+      </div>
     </div>
     <app-adventure-details-source-edit
       [sourceFormGroupName]="initialSourceFormGroupName"

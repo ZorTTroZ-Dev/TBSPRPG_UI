@@ -8,6 +8,7 @@ import {SourcesService} from '../../../../services/sources.service';
 import {SettingService} from '../../../../services/setting.service';
 import {AdventureService} from '../../../../services/adventure.service';
 import {NotificationService} from '../../../../services/notification.service';
+import {Script} from '../../../../models/script';
 
 @Component({
   selector: 'app-ae-form',
@@ -16,6 +17,7 @@ import {NotificationService} from '../../../../services/notification.service';
 })
 export class AeFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Input() scripts: Script[];
   @Output() editAdventureChange = new EventEmitter<Adventure>();
   adventureForm: FormGroup;
   sourceLabel = 'Initial Adventure Content';
