@@ -11,6 +11,7 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 import {NIL} from 'uuid';
 import {SettingService} from '../../../../services/setting.service';
+import {Script} from '../../../../models/script';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
@@ -19,6 +20,7 @@ import {SettingService} from '../../../../services/setting.service';
 })
 export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
+  @Input() scripts: Script[];
   private subscriptions: Subscription = new Subscription();
   routeLoaded: Subject<Route>;
   routesFormArray: FormGroup[] = [];

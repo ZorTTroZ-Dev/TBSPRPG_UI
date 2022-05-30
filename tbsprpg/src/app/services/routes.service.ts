@@ -32,7 +32,8 @@ export class RoutesService extends BaseService{
       locationId: initialLocationId,
       destinationLocationId: NIL,
       timeStamp: 0,
-      source: ''
+      source: '',
+      routeTakenScriptId: null
     };
   }
 
@@ -44,7 +45,8 @@ export class RoutesService extends BaseService{
       routeTakenSourceKey: new FormControl(route.routeTakenSourceKey),
       locationId: new FormControl(route.locationId),
       destinationLocationId: new FormControl(route.destinationLocationId),
-      newDestinationLocationName: new FormControl('')
+      newDestinationLocationName: new FormControl(''),
+      routeTakenScriptId: new FormControl(route.routeTakenScriptId)
     });
   }
 

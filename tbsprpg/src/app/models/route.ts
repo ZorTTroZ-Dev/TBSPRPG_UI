@@ -7,4 +7,5 @@ export interface Route {
   destinationLocationId: string;
   timeStamp: number;
   source: string;
+  routeTakenScriptId: string;
 }
