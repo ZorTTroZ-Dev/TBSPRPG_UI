@@ -17,6 +17,24 @@
           <input type="checkbox" class="btn-check" id="final" formControlName="final" autocomplete="off">
           <label class="btn btn-outline-dark" for="final">Final</label><br>
         </div>
+        <div class="form-floating mt-2" *ngIf="scripts">
+          <select class="form-select" id="enterScriptId" formControlName="enterScriptId">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let script of scripts" [value]="script.id">
+              {{script.name}}
+            </option>
+          </select>
+          <label for="enterScriptId">Enter Script:</label>
+        </div>
+        <div class="form-floating mt-2" *ngIf="scripts">
+          <select class="form-select" id="exitScriptId" formControlName="exitScriptId">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let script of scripts" [value]="script.id">
+              {{script.name}}
+            </option>
+          </select>
+          <label for="exitScriptId">Exit Script:</label>
+        </div>
       </div>
       <app-adventure-details-source-edit [form]="locationForm" [label]="sourceLabel"></app-adventure-details-source-edit>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!locationForm.valid">Update</button>

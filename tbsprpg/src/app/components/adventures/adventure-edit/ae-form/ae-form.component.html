@@ -11,6 +11,7 @@
       </div>
       <div class="form-floating mt-2" *ngIf="scripts">
         <select class="form-select" id="initializationScriptId" formControlName="initializationScriptId">
+          <option [ngValue]="null"></option>
           <option *ngFor="let script of scripts" [value]="script.id">
             {{script.name}}
           </option>
@@ -19,6 +20,7 @@
       </div>
       <div class="form-floating mt-2" *ngIf="scripts">
         <select class="form-select" id="terminationScriptId" formControlName="terminationScriptId">
+          <option [ngValue]="null"></option>
           <option *ngFor="let script of scripts" [value]="script.id">
             {{script.name}}
           </option>

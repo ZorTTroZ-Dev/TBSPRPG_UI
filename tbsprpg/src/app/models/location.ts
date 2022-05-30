@@ -5,4 +5,6 @@ export interface Location {
   final: boolean;
   sourceKey: string;
   adventureId: string;
+  enterScriptId: string;
+  exitScriptId: string;
 }
