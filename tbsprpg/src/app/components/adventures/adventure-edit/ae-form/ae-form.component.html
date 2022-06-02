@@ -30,11 +30,13 @@
     </div>
     <app-adventure-details-source-edit
       [sourceFormGroupName]="initialSourceFormGroupName"
-      [form]="adventureForm" [label]="sourceLabel">
+      [form]="adventureForm" [label]="sourceLabel"
+      [scripts]="scripts">
     </app-adventure-details-source-edit>
     <app-adventure-details-source-edit
       [sourceFormGroupName]="descriptionSourceFormGroupName"
-      [form]="adventureForm" [label]="descriptionSourceLabel">
+      [form]="adventureForm" [label]="descriptionSourceLabel"
+      [scripts]="scripts">
     </app-adventure-details-source-edit>
     <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!adventureForm.valid">Update</button>
   </form>

@@ -39,7 +39,7 @@ export class AeFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.adventure.currentValue) {
+    if (changes.adventure && changes.adventure.currentValue) {
       this.subscriptions.add(
         of(this.adventure).pipe(
           tap(adventure => {

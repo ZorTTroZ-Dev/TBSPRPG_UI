@@ -79,7 +79,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.location.currentValue && this.location.id !== NIL) {
+    if (changes.location && changes.location.currentValue && this.location.id !== NIL) {
       this.subscriptions.add(
         this.routesService.getRoutesForLocation(this.location.id).subscribe(routes => {
           routes.forEach(route => {

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
+import {Script} from '../../../../models/script';
 
 @Component({
   selector: 'app-adventure-details-source-edit',
@@ -10,6 +11,7 @@ export class AdSourceEditComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() label: string;
   @Input() sourceFormGroupName: string;
+  @Input() scripts: Script[];
   defaultLabel = 'Source Text';
   defaultFormGroupName = 'source';
 

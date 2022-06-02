@@ -11,5 +11,14 @@
       <textarea class="form-control" id="content" style="height: 100px" formControlName="text"></textarea>
       <label for="content">{{label}}</label>
     </div>
+    <div class="form-floating mt-2" *ngIf="scripts">
+      <select class="form-select" id="scriptId" formControlName="scriptId">
+        <option [ngValue]="null"></option>
+        <option *ngFor="let script of scripts" [value]="script.id">
+          {{script.name}}
+        </option>
+      </select>
+      <label for="scriptId">{{label}} Source Script:</label>
+    </div>
   </div>
 </div>

@@ -35,7 +35,7 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.location.currentValue) {
+    if (changes.location && changes.location.currentValue) {
       // look up the content for the location source key
       this.subscriptions.add(
         this.sourcesService.getSourceForAdventureForKey(this.location.adventureId,
