@@ -11,12 +11,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr (click)="updateScript(script)" style="cursor: pointer;" *ngFor="let script of scripts">
-      <td>{{ script.id }}</td>
-      <td>{{ script.name }}</td>
+    <tr *ngFor="let script of scripts">
+      <td (click)="updateScript(script)" style="cursor: pointer;">{{ script.id }}</td>
+      <td (click)="updateScript(script)" style="cursor: pointer;">{{ script.name }}</td>
       <td class="text-end">
         <a (click)="updateScript(script)" type="button" class="btn btn-dark">Edit</a>
-        <a type="button" class="btn btn-dark mx-2">Delete</a>
+        <a (click)="deleteScript(script)" type="button" class="btn btn-dark mx-2">Delete</a>
       </td>
     </tr>
     </tbody>

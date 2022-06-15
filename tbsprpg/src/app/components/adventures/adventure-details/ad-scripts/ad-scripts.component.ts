@@ -4,6 +4,8 @@ import {Script} from '../../../../models/script';
 import {Subject, Subscription} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {ScriptService} from '../../../../services/script.service';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-ad-scripts',
@@ -19,7 +21,7 @@ export class AdScriptsComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: Subscription = new Subscription();
   scriptObservable: Subject<string>;
 
-  constructor(private scriptService: ScriptService) {
+  constructor(private scriptService: ScriptService, private notificationService: NotificationService) {
     this.scripts = [];
     this.scriptObservable = new Subject<string>();
 
@@ -66,5 +68,20 @@ export class AdScriptsComponent implements OnInit, OnChanges, OnDestroy {
 
   updateAdventureScript(script: Script): void {
     this.adventureScriptChange.emit(script);
+  }
+
+  deleteScript(script: Script): void {
+    this.subscriptions.add(
+      this.scriptService.deleteScript(script).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'script deleted'
+        };
+        this.notificationService.postNotification(notification);
+        this.scripts = this.scripts.filter(s => {
+          return s.id !== script.id;
+        });
+      })
+    );
   }
 }

@@ -59,4 +59,11 @@ export class ScriptService extends BaseService {
       catchError(this.handleError<any>('updateScript', null))
     );
   }
+
+  deleteScript(script: Script): Observable<any> {
+    return this.http.delete(this.scriptsUrl + '/' + script.id)
+      .pipe(
+        catchError(this.handleError<any>('deleteScript', null))
+      );
+  }
 }
