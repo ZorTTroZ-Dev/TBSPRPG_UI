@@ -5,6 +5,7 @@ export interface Source {
   adventureId: string;
   text: string;
   language: string;
+  scriptId: string;
 }
 
 export const SOURCE_KEYS = 'sourceKeys';

@@ -5,6 +5,7 @@ import {AdventureService} from '../../../services/adventure.service';
 import {map, switchMap} from 'rxjs/operators';
 import {Adventure} from '../../../models/adventure';
 import {Location} from '../../../models/location';
+import {Script} from '../../../models/script';
 
 @Component({
   selector: 'app-adventure-details',
@@ -16,6 +17,8 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   adventure: Adventure;
   location: Location;
+  script: Script;
+  scripts: Script[];
   sidebarLocation: string = null;
 
   constructor(private route: ActivatedRoute,
@@ -63,5 +66,13 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
 
   updateAdventureEdit(adventure: Adventure): void {
     this.adventure = adventure;
+  }
+
+  updateAdventureScript(script: Script): void {
+    this.script = script;
+  }
+
+  updateAdventureScripts(scripts: Script[]): void {
+    this.scripts = scripts;
   }
 }

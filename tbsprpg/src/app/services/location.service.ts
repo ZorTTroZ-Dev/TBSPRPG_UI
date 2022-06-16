@@ -27,7 +27,9 @@ export class LocationService extends BaseService{
       adventureId,
       sourceKey: NIL,
       initial: false,
-      final: false
+      final: false,
+      enterScriptId: null,
+      exitScriptId: null
     };
   }
 
@@ -38,7 +40,9 @@ export class LocationService extends BaseService{
       initial: new FormControl(''),
       final: new FormControl(''),
       sourceKey: new FormControl(''),
-      adventureId: new FormControl('')
+      adventureId: new FormControl(''),
+      enterScriptId: new FormControl(''),
+      exitScriptId: new FormControl('')
     });
     formGroup.setValue(location);
     return formGroup;

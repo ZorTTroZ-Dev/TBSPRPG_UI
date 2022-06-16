@@ -42,14 +42,14 @@ export class ContentService extends BaseService {
   }
 
   getSourceForSourceKey(gameId: string, sourceKey: string): Observable<Source> {
-    return this.http.get<Source>(this.contentUrl + '/' + gameId + '/source/' + sourceKey)
+    return this.http.get<Source>(this.contentUrl + '/' + gameId + '/text/' + sourceKey)
       .pipe(
         catchError(this.handleError<Source>('getSourceForSourceKey', null))
       );
   }
 
   getProcessedSourceForSourceKey(gameId: string, sourceKey: string): Observable<Source> {
-    return this.http.get<Source>(this.contentUrl + '/' + gameId + '/source/' + sourceKey + '/processed')
+    return this.http.get<Source>(this.contentUrl + '/' + gameId + '/text/' + sourceKey + '/processed')
       .pipe(
         catchError(this.handleError<Source>('getProcessedSourceForSourceKey', null))
       );

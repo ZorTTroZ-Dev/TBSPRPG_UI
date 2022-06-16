@@ -25,7 +25,8 @@ export class SourcesService extends BaseService {
       key: new FormControl(''),
       adventureId: new FormControl(''),
       text: new FormControl(''),
-      language: new FormControl('')
+      language: new FormControl(''),
+      scriptId: new FormControl('')
     });
     if (source !== null) {
       formGroup.setValue(source);
