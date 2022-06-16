@@ -11,6 +11,7 @@
             [form]="routeForm"
             [label]="routeSourceLabel"
             [sourceFormGroupName]="routeSourceFormGroupName"
+            [scripts]="scripts"
           ></app-adventure-details-source-edit>
         </div>
         <div class="col">
@@ -30,10 +31,20 @@
       </div>
       <div class="row">
         <div class="col">
+          <div class="form-floating mt-2" *ngIf="scripts">
+            <select class="form-select" id="routeTakenScriptId" formControlName="routeTakenScriptId">
+              <option [ngValue]="null"></option>
+              <option *ngFor="let script of scripts" [value]="script.id">
+                {{script.name}}
+              </option>
+            </select>
+            <label for="routeTakenScriptId">Route Taken Script:</label>
+          </div>
           <app-adventure-details-source-edit
             [form]="routeForm"
             [label]="routeSourceSuccessLabel"
             [sourceFormGroupName]="routeSourceSuccessFormGroupName"
+            [scripts]="scripts"
           ></app-adventure-details-source-edit>
         </div>
       </div>

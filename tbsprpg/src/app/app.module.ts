@@ -51,10 +51,14 @@ import {AdventureExplorerComponent} from './components/adventures/adventure-expl
 import {AdGamesComponent} from './components/adventures/adventure-details/ad-games/ad-games.component';
 import {AeFormComponent} from './components/adventures/adventure-edit/ae-form/ae-form.component';
 import {AdventureNewComponent} from './components/adventures/adventure-creator/adventure-new/adventure-new.component';
+import { AdScriptsComponent } from './components/adventures/adventure-details/ad-scripts/ad-scripts.component';
+import { AdRoutesComponent } from './components/adventures/adventure-details/ad-routes/ad-routes.component';
+import { AdSourcesComponent } from './components/adventures/adventure-details/ad-sources/ad-sources.component';
 
 // directives
 import {FocusOnShowDirectiveDirective} from './directives/focus-on-show-directive.directive';
 import {PasswordValidatorDirective} from './directives/password-validator.directive';
+import { AdScriptEditComponent } from './components/adventures/adventure-details/ad-script-edit/ad-script-edit.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +93,10 @@ import {PasswordValidatorDirective} from './directives/password-validator.direct
     PasswordValidatorDirective,
     AeFormComponent,
     AdventureNewComponent,
+    AdScriptsComponent,
+    AdRoutesComponent,
+    AdSourcesComponent,
+    AdScriptEditComponent,
   ],
   imports: [
     BrowserModule,

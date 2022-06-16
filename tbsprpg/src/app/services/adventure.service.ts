@@ -27,7 +27,9 @@ export class AdventureService extends BaseService{
       descriptionSourceKey: NIL,
       initialSourceKey: NIL,
       createdByUserId: NIL,
-      publishDate: new Date()
+      publishDate: new Date(),
+      initializationScriptId: null,
+      terminationScriptId: null
     };
   }
 
@@ -38,7 +40,9 @@ export class AdventureService extends BaseService{
       initialSourceKey: new FormControl(''),
       descriptionSourceKey: new FormControl(''),
       createdByUserId: new FormControl(''),
-      publishDate: new FormControl('')
+      publishDate: new FormControl(''),
+      initializationScriptId: new FormControl(''),
+      terminationScriptId: new FormControl('')
     });
     formGroup.setValue(adventure);
     // set the publishing date to the format that the html input is expecting

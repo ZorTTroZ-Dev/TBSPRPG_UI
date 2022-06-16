@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Edit Script</h3>
+  </div>
+  <div class="card-body" *ngIf="scriptForm">
+    <form [formGroup]="scriptForm" (ngSubmit)="updateScript()">
+      <div>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <label for="name">Name:</label>
+        </div>
+        <div class="form-floating mt-2">
+          <select class="form-select" id="type">
+            <option *ngFor="let type of scriptTypes" [value]="type">{{type}}</option>
+          </select>
+          <label for="type">Type:</label>
+        </div>
+        <div class="form-floating mt-2">
+          <select class="form-select" id="selectIncludes" formControlName="includeSelect" (change)="includeScript()">
+            <option *ngFor="let script of scripts" [value]="script.id">
+              {{script.name}}
+            </option>
+          </select>
+          <label for="selectIncludes">Select Script to Include:</label>
+        </div>
+        <div class="form-floating mt-2">
+          <span id="includes"
+                *ngFor="let script of script.includes"
+                class="badge rounded-pill bg-dark fs-6">
+            {{script.name}} <i (click)="removeScript(script.id)" class="bi-x" style="cursor:pointer;"></i>
+          </span>
+        </div>
+        <br>
+        <div class="form-floating mt-2">
+          <div class="app-ace-editor" #editor style="height: 500px;"></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!scriptForm.valid">Update</button>
+    </form>
+  </div>
+</div>

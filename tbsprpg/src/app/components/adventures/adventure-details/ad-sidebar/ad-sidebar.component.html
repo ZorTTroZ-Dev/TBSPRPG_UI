@@ -32,7 +32,7 @@
   </ul>
   <ul class="nav nav-pills flex-column" id="routes">
     <li class="nav-item">
-      <a routerLink="/adventure-details-routes" type="button" class="nav-link text-light"
+      <a (click)="updateSidebarLocation('routes')" type="button" class="nav-link"
          [ngClass]="{'bg-light text-dark': location === 'routes', 'text-light': location !== 'routes'}">
         <i class="fs-4 bi-compass"></i> <span class="ms-2 d-none d-sm-inline">Routes</span>
       </a>
@@ -40,9 +40,18 @@
   </ul>
   <ul class="nav nav-pills flex-column" id="sources">
     <li class="nav-item">
-      <a routerLink="/adventure-details-sources" type="button" class="nav-link text-light"
+      <a (click)="updateSidebarLocation('sources')" type="button" class="nav-link"
          [ngClass]="{'bg-light text-dark': location === 'sources', 'text-light': location !== 'sources'}">
         <i class="fs-4 bi-blockquote-left"></i> <span class="ms-2 d-none d-sm-inline">Sources</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills flex-column" id="scripts">
+    <li class="nav-item">
+      <a (click)="updateSidebarLocation('scripts')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'scripts' || location === 'script-edit',
+          'text-light': location !== 'scripts' && location !== 'script-edit'}">
+        <i class="fs-4 bi-code-square"></i> <span class="ms-2 d-none d-sm-inline">Scripts</span>
       </a>
     </li>
   </ul>

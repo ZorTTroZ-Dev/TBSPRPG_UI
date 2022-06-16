@@ -11,6 +11,7 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 import {NIL} from 'uuid';
 import {SettingService} from '../../../../services/setting.service';
+import {Script} from '../../../../models/script';
 
 @Component({
   selector: 'app-adventure-details-routes-edit',
@@ -19,6 +20,7 @@ import {SettingService} from '../../../../services/setting.service';
 })
 export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
+  @Input() scripts: Script[];
   private subscriptions: Subscription = new Subscription();
   routeLoaded: Subject<Route>;
   routesFormArray: FormGroup[] = [];
@@ -43,7 +45,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
             this.settingService.getLanguage());
           const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(
             this.location.adventureId,
-            route.successSourceKey,
+            route.routeTakenSourceKey,
             this.settingService.getLanguage());
           forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
             this.routes.push(route);
@@ -77,7 +79,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.location.currentValue && this.location.id !== NIL) {
+    if (changes.location && changes.location.currentValue && this.location.id !== NIL) {
       this.subscriptions.add(
         this.routesService.getRoutesForLocation(this.location.id).subscribe(routes => {
           routes.forEach(route => {
