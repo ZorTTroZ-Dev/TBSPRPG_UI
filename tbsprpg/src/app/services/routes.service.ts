@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Route} from '../models/route';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {NIL} from 'uuid';
 import {Source} from '../models/source';
 import {SourcesService} from './sources.service';
@@ -37,21 +37,21 @@ export class RoutesService extends BaseService{
     };
   }
 
-  createFormGroupForRoute(route: Route): FormGroup {
-    return new FormGroup({
-      id: new FormControl(route.id),
-      name: new FormControl(route.name),
-      sourceKey: new FormControl(route.sourceKey),
-      routeTakenSourceKey: new FormControl(route.routeTakenSourceKey),
-      locationId: new FormControl(route.locationId),
-      destinationLocationId: new FormControl(route.destinationLocationId),
-      newDestinationLocationName: new FormControl(''),
-      routeTakenScriptId: new FormControl(route.routeTakenScriptId)
+  createFormGroupForRoute(route: Route): UntypedFormGroup {
+    return new UntypedFormGroup({
+      id: new UntypedFormControl(route.id),
+      name: new UntypedFormControl(route.name),
+      sourceKey: new UntypedFormControl(route.sourceKey),
+      routeTakenSourceKey: new UntypedFormControl(route.routeTakenSourceKey),
+      locationId: new UntypedFormControl(route.locationId),
+      destinationLocationId: new UntypedFormControl(route.destinationLocationId),
+      newDestinationLocationName: new UntypedFormControl(''),
+      routeTakenScriptId: new UntypedFormControl(route.routeTakenScriptId)
     });
   }
 
-  createFormGroupForRouteWithSource(route: Route, sourceKey: Source, successSourceKey: Source): FormGroup {
-    return new FormGroup({
+  createFormGroupForRouteWithSource(route: Route, sourceKey: Source, successSourceKey: Source): UntypedFormGroup {
+    return new UntypedFormGroup({
       route: this.createFormGroupForRoute(route),
       [this.routeSourceFormGroupName]: this.sourcesService.createFormGroupForSource(sourceKey),
       [this.routeSourceSuccessFormGroupName]: this.sourcesService.createFormGroupForSource(successSourceKey)

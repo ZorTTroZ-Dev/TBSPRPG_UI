@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {Script} from '../../../../models/script';
 
 @Component({
@@ -8,7 +8,7 @@ import {Script} from '../../../../models/script';
   styleUrls: ['./ad-source-edit.component.scss']
 })
 export class AdSourceEditComponent implements OnInit {
-  @Input() form: FormGroup;
+  @Input() form: UntypedFormGroup;
   @Input() label: string;
   @Input() sourceFormGroupName: string;
   @Input() scripts: Script[];

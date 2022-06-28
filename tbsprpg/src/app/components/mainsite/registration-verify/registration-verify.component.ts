@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import {User} from '../../../models/user';
 import {Subscription} from 'rxjs';
 import {UserService} from '../../../services/user.service';
@@ -12,8 +12,8 @@ import {Router} from '@angular/router';
 })
 export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   @Input() user: User;
-  verificationForm = new FormGroup({
-    code: new FormControl('', Validators.required)
+  verificationForm = new UntypedFormGroup({
+    code: new UntypedFormControl('', Validators.required)
   });
   private subscriptions: Subscription = new Subscription();
   verificationFailed: boolean;

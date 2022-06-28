@@ -4,7 +4,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Source} from '../models/source';
 import {catchError} from 'rxjs/operators';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {NIL} from 'uuid';
 
 @Injectable({
@@ -18,15 +18,15 @@ export class SourcesService extends BaseService {
     this.sourcesUrl = this.getBaseUrl() + '/api/sources';
   }
 
-  createFormGroupForSource(source: Source): FormGroup {
-    const formGroup = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl(''),
-      key: new FormControl(''),
-      adventureId: new FormControl(''),
-      text: new FormControl(''),
-      language: new FormControl(''),
-      scriptId: new FormControl('')
+  createFormGroupForSource(source: Source): UntypedFormGroup {
+    const formGroup = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      name: new UntypedFormControl(''),
+      key: new UntypedFormControl(''),
+      adventureId: new UntypedFormControl(''),
+      text: new UntypedFormControl(''),
+      language: new UntypedFormControl(''),
+      scriptId: new UntypedFormControl('')
     });
     if (source !== null) {
       formGroup.setValue(source);

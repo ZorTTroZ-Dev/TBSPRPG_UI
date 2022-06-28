@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {Script, SCRIPT_TYPES} from '../../../../models/script';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {ScriptService} from '../../../../services/script.service';
 import * as ace from 'ace-builds';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
@@ -25,7 +25,7 @@ import {NotificationService} from '../../../../services/notification.service';
 export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() script: Script;
   @Input() scripts: Script[];
-  scriptForm: FormGroup;
+  scriptForm: UntypedFormGroup;
   scriptTypes: string[] = SCRIPT_TYPES;
   private subscriptions: Subscription = new Subscription();
 
@@ -40,7 +40,7 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.script.currentValue) {
       this.scriptForm = this.scriptService.createScriptFormGroup(this.script);
-      this.scriptForm.addControl('includeSelect', new FormControl(''));
+      this.scriptForm.addControl('includeSelect', new UntypedFormControl(''));
     }
   }
 
