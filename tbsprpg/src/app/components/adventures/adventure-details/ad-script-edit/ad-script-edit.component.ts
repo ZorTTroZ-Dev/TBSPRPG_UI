@@ -40,7 +40,7 @@ export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, Afte
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.script.currentValue) {
       this.scriptForm = this.scriptService.createScriptFormGroup(this.script);
-      this.scriptForm.addControl('includeSelect', new FormControl(''));
+      this.scriptForm.addControl('includeSelect', new FormControl<any>(''));
     }
   }
 

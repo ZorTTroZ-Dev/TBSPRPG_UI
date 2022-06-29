@@ -34,12 +34,12 @@ export class ScriptService extends BaseService {
 
   createScriptFormGroup(script: Script): FormGroup {
     const formGroup = new FormGroup( {
-      id: new FormControl(''),
-      name: new FormControl(''),
-      adventureId: new FormControl(''),
-      content: new FormControl(''),
-      type: new FormControl(''),
-      includes: new FormControl('')
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      content: new FormControl<string>(''),
+      type: new FormControl<string>(''),
+      includes: new FormControl<Script[]>([])
     });
     formGroup.setValue(script);
     return formGroup;

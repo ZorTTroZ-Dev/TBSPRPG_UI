@@ -8,6 +8,7 @@ import {Source} from '../models/source';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
 import {NIL} from 'uuid';
+import {formatDate} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -35,18 +36,18 @@ export class AdventureService extends BaseService{
 
   createFormGroupForAdventure(adventure: Adventure): FormGroup {
     const formGroup = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl(''),
-      initialSourceKey: new FormControl(''),
-      descriptionSourceKey: new FormControl(''),
-      createdByUserId: new FormControl(''),
-      publishDate: new FormControl(''),
-      initializationScriptId: new FormControl(''),
-      terminationScriptId: new FormControl('')
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      initialSourceKey: new FormControl<string>(''),
+      descriptionSourceKey: new FormControl<string>(''),
+      createdByUserId: new FormControl<string>(''),
+      publishDate: new FormControl<any>(''),
+      initializationScriptId: new FormControl<string>(''),
+      terminationScriptId: new FormControl<string>('')
     });
     formGroup.setValue(adventure);
     // set the publishing date to the format that the html input is expecting
-    formGroup.patchValue({publishDate: adventure.publishDate.toString().substring(0, 10)});
+    formGroup.patchValue({publishDate: formatDate(adventure.publishDate, 'yyyy-MM-dd', 'en-US')});
     return formGroup;
   }
 

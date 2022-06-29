@@ -35,14 +35,14 @@ export class LocationService extends BaseService{
 
   createFormGroupForLocation(location: Location): FormGroup {
     const formGroup = new FormGroup( {
-      id: new FormControl(''),
-      name: new FormControl(''),
-      initial: new FormControl(''),
-      final: new FormControl(''),
-      sourceKey: new FormControl(''),
-      adventureId: new FormControl(''),
-      enterScriptId: new FormControl(''),
-      exitScriptId: new FormControl('')
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      initial: new FormControl<boolean>(false),
+      final: new FormControl<boolean>(false),
+      sourceKey: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      enterScriptId: new FormControl<string>(''),
+      exitScriptId: new FormControl<string>('')
     });
     formGroup.setValue(location);
     return formGroup;

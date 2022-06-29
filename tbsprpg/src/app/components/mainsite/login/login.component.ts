@@ -12,9 +12,9 @@ import {Subscription} from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-    remember: new FormControl(false)
+    email: new FormControl<string>(''),
+    password: new FormControl<string>(''),
+    remember: new FormControl<boolean>(false)
   });
   private subscriptions: Subscription = new Subscription();
 

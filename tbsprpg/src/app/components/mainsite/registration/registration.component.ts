@@ -12,9 +12,9 @@ import {User} from '../../../models/user';
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   registerForm = new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', Validators.required)
+    email: new FormControl<string>('', [Validators.email, Validators.required]),
+    password: new FormControl<string>('', Validators.required),
+    confirmPassword: new FormControl<string>('', Validators.required)
   }, {validators: confirmPasswordValidator});
   private subscriptions: Subscription = new Subscription();
   registrationFailed: boolean;
