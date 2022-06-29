@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Location} from '../models/location';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
 import {Source} from '../models/source';
 import {NIL} from 'uuid';
@@ -33,23 +33,23 @@ export class LocationService extends BaseService{
     };
   }
 
-  createFormGroupForLocation(location: Location): UntypedFormGroup {
-    const formGroup = new UntypedFormGroup( {
-      id: new UntypedFormControl(''),
-      name: new UntypedFormControl(''),
-      initial: new UntypedFormControl(''),
-      final: new UntypedFormControl(''),
-      sourceKey: new UntypedFormControl(''),
-      adventureId: new UntypedFormControl(''),
-      enterScriptId: new UntypedFormControl(''),
-      exitScriptId: new UntypedFormControl('')
+  createFormGroupForLocation(location: Location): FormGroup {
+    const formGroup = new FormGroup( {
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      initial: new FormControl<boolean>(false),
+      final: new FormControl<boolean>(false),
+      sourceKey: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      enterScriptId: new FormControl<string>(''),
+      exitScriptId: new FormControl<string>('')
     });
     formGroup.setValue(location);
     return formGroup;
   }
 
-  createLocationFormGroupWithSource(location: Location, source: Source): UntypedFormGroup {
-    return new UntypedFormGroup({
+  createLocationFormGroupWithSource(location: Location, source: Source): FormGroup {
+    return new FormGroup({
       location: this.createFormGroupForLocation(location),
       source: this.sourcesService.createFormGroupForSource(source)
     });

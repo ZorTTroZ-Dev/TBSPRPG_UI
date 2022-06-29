@@ -2,7 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@an
 import {Location} from '../../../../models/location';
 import {forkJoin, Subject, Subscription} from 'rxjs';
 import {RoutesService} from '../../../../services/routes.service';
-import {UntypedFormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
 import {SourcesService} from '../../../../services/sources.service';
 import {tap} from 'rxjs/operators';
@@ -23,7 +23,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() scripts: Script[];
   private subscriptions: Subscription = new Subscription();
   routeLoaded: Subject<Route>;
-  routesFormArray: UntypedFormGroup[] = [];
+  routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
   locations: Location[] = [];
 

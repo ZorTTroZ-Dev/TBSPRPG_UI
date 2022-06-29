@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Location} from '../../../../models/location';
-import {UntypedFormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {SourcesService} from '../../../../services/sources.service';
 import {LocationService} from '../../../../services/location.service';
@@ -19,7 +19,7 @@ export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
   scripts: Script[];
   sourceLabel = 'Location Content';
-  locationForm: UntypedFormGroup;
+  locationForm: FormGroup;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private sourcesService: SourcesService,

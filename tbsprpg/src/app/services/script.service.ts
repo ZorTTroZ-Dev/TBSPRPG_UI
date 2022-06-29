@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {LUA_SCRIPT_TYPE, Script} from '../models/script';
 import {NIL} from 'uuid';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -32,14 +32,14 @@ export class ScriptService extends BaseService {
     };
   }
 
-  createScriptFormGroup(script: Script): UntypedFormGroup {
-    const formGroup = new UntypedFormGroup( {
-      id: new UntypedFormControl(''),
-      name: new UntypedFormControl(''),
-      adventureId: new UntypedFormControl(''),
-      content: new UntypedFormControl(''),
-      type: new UntypedFormControl(''),
-      includes: new UntypedFormControl('')
+  createScriptFormGroup(script: Script): FormGroup {
+    const formGroup = new FormGroup( {
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      content: new FormControl<string>(''),
+      type: new FormControl<string>(''),
+      includes: new FormControl<Script[]>([])
     });
     formGroup.setValue(script);
     return formGroup;

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Adventure} from '../../../../models/adventure';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
 import {forkJoin, of, Subscription} from 'rxjs';
@@ -19,7 +19,7 @@ export class AeFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
   @Input() scripts: Script[];
   @Output() editAdventureChange = new EventEmitter<Adventure>();
-  adventureForm: UntypedFormGroup;
+  adventureForm: FormGroup;
   sourceLabel = 'Initial Adventure Content';
   initialSourceFormGroupName = 'initialSource';
   descriptionSourceLabel = 'Description';

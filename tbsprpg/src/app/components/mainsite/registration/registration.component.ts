@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {Subscription} from 'rxjs';
 import {confirmPasswordValidator} from '../../../directives/password-validator.directive';
@@ -11,10 +11,10 @@ import {User} from '../../../models/user';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  registerForm = new UntypedFormGroup({
-    email: new UntypedFormControl('', [Validators.email, Validators.required]),
-    password: new UntypedFormControl('', Validators.required),
-    confirmPassword: new UntypedFormControl('', Validators.required)
+  registerForm = new FormGroup({
+    email: new FormControl<string>('', [Validators.email, Validators.required]),
+    password: new FormControl<string>('', Validators.required),
+    confirmPassword: new FormControl<string>('', Validators.required)
   }, {validators: confirmPasswordValidator});
   private subscriptions: Subscription = new Subscription();
   registrationFailed: boolean;

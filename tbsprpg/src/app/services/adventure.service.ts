@@ -5,9 +5,10 @@ import {BaseService} from './base.service';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Source} from '../models/source';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
 import {NIL} from 'uuid';
+import {formatDate} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -33,25 +34,25 @@ export class AdventureService extends BaseService{
     };
   }
 
-  createFormGroupForAdventure(adventure: Adventure): UntypedFormGroup {
-    const formGroup = new UntypedFormGroup({
-      id: new UntypedFormControl(''),
-      name: new UntypedFormControl(''),
-      initialSourceKey: new UntypedFormControl(''),
-      descriptionSourceKey: new UntypedFormControl(''),
-      createdByUserId: new UntypedFormControl(''),
-      publishDate: new UntypedFormControl(''),
-      initializationScriptId: new UntypedFormControl(''),
-      terminationScriptId: new UntypedFormControl('')
+  createFormGroupForAdventure(adventure: Adventure): FormGroup {
+    const formGroup = new FormGroup({
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      initialSourceKey: new FormControl<string>(''),
+      descriptionSourceKey: new FormControl<string>(''),
+      createdByUserId: new FormControl<string>(''),
+      publishDate: new FormControl<any>(''),
+      initializationScriptId: new FormControl<string>(''),
+      terminationScriptId: new FormControl<string>('')
     });
     formGroup.setValue(adventure);
     // set the publishing date to the format that the html input is expecting
-    formGroup.patchValue({publishDate: adventure.publishDate.toString().substring(0, 10)});
+    formGroup.patchValue({publishDate: formatDate(adventure.publishDate, 'yyyy-MM-dd', 'en-US')});
     return formGroup;
   }
 
-  createAdventureFormGroupWithSource(adventure: Adventure, source: Source, descriptionSource: Source): UntypedFormGroup {
-    return new UntypedFormGroup({
+  createAdventureFormGroupWithSource(adventure: Adventure, source: Source, descriptionSource: Source): FormGroup {
+    return new FormGroup({
       adventure: this.createFormGroupForAdventure(adventure),
       initialSource: this.sourcesService.createFormGroupForSource(source),
       descriptionSource: this.sourcesService.createFormGroupForSource(descriptionSource)

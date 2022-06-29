@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Location} from '../../../../models/location';
 import {RoutesService} from '../../../../services/routes.service';
 import {Script} from '../../../../models/script';
@@ -10,7 +10,7 @@ import {Script} from '../../../../models/script';
   styleUrls: ['./ad-route-edit.component.scss']
 })
 export class AdRouteEditComponent implements OnInit {
-  @Input() routeForm: UntypedFormGroup;
+  @Input() routeForm: FormGroup;
   @Input() locations: Location[];
   @Input() scripts: Script[];
   routeSourceLabel = 'Button Text';
