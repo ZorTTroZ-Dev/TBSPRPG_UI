@@ -1,1 +1,26 @@
-<p>ad-routes works!</p>
+<div *ngIf="routes.length > 0">
+  <table datatable class="row-border hover">
+    <thead>
+    <tr>
+      <th>name</th>
+      <th>location</th>
+      <th>destination</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let route of routes">
+      <td>{{ route.name }}</td>
+      <td>{{route.locationId}}</td>
+      <td>{{route.destinationLocationId}}</td>
+      <td class="text-end">
+        <a type="button" class="btn btn-dark mx-2">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="routes.length === 0">
+  No Routes Exist
+</div>
+

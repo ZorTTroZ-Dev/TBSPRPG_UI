@@ -70,4 +70,11 @@ export class RoutesService extends BaseService{
       catchError(this.handleError<any>('updateRoutes', null))
     );
   }
+
+  getRoutesForAdventure(adventureId: string): Observable<Route[]> {
+    return this.http.get<Route[]>(this.routesUrl + '/adventure/' + adventureId)
+      .pipe(
+        catchError(this.handleError<Route[]>('getRoutesForAdventure', null))
+      );
+}
 }

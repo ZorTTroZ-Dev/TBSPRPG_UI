@@ -46,7 +46,7 @@
         <app-ad-script-edit [script]="script" [scripts]="scripts"></app-ad-script-edit>
       </div>
       <div *ngIf="sidebarLocation === 'routes'">
-        <app-ad-routes></app-ad-routes>
+        <app-ad-routes [adventure]="adventure"></app-ad-routes>
       </div>
       <div *ngIf="sidebarLocation === 'sources'">
         <app-ad-sources></app-ad-sources>
