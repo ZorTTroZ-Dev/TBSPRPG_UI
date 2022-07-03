@@ -76,5 +76,12 @@ export class RoutesService extends BaseService{
       .pipe(
         catchError(this.handleError<Route[]>('getRoutesForAdventure', null))
       );
-}
+  }
+
+  deleteRoute(route: Route): Observable<any> {
+    return this.http.delete(this.routesUrl + '/' + route.id)
+      .pipe(
+        catchError(this.handleError<any>('deleteRoute', null))
+      );
+  }
 }
