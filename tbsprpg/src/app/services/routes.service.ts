@@ -39,14 +39,14 @@ export class RoutesService extends BaseService{
 
   createFormGroupForRoute(route: Route): FormGroup {
     return new FormGroup({
-      id: new FormControl(route.id),
-      name: new FormControl(route.name),
-      sourceKey: new FormControl(route.sourceKey),
-      routeTakenSourceKey: new FormControl(route.routeTakenSourceKey),
-      locationId: new FormControl(route.locationId),
-      destinationLocationId: new FormControl(route.destinationLocationId),
-      newDestinationLocationName: new FormControl(''),
-      routeTakenScriptId: new FormControl(route.routeTakenScriptId)
+      id: new FormControl<string>(route.id),
+      name: new FormControl<string>(route.name),
+      sourceKey: new FormControl<string>(route.sourceKey),
+      routeTakenSourceKey: new FormControl<string>(route.routeTakenSourceKey),
+      locationId: new FormControl<string>(route.locationId),
+      destinationLocationId: new FormControl<string>(route.destinationLocationId),
+      newDestinationLocationName: new FormControl<string>(''),
+      routeTakenScriptId: new FormControl<string>(route.routeTakenScriptId)
     });
   }
 
@@ -69,5 +69,19 @@ export class RoutesService extends BaseService{
     return this.http.put<any>(this.routesUrl, routeData).pipe(
       catchError(this.handleError<any>('updateRoutes', null))
     );
+  }
+
+  getRoutesForAdventure(adventureId: string): Observable<Route[]> {
+    return this.http.get<Route[]>(this.routesUrl + '/adventure/' + adventureId)
+      .pipe(
+        catchError(this.handleError<Route[]>('getRoutesForAdventure', null))
+      );
+  }
+
+  deleteRoute(route: Route): Observable<any> {
+    return this.http.delete(this.routesUrl + '/' + route.id)
+      .pipe(
+        catchError(this.handleError<any>('deleteRoute', null))
+      );
   }
 }

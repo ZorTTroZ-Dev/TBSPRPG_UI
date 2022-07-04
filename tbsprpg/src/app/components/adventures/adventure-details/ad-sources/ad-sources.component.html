@@ -1,1 +1,27 @@
-<p>ad-sources works!</p>
+<div *ngIf="sources.length > 0">
+  <table datatable class="row-border hover">
+    <thead>
+    <tr>
+      <th>name</th>
+      <th>key</th>
+      <th>language</th>
+      <th>text</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let source of sources">
+      <td>{{ source.name }}</td>
+      <td>{{ source.key }}</td>
+      <td>{{ source.language }}</td>
+      <td>{{ source.text }}</td>
+      <td class="text-end">
+        <a type="button" class="btn btn-dark mx-2">Info</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="sources.length === 0">
+  No Sources Exist
+</div>

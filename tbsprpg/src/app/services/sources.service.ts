@@ -20,13 +20,13 @@ export class SourcesService extends BaseService {
 
   createFormGroupForSource(source: Source): FormGroup {
     const formGroup = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl(''),
-      key: new FormControl(''),
-      adventureId: new FormControl(''),
-      text: new FormControl(''),
-      language: new FormControl(''),
-      scriptId: new FormControl('')
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      key: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      text: new FormControl<string>(''),
+      language: new FormControl<string>(''),
+      scriptId: new FormControl<string>('')
     });
     if (source !== null) {
       formGroup.setValue(source);
@@ -65,6 +65,17 @@ export class SourcesService extends BaseService {
     return this.http.get<Source>(sourceUrl, options)
       .pipe(
         catchError(this.handleError<Source>('getProcessedSourceForAdventureForKey', null))
+      );
+  }
+
+  getAllSourceForAdventure(adventureId: string): Observable<Source[]> {
+    let sourceUrl = this.sourcesUrl;
+    if (adventureId !== NIL) {
+      sourceUrl += '/adventure/' + adventureId;
+    }
+    return this.http.get<Source[]>(sourceUrl)
+      .pipe(
+        catchError(this.handleError<Source[]>('getAllSourceForAdventure', null))
       );
   }
 }

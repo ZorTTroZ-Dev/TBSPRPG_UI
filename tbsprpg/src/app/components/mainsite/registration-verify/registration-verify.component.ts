@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   @Input() user: User;
   verificationForm = new FormGroup({
-    code: new FormControl('', Validators.required)
+    code: new FormControl<string>('', Validators.required)
   });
   private subscriptions: Subscription = new Subscription();
   verificationFailed: boolean;
