@@ -55,7 +55,7 @@
         ></app-ad-sources>
       </div>
       <div *ngIf="sidebarLocation === 'source-edit'">
-        <app-ad-source-edit-full></app-ad-source-edit-full>
+        <app-ad-source-edit-full [source]="source"></app-ad-source-edit-full>
       </div>
     </div>
   </div>
