@@ -1,3 +1,6 @@
+<div class="mb-3 float-end">
+  <a (click)="newSource()" type="button" class="btn btn-dark">New Source</a>
+</div>
 <div *ngIf="sources.length > 0">
   <table datatable class="row-border hover">
     <thead>
@@ -16,7 +19,8 @@
       <td>{{ source.language }}</td>
       <td>{{ source.text }}</td>
       <td class="text-end">
-        <a type="button" class="btn btn-dark mx-2">Info</a>
+        <a (click)="updateSource(source)" type="button" class="btn btn-dark">Edit</a>
+        <a (click)="deleteSource(source)" type="button" class="btn btn-dark mx-2">Delete</a>
       </td>
     </tr>
     </tbody>
