@@ -49,15 +49,12 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
 
   newSource(): void {
     this.updateSidebarLocation('source-edit');
+    this.adventureSourceChange.emit(this.sourcesService.createNewSource(this.adventure.id));
   }
 
   updateSource(source: Source): void {
     this.updateSidebarLocation('source-edit');
     this.adventureSourceChange.emit(source);
-  }
-
-  deleteSource(source: Source): void {
-    console.log(source);
   }
 
   updateSidebarLocation(newLocation: string): void {

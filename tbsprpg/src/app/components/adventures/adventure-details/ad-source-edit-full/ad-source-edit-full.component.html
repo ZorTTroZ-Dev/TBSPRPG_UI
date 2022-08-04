@@ -9,14 +9,31 @@
           <input type="text" class="form-control" id="name" formControlName="name">
           <label for="name">Name:</label>
         </div>
-<!--        <div class="form-floating mt-2">-->
-<!--          <select class="form-select" id="selectIncludes" formControlName="includeSelect" (change)="includeScript()">-->
-<!--            <option *ngFor="let script of scripts" [value]="script.id">-->
-<!--              {{script.name}}-->
-<!--            </option>-->
-<!--          </select>-->
-<!--          <label for="selectIncludes">Select Script to Include:</label>-->
-<!--        </div>-->
+        <div class="form-floating mt-2">
+          <input type="text" class="form-control" id="key" formControlName="key">
+          <label for="name">Key:</label>
+        </div>
+        <div class="form-floating mt-2" *ngIf="scripts">
+          <select class="form-select" id="scriptId" formControlName="scriptId">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let script of scripts" [value]="script.id">
+              {{script.name}}
+            </option>
+          </select>
+          <label for="scriptId">Source Script:</label>
+        </div>
+        <div class="form-floating mt-2">
+          <select class="form-select" id="language" formControlName="language">
+            <option *ngFor="let language of languages" [value]="language">
+              {{language}}
+            </option>
+          </select>
+          <label for="language">Language:</label>
+        </div>
+        <div class="form-floating mt-2">
+          <textarea class="form-control" id="content" style="height: 100px" formControlName="text"></textarea>
+          <label for="content">Text:</label>
+        </div>
       </div>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!sourceForm.valid">Update</button>
     </form>
