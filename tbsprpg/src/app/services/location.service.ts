@@ -56,7 +56,7 @@ export class LocationService extends BaseService{
   }
 
   getLocationsForAdventure(adventureId: string): Observable<Location[]> {
-    return this.http.get<Location[]>(this.locationUrl + '/' + adventureId)
+    return this.http.get<Location[]>(this.locationUrl + '/adventure/' + adventureId)
       .pipe(
         catchError(this.handleError<Location[]>('getLocationsForAdventure', null))
       );
