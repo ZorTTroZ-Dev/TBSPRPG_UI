@@ -7,6 +7,9 @@ import {Route} from '../../../../models/route';
 import {Adventure} from '../../../../models/adventure';
 import {LocationService} from '../../../../services/location.service';
 import {ScriptService} from '../../../../services/script.service';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-ad-route-edit',
@@ -29,9 +32,12 @@ export class AdRouteEditComponent implements OnInit, OnChanges, OnDestroy {
   routeSourceSuccessFormGroupName: string;
   standalone: boolean;
 
+  private subscriptions: Subscription = new Subscription();
+
   constructor(private routesService: RoutesService,
               private locationsService: LocationService,
-              private scriptsService: ScriptService) { }
+              private scriptsService: ScriptService,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.routeSourceFormGroupName = this.routesService.routeSourceFormGroupName;
@@ -41,20 +47,39 @@ export class AdRouteEditComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.route !== undefined && changes.route.currentValue) {
       this.standalone = true;
-      this.routesService.createFormGroupForRouteObservable(
-        this.route, this.adventure.id
-      ).subscribe(formGroup => {
-        this.routeForm = formGroup;
-      });
-      this.locationsService.getLocationsForAdventure(this.adventure.id).subscribe(locations => {
-        this.locations = locations;
-      });
-      this.scriptsService.getScriptsForAdventure(this.adventure.id).subscribe(scripts => {
-        this.scripts = scripts;
-      });
+      this.subscriptions.add(
+        this.routesService.createFormGroupForRouteObservable(
+          this.route, this.adventure.id
+        ).subscribe(formGroup => {
+          this.routeForm = formGroup;
+        })
+      );
+      this.subscriptions.add(
+        this.locationsService.getLocationsForAdventure(this.adventure.id).subscribe(locations => {
+          this.locations = locations;
+        })
+      );
+      this.subscriptions.add(
+        this.scriptsService.getScriptsForAdventure(this.adventure.id).subscribe(scripts => {
+          this.scripts = scripts;
+        })
+      );
     }
   }
 
   ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  updateRoute(): void {
+    this.subscriptions.add(
+      this.routesService.updateRoute(this.routeForm.value).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'route updated'
+        };
+        this.notificationService.postNotification(notification);
+      })
+    );
   }
 }
