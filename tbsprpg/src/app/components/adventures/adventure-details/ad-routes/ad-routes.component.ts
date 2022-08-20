@@ -6,6 +6,7 @@ import {RoutesService} from '../../../../services/routes.service';
 import {map, tap} from 'rxjs/operators';
 import {NotificationService} from '../../../../services/notification.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NIL} from 'uuid';
 
 @Component({
   selector: 'app-ad-routes',
@@ -53,6 +54,11 @@ export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
   updateRoute(route: Route): void {
     this.sidebarLocationChange.emit('route-edit');
     this.adventureRouteChange.emit(route);
+  }
+
+  newRoute(): void {
+    this.sidebarLocationChange.emit('route-edit');
+    this.adventureRouteChange.emit(this.routesService.createNewRoute(NIL));
   }
 
   deleteRoute(route: Route): void {
