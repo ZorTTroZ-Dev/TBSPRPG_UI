@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Route} from '../models/route';
 import {FormControl, FormGroup} from '@angular/forms';
 import {NIL} from 'uuid';
 import {Source} from '../models/source';
 import {SourcesService} from './sources.service';
+import {SettingService} from './setting.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class RoutesService extends BaseService{
   public routeSourceSuccessFormGroupName = 'successSource';
 
   constructor(http: HttpClient,
-              private sourcesService: SourcesService) {
+              private sourcesService: SourcesService,
+              private settingService: SettingService) {
     super(http);
     this.routesUrl = this.getBaseUrl() + '/api/routes';
   }
@@ -55,6 +57,24 @@ export class RoutesService extends BaseService{
       route: this.createFormGroupForRoute(route),
       [this.routeSourceFormGroupName]: this.sourcesService.createFormGroupForSource(sourceKey),
       [this.routeSourceSuccessFormGroupName]: this.sourcesService.createFormGroupForSource(successSourceKey)
+    });
+  }
+
+  createFormGroupForRouteObservable(route: Route, adventureId: string): Observable<FormGroup> {
+    return new Observable<FormGroup>(subscriber => {
+        const sourceRequest = this.sourcesService.getSourceForAdventureForKey(
+              adventureId,
+              route.sourceKey,
+              this.settingService.getLanguage());
+        const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(
+              adventureId,
+              route.routeTakenSourceKey,
+              this.settingService.getLanguage());
+        forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
+          const formGroup = this.createFormGroupForRouteWithSource(route, results[0], results[1]);
+          subscriber.next(formGroup);
+          subscriber.complete();
+        });
     });
   }
 

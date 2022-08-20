@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
 import {Subject, Subscription} from 'rxjs';
 import {Route} from '../../../../models/route';
@@ -14,6 +14,8 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 })
 export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Output() sidebarLocationChange = new EventEmitter<string>();
+  @Output() adventureRouteChange = new EventEmitter<Route>();
   routes: Route[];
   routeObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
@@ -46,6 +48,11 @@ export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  updateRoute(route: Route): void {
+    this.sidebarLocationChange.emit('route-edit');
+    this.adventureRouteChange.emit(route);
   }
 
   deleteRoute(route: Route): void {
