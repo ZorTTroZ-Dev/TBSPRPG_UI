@@ -11,8 +11,8 @@
     <tbody>
     <tr *ngFor="let route of routes">
       <td>{{ route.name }}</td>
-      <td>{{ route.locationId }}</td>
-      <td>{{ route.destinationLocationId }}</td>
+      <td>{{ locationMap.get(route.locationId) ? locationMap.get(route.locationId).name : '' }}</td>
+      <td>{{ locationMap.get(route.destinationLocationId) ? locationMap.get(route.destinationLocationId).name : '' }}</td>
       <td class="text-end">
         <a type="button" class="btn btn-dark mx-2">Edit</a>
         <a (click)="deleteRoute(route)" type="button" class="btn btn-dark mx-2">Delete</a>
