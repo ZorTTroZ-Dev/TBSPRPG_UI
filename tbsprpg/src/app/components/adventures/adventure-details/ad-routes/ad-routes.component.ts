@@ -6,6 +6,7 @@ import {RoutesService} from '../../../../services/routes.service';
 import {map, tap} from 'rxjs/operators';
 import {NotificationService} from '../../../../services/notification.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {Location} from '../../../../models/location';
 
 @Component({
   selector: 'app-ad-routes',
@@ -15,13 +16,22 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
   routes: Route[];
+  locationMap: Map<string, Location>;
   routeObservable: Subject<string>;
+  locationObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private routesService: RoutesService,
               private notificationService: NotificationService) {
     this.routes = [];
     this.routeObservable = new Subject<string>();
+    this.locationMap = new Map<string, Location>();
+
+    this.subscriptions.add(
+      this.locationObservable.subscribe(locationId => {
+        console.log(locationId);
+      })
+    );
 
     this.subscriptions.add(
       this.routeObservable.pipe(
@@ -29,6 +39,14 @@ export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
         tap(response => {
           response.subscribe(routes => {
             this.routes = routes;
+            for (const route of this.routes) {
+              if (!this.locationMap.has(route.locationId)) {
+                this.locationObservable.next(route.locationId);
+              }
+              if (!this.locationMap.has(route.destinationLocationId)) {
+                this.locationObservable.next(route.destinationLocationId);
+              }
+            }
           });
         })
       ).subscribe()
