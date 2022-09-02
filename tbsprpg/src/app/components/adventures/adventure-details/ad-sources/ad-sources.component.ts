@@ -15,6 +15,7 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   sources: Source[];
   sourceObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
+  dtOptions: any = {};
 
   constructor(private sourcesService: SourcesService) {
     this.sources = [];
@@ -33,6 +34,12 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      select: {
+        className: 'datatable-selected',
+        blurable: true
+      }
+    };
   }
 
   ngOnChanges(changes: SimpleChanges): void {

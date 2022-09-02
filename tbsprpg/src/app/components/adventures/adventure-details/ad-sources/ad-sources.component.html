@@ -1,5 +1,5 @@
 <div *ngIf="sources.length > 0">
-  <table datatable class="row-border hover">
+  <table datatable [dtOptions]="dtOptions" class="row-border hover">
     <thead>
     <tr>
       <th>name</th>
