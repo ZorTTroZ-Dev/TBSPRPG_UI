@@ -38,6 +38,26 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
       select: {
         className: 'datatable-selected',
         blurable: true
+      },
+      dom: 'Bfrtip',
+      buttons: {
+        dom: {
+          button: {
+            className: 'btn btn-dark mx-2'
+          }
+        },
+        buttons: [
+          {
+            text: 'Select Unreferenced',
+            // tslint:disable-next-line:typedef
+            action(e, dt) {
+              // pass an adventure id through an observable,
+              // it will call the endpoint to get a list of sources that are unreferenced
+              // use the dt object to select rows that are an unreferenced source
+              console.log(dt);
+            }
+          }
+        ]
       }
     };
   }
