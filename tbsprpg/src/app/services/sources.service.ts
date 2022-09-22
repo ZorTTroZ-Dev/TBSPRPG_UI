@@ -78,4 +78,15 @@ export class SourcesService extends BaseService {
         catchError(this.handleError<Source[]>('getAllSourceForAdventure', null))
       );
   }
+
+  getUnreferencedSourcesForAdventure(adventureId: string): Observable<Source[]> {
+    let sourceUrl = this.sourcesUrl;
+    if (adventureId !== NIL) {
+      sourceUrl += '/adventure/' + adventureId + '/unreferenced';
+    }
+    return this.http.get<Source[]>(sourceUrl)
+      .pipe(
+        catchError(this.handleError<Source[]>('getUnreferencedSourcesForAdventure', null))
+      );
+  }
 }

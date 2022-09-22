@@ -34,6 +34,7 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    const self = this;
     this.dtOptions = {
       select: {
         className: 'datatable-selected',
@@ -51,10 +52,21 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
             text: 'Select Unreferenced',
             // tslint:disable-next-line:typedef
             action(e, dt) {
-              // pass an adventure id through an observable,
-              // it will call the endpoint to get a list of sources that are unreferenced
-              // use the dt object to select rows that are an unreferenced source
-              console.log(dt);
+              self.subscriptions.add(
+                self.sourcesService.getUnreferencedSourcesForAdventure(self.adventure.id).subscribe(sources => {
+                  for (const source of sources) {
+                    dt.row(':contains("' + source.key + '")').select();
+                  }
+                })
+              );
+            }
+          },
+          {
+            text: 'Delete Selected',
+            // tslint:disable-next-line:typedef
+            action(e, dt) {
+              const selectedRows = dt.rows( { selected: true } ).data();
+              console.log(selectedRows);
             }
           }
         ]
