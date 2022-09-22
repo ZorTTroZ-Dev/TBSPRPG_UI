@@ -89,4 +89,11 @@ export class SourcesService extends BaseService {
         catchError(this.handleError<Source[]>('getUnreferencedSourcesForAdventure', null))
       );
   }
+
+  deleteSource(sourceId: string): Observable<any> {
+    return this.http.delete(this.sourcesUrl + '/' + sourceId)
+      .pipe(
+        catchError(this.handleError<any>('deleteSource', null))
+      );
+  }
 }
