@@ -75,18 +75,16 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
             // tslint:disable-next-line:typedef
             action(e, dt) {
               const selectedRows = dt.rows( { selected: true } ).data();
-              console.log(selectedRows);
               // tslint:disable-next-line:prefer-for-of
               for (let i = 0; i < selectedRows.length; i++) {
-                // self.sourcesService.deleteSource(selectedRows[i][1]).subscribe(() => {
+                self.sourcesService.deleteSource(selectedRows[i][1]).subscribe(() => {
                   const notification: Notification = {
                     type: NOTIFICATION_TYPE_SUCCESS,
                     message: 'source deleted'
                   };
                   self.notificationService.postNotification(notification);
                   self.sources = self.sources.filter(item => item.id !== selectedRows[i][1]);
-                  // or trigger observable
-                // });
+                });
               }
             }
           }
