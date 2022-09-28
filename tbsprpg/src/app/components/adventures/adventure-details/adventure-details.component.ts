@@ -6,6 +6,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {Adventure} from '../../../models/adventure';
 import {Location} from '../../../models/location';
 import {Script} from '../../../models/script';
+import {Source} from '../../../models/source';
 
 @Component({
   selector: 'app-adventure-details',
@@ -19,6 +20,7 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
   location: Location;
   script: Script;
   scripts: Script[];
+  source: Source;
   sidebarLocation: string = null;
 
   constructor(private route: ActivatedRoute,
@@ -74,5 +76,9 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
 
   updateAdventureScripts(scripts: Script[]): void {
     this.scripts = scripts;
+  }
+
+  updateAdventureSource(source: Source): void {
+    this.source = source;
   }
 }
