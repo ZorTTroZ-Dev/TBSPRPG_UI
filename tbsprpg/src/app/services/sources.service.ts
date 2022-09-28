@@ -92,6 +92,24 @@ export class SourcesService extends BaseService {
       );
   }
 
+  getUnreferencedSourcesForAdventure(adventureId: string): Observable<Source[]> {
+    let sourceUrl = this.sourcesUrl;
+    if (adventureId !== NIL) {
+      sourceUrl += '/adventure/' + adventureId + '/unreferenced';
+    }
+    return this.http.get<Source[]>(sourceUrl)
+      .pipe(
+        catchError(this.handleError<Source[]>('getUnreferencedSourcesForAdventure', null))
+      );
+  }
+
+  deleteSource(sourceId: string): Observable<any> {
+    return this.http.delete(this.sourcesUrl + '/' + sourceId)
+      .pipe(
+        catchError(this.handleError<any>('deleteSource', null))
+      );
+  }
+  
   updateSource(sourceData: any): Observable<any> {
     return this.http.put<any>(this.sourcesUrl, {
       source: sourceData
