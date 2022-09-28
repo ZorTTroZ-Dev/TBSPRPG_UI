@@ -67,4 +67,11 @@ export class LocationService extends BaseService{
       catchError(this.handleError<any>('updateLocation', null))
     );
   }
+
+  getLocationById(locationId: string): Observable<Location> {
+    return this.http.get<Location>(this.locationUrl + '/' + locationId)
+      .pipe(
+        catchError(this.handleError<Location>('getLocationById', null))
+      );
+  }
 }

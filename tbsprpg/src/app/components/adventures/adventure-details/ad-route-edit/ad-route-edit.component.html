@@ -1,52 +1,73 @@
-<form [formGroup]="routeForm">
-  <div formGroupName="route" class="mt-2">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="form-floating">
-            <input type="text" class="form-control" id="name" formControlName="name">
-            <label for="name">Route Name:</label>
-          </div>
-          <app-adventure-details-source-edit
-            [form]="routeForm"
-            [label]="routeSourceLabel"
-            [sourceFormGroupName]="routeSourceFormGroupName"
-          ></app-adventure-details-source-edit>
-        </div>
-        <div class="col">
-          <div>Destination Location</div>
-          <div class="form-floating mt-2">
-            <select class="form-select" id="destinationLocation" formControlName="destinationLocationId">
-              <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
-            </select>
-            <label for="destinationLocation">Select Location:</label>
-          </div>
-          <div> - or - </div>
-          <div class="form-floating">
-            <input type="text" class="form-control" id="newDestinationLocationName" formControlName="newDestinationLocationName">
-            <label for="name">New Location Name:</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="form-floating mt-2" *ngIf="scripts">
-            <select class="form-select" id="routeTakenScriptId" formControlName="routeTakenScriptId">
-              <option [ngValue]="null"></option>
-              <option *ngFor="let script of scripts" [value]="script.id">
-                {{script.name}}
-              </option>
-            </select>
-            <label for="routeTakenScriptId">Route Taken Script:</label>
-          </div>
-          <app-adventure-details-source-edit
-            [form]="routeForm"
-            [label]="routeSourceSuccessLabel"
-            [sourceFormGroupName]="routeSourceSuccessFormGroupName"
-            [scripts]="scripts"
-          ></app-adventure-details-source-edit>
-        </div>
-      </div>
-    </div>
+<div [ngClass]="{'card': standalone}">
+  <div class="card-header" *ngIf="standalone">
+    <h3>Edit Route</h3>
   </div>
-</form>
+  <div *ngIf="routeForm" [ngClass]="{'card-body': standalone}">
+    <form [formGroup]="routeForm" (ngSubmit)="updateRoute()">
+      <div formGroupName="route" class="mt-2">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="name" formControlName="name">
+                <label for="name">Route Name:</label>
+              </div>
+              <app-adventure-details-source-edit
+                [form]="routeForm"
+                [label]="routeSourceLabel"
+                [sourceFormGroupName]="routeSourceFormGroupName"
+                [scripts]="scripts"
+              ></app-adventure-details-source-edit>
+            </div>
+            <div class="col">
+              <div *ngIf="standalone">Location</div>
+              <div class="form-floating mt-2" *ngIf="standalone">
+                <select class="form-select" id="location" formControlName="locationId">
+                  <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
+                </select>
+                <label for="location">Select Location:</label>
+              </div>
+              <div>Destination Location</div>
+              <div class="form-floating mt-2">
+                <select class="form-select" id="destinationLocation" formControlName="destinationLocationId">
+                  <option *ngFor="let loc of locations" [value]="loc.id">{{loc.name}}</option>
+                </select>
+                <label for="destinationLocation">Select Destination Location:</label>
+              </div>
+              <div> - or - </div>
+              <div class="form-floating">
+                <input type="text" class="form-control" id="newDestinationLocationName" formControlName="newDestinationLocationName">
+                <label for="name">New Location Name:</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-floating mt-2" *ngIf="scripts">
+                <select class="form-select" id="routeTakenScriptId" formControlName="routeTakenScriptId">
+                  <option [ngValue]="null"></option>
+                  <option *ngFor="let script of scripts" [value]="script.id">
+                    {{script.name}}
+                  </option>
+                </select>
+                <label for="routeTakenScriptId">Route Taken Script:</label>
+              </div>
+              <app-adventure-details-source-edit
+                [form]="routeForm"
+                [label]="routeSourceSuccessLabel"
+                [sourceFormGroupName]="routeSourceSuccessFormGroupName"
+                [scripts]="scripts"
+              ></app-adventure-details-source-edit>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit"
+              class="btn btn-dark float-end mt-2 me-2"
+              *ngIf="standalone"
+              [disabled]="!routeForm.valid">
+        Update
+      </button>
+    </form>
+  </div>
+</div>
