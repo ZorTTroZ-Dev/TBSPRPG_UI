@@ -6,6 +6,8 @@ import {RoutesService} from '../../../../services/routes.service';
 import {map, tap} from 'rxjs/operators';
 import {NotificationService} from '../../../../services/notification.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {Location} from '../../../../models/location';
+import {LocationService} from '../../../../services/location.service';
 import {NIL} from 'uuid';
 
 @Component({
@@ -18,13 +20,29 @@ export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
   @Output() sidebarLocationChange = new EventEmitter<string>();
   @Output() adventureRouteChange = new EventEmitter<Route>();
   routes: Route[];
+  locationMap: Map<string, Location>;
   routeObservable: Subject<string>;
+  locationObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
 
   constructor(private routesService: RoutesService,
+              private locationsService: LocationService,
               private notificationService: NotificationService) {
     this.routes = [];
     this.routeObservable = new Subject<string>();
+    this.locationObservable = new Subject<string>();
+    this.locationMap = new Map<string, Location>();
+
+    this.subscriptions.add(
+      this.locationObservable.pipe(
+        map(locationId => this.locationsService.getLocationById(locationId)),
+        tap(response => {
+          response.subscribe(location => {
+            this.locationMap.set(location.id, location);
+          });
+        })
+      ).subscribe()
+    );
 
     this.subscriptions.add(
       this.routeObservable.pipe(
@@ -32,6 +50,16 @@ export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
         tap(response => {
           response.subscribe(routes => {
             this.routes = routes;
+            for (const route of this.routes) {
+              if (!this.locationMap.has(route.locationId)) {
+                this.locationMap.set(route.locationId, null);
+                this.locationObservable.next(route.locationId);
+              }
+              if (!this.locationMap.has(route.destinationLocationId)) {
+                this.locationMap.set(route.destinationLocationId, null);
+                this.locationObservable.next(route.destinationLocationId);
+              }
+            }
           });
         })
       ).subscribe()
