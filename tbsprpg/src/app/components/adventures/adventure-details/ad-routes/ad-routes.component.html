@@ -1,3 +1,6 @@
+<div class="mb-3 float-end">
+  <a (click)="newRoute()" type="button" class="btn btn-dark">New Route</a>
+</div>
 <div *ngIf="routes.length > 0">
   <table datatable class="row-border hover">
     <thead>
@@ -14,7 +17,7 @@
       <td>{{ route.locationId }}</td>
       <td>{{ route.destinationLocationId }}</td>
       <td class="text-end">
-        <a type="button" class="btn btn-dark mx-2">Edit</a>
+        <a (click)="updateRoute(route)" type="button" class="btn btn-dark mx-2">Edit</a>
         <a (click)="deleteRoute(route)" type="button" class="btn btn-dark mx-2">Delete</a>
       </td>
     </tr>

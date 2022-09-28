@@ -6,6 +6,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {Adventure} from '../../../models/adventure';
 import {Location} from '../../../models/location';
 import {Script} from '../../../models/script';
+import {Route} from '../../../models/route';
 import {Source} from '../../../models/source';
 
 @Component({
@@ -20,10 +21,11 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
   location: Location;
   script: Script;
   scripts: Script[];
+  route: Route;
   source: Source;
   sidebarLocation: string = null;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
               private adventureService: AdventureService) { }
 
   ngOnDestroy(): void {
@@ -32,7 +34,7 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription.add(
-      this.route.paramMap.pipe(
+      this.activatedRoute.paramMap.pipe(
         map(params => {
           if (params.get('location')) {
             this.sidebarLocation = params.get('location');
@@ -78,6 +80,10 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
     this.scripts = scripts;
   }
 
+  updateAdventureRoute(route: Route): void {
+    this.route = route;
+  }
+  
   updateAdventureSource(source: Source): void {
     this.source = source;
   }
