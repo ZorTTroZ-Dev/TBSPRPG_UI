@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
 import {Subject, Subscription} from 'rxjs';
 import {Route} from '../../../../models/route';
@@ -8,6 +8,7 @@ import {NotificationService} from '../../../../services/notification.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
 import {Location} from '../../../../models/location';
 import {LocationService} from '../../../../services/location.service';
+import {NIL} from 'uuid';
 
 @Component({
   selector: 'app-ad-routes',
@@ -16,6 +17,8 @@ import {LocationService} from '../../../../services/location.service';
 })
 export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Output() sidebarLocationChange = new EventEmitter<string>();
+  @Output() adventureRouteChange = new EventEmitter<Route>();
   routes: Route[];
   locationMap: Map<string, Location>;
   routeObservable: Subject<string>;
@@ -74,6 +77,16 @@ export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  updateRoute(route: Route): void {
+    this.sidebarLocationChange.emit('route-edit');
+    this.adventureRouteChange.emit(route);
+  }
+
+  newRoute(): void {
+    this.sidebarLocationChange.emit('route-edit');
+    this.adventureRouteChange.emit(this.routesService.createNewRoute(NIL));
   }
 
   deleteRoute(route: Route): void {

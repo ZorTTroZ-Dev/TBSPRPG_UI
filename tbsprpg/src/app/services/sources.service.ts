@@ -6,6 +6,7 @@ import {Source} from '../models/source';
 import {catchError} from 'rxjs/operators';
 import {FormControl, FormGroup} from '@angular/forms';
 import {NIL} from 'uuid';
+import {SettingService} from './setting.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,21 @@ import {NIL} from 'uuid';
 export class SourcesService extends BaseService {
   private readonly sourcesUrl: string;
 
-  constructor(http: HttpClient, ) {
+  constructor(http: HttpClient, private settingService: SettingService) {
     super(http);
     this.sourcesUrl = this.getBaseUrl() + '/api/sources';
+  }
+
+  createNewSource(adventureId: string): Source {
+    return {
+      id: NIL,
+      name: 'new source',
+      key: NIL,
+      adventureId,
+      text: '',
+      language: this.settingService.LANGUAGE_DEFAULT,
+      scriptId: null
+    };
   }
 
   createFormGroupForSource(source: Source): FormGroup {
@@ -77,5 +90,13 @@ export class SourcesService extends BaseService {
       .pipe(
         catchError(this.handleError<Source[]>('getAllSourceForAdventure', null))
       );
+  }
+
+  updateSource(sourceData: any): Observable<any> {
+    return this.http.put<any>(this.sourcesUrl, {
+      source: sourceData
+    }).pipe(
+      catchError(this.handleError<any>('updateSource', null))
+    );
   }
 }

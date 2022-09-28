@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
 import {Subject, Subscription} from 'rxjs';
 import {Source} from '../../../../models/source';
@@ -12,6 +12,8 @@ import {map, tap} from 'rxjs/operators';
 })
 export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Output() sidebarLocationChange = new EventEmitter<string>();
+  @Output() adventureSourceChange = new EventEmitter<Source>();
   sources: Source[];
   sourceObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
@@ -45,4 +47,17 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  newSource(): void {
+    this.updateSidebarLocation('source-edit');
+    this.adventureSourceChange.emit(this.sourcesService.createNewSource(this.adventure.id));
+  }
+
+  updateSource(source: Source): void {
+    this.updateSidebarLocation('source-edit');
+    this.adventureSourceChange.emit(source);
+  }
+
+  updateSidebarLocation(newLocation: string): void {
+    this.sidebarLocationChange.emit(newLocation);
+  }
 }
