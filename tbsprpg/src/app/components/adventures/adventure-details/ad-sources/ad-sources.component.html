@@ -1,8 +1,12 @@
+<div class="mb-3 float-end">
+  <a (click)="newSource()" type="button" class="btn btn-dark">New Source</a>
+</div>
 <div *ngIf="sources.length > 0">
-  <table datatable class="row-border hover">
+  <table datatable [dtOptions]="dtOptions" class="row-border hover">
     <thead>
     <tr>
       <th>name</th>
+      <th>id</th>
       <th>key</th>
       <th>language</th>
       <th>text</th>
@@ -12,11 +16,12 @@
     <tbody>
     <tr *ngFor="let source of sources">
       <td>{{ source.name }}</td>
+      <td>{{ source.id }}</td>
       <td>{{ source.key }}</td>
       <td>{{ source.language }}</td>
       <td>{{ source.text }}</td>
       <td class="text-end">
-        <a type="button" class="btn btn-dark mx-2">Info</a>
+        <a (click)="updateSource(source)" type="button" class="btn btn-dark">Edit</a>
       </td>
     </tr>
     </tbody>

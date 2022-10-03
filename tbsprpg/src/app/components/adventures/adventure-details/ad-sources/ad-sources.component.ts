@@ -1,9 +1,11 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
 import {Subject, Subscription} from 'rxjs';
 import {Source} from '../../../../models/source';
 import {SourcesService} from '../../../../services/sources.service';
 import {map, tap} from 'rxjs/operators';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-ad-sources',
@@ -12,11 +14,14 @@ import {map, tap} from 'rxjs/operators';
 })
 export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Output() sidebarLocationChange = new EventEmitter<string>();
+  @Output() adventureSourceChange = new EventEmitter<Source>();
   sources: Source[];
   sourceObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
+  dtOptions: any = {};
 
-  constructor(private sourcesService: SourcesService) {
+  constructor(private sourcesService: SourcesService, private notificationService: NotificationService) {
     this.sources = [];
     this.sourceObservable = new Subject<string>();
 
@@ -33,6 +38,61 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    const self = this;
+    this.dtOptions = {
+      columnDefs: [
+        {
+          target: 1,
+          visible: false,
+          searchable: false,
+        }
+      ],
+      select: {
+        className: 'datatable-selected',
+        blurable: true
+      },
+      dom: 'Bfrtip',
+      buttons: {
+        dom: {
+          button: {
+            className: 'btn btn-dark mx-2'
+          }
+        },
+        buttons: [
+          {
+            text: 'Select Unreferenced',
+            // tslint:disable-next-line:typedef
+            action(e, dt) {
+              self.subscriptions.add(
+                self.sourcesService.getUnreferencedSourcesForAdventure(self.adventure.id).subscribe(sources => {
+                  for (const source of sources) {
+                    dt.row(':contains("' + source.key + '")').select();
+                  }
+                })
+              );
+            }
+          },
+          {
+            text: 'Delete Selected',
+            // tslint:disable-next-line:typedef
+            action(e, dt) {
+              const selectedRows = dt.rows( { selected: true } ).data();
+              // tslint:disable-next-line:prefer-for-of
+              for (let i = 0; i < selectedRows.length; i++) {
+                self.sourcesService.deleteSource(selectedRows[i][1]).subscribe(() => {
+                  const notification: Notification = {
+                    type: NOTIFICATION_TYPE_SUCCESS,
+                    message: 'source deleted'
+                  };
+                  self.notificationService.postNotification(notification);
+                  self.sources = self.sources.filter(item => item.id !== selectedRows[i][1]);
+                });
+              }
+            }
+          }
+        ]
+      }
+    };
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -45,4 +105,17 @@ export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  newSource(): void {
+    this.updateSidebarLocation('source-edit');
+    this.adventureSourceChange.emit(this.sourcesService.createNewSource(this.adventure.id));
+  }
+
+  updateSource(source: Source): void {
+    this.updateSidebarLocation('source-edit');
+    this.adventureSourceChange.emit(source);
+  }
+
+  updateSidebarLocation(newLocation: string): void {
+    this.sidebarLocationChange.emit(newLocation);
+  }
 }

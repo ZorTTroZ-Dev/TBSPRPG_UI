@@ -33,7 +33,8 @@
   <ul class="nav nav-pills flex-column" id="routes">
     <li class="nav-item">
       <a (click)="updateSidebarLocation('routes')" type="button" class="nav-link"
-         [ngClass]="{'bg-light text-dark': location === 'routes', 'text-light': location !== 'routes'}">
+         [ngClass]="{'bg-light text-dark': location === 'routes' || location === 'route-edit',
+         'text-light': location !== 'routes' && location !== 'route-edit'}">
         <i class="fs-4 bi-compass"></i> <span class="ms-2 d-none d-sm-inline">Routes</span>
       </a>
     </li>
@@ -41,7 +42,8 @@
   <ul class="nav nav-pills flex-column" id="sources">
     <li class="nav-item">
       <a (click)="updateSidebarLocation('sources')" type="button" class="nav-link"
-         [ngClass]="{'bg-light text-dark': location === 'sources', 'text-light': location !== 'sources'}">
+         [ngClass]="{'bg-light text-dark': location === 'sources' || location === 'source-edit',
+         'text-light': location !== 'sources' && location !== 'source-edit'}">
         <i class="fs-4 bi-blockquote-left"></i> <span class="ms-2 d-none d-sm-inline">Sources</span>
       </a>
     </li>

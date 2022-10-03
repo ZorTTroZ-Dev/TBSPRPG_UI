@@ -1,16 +1,14 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Location} from '../../../../models/location';
-import {forkJoin, Subject, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {RoutesService} from '../../../../services/routes.service';
 import {FormGroup} from '@angular/forms';
 import {Route} from '../../../../models/route';
 import {SourcesService} from '../../../../services/sources.service';
-import {tap} from 'rxjs/operators';
 import {LocationService} from '../../../../services/location.service';
 import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
 import {NotificationService} from '../../../../services/notification.service';
 import {NIL} from 'uuid';
-import {SettingService} from '../../../../services/setting.service';
 import {Script} from '../../../../models/script';
 
 @Component({
@@ -22,7 +20,6 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;
   @Input() scripts: Script[];
   private subscriptions: Subscription = new Subscription();
-  routeLoaded: Subject<Route>;
   routesFormArray: FormGroup[] = [];
   routes: Route[] = [];
   locations: Location[] = [];
@@ -30,30 +27,10 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private routesService: RoutesService,
               private sourcesService: SourcesService,
               private locationsService: LocationService,
-              private notificationService: NotificationService,
-              private settingService: SettingService) {
-    this.routeLoaded = new Subject<Route>();
+              private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.routeLoaded.pipe(
-        tap(route => {
-          const sourceRequest = this.sourcesService.getSourceForAdventureForKey(
-            this.location.adventureId,
-            route.sourceKey,
-            this.settingService.getLanguage());
-          const successKeySourceRequest = this.sourcesService.getSourceForAdventureForKey(
-            this.location.adventureId,
-            route.routeTakenSourceKey,
-            this.settingService.getLanguage());
-          forkJoin([sourceRequest, successKeySourceRequest]).subscribe(results => {
-            this.routes.push(route);
-            this.routesFormArray.push(this.routesService.createFormGroupForRouteWithSource(route, results[0], results[1]));
-          });
-        })
-      ).subscribe()
-    );
   }
 
   ngOnDestroy(): void {
@@ -61,13 +38,13 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   addRoute(): void {
+    const newRoute = this.routesService.createNewRoute(this.location.id);
     this.subscriptions.add(
-      this.sourcesService.getSourceForAdventureForKey(
-        this.location.adventureId, NIL,
-        this.settingService.getLanguage())
-      .subscribe(result => {
-        const newRoute = this.routesService.createNewRoute(this.location.id);
-        this.routesFormArray.push(this.routesService.createFormGroupForRouteWithSource(newRoute, result, result));
+      this.routesService.createFormGroupForRouteObservable(
+        newRoute,
+        this.location.adventureId)
+      .subscribe(formGroup => {
+        this.routesFormArray.push(formGroup);
         this.routes.push(newRoute);
       })
     );
@@ -83,7 +60,10 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
       this.subscriptions.add(
         this.routesService.getRoutesForLocation(this.location.id).subscribe(routes => {
           routes.forEach(route => {
-            this.routeLoaded.next(route);
+            this.routesService.createFormGroupForRouteObservable(route, this.location.adventureId).subscribe(formGroup => {
+              this.routes.push(route);
+              this.routesFormArray.push(formGroup);
+            });
           });
         })
       );
