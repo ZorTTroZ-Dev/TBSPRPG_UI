@@ -21,6 +21,7 @@
             <div class="card-text" [innerHTML]="sourceMap.get(adventure.id)"></div>
             <div class="d-flex justify-content-between align-items-center">
               <button routerLink="/game/{{adventure.id}}" type="button" class="btn btn-dark">Play</button>
+              <a (click)="restartGame(adventure.id)" *ngIf="gameExistsForAdventure(adventure.id)" type="button" class="btn btn-dark">Restart</a>
 <!--              <div class="btn-group">-->
 <!--                <button routerLink="/game/{{adventure.id}}" type="button" class="btn btn-sm btn-dark">Play</button>-->
 <!--                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>-->
