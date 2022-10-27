@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
 import {Subject, Subscription} from 'rxjs';
 import {GameService} from '../../../../services/game.service';
@@ -15,6 +15,8 @@ import {NotificationService} from '../../../../services/notification.service';
 })
 export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
+  @Output() sidebarLocationChange = new EventEmitter<string>();
+  @Output() adventureGameChange = new EventEmitter<GameUser>();
   games: GameUser[];
   gameObservable: Subject<string>;
   private subscriptions: Subscription = new Subscription();
@@ -45,6 +47,11 @@ export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+  }
+
+  updateGame(game: GameUser): void {
+    this.sidebarLocationChange.emit('game-edit');
+    this.adventureGameChange.emit(game);
   }
 
   deleteGame(game: Game): void {
