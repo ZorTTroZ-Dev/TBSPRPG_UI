@@ -77,4 +77,13 @@ export class GameService extends BaseService {
         catchError(this.handleError<any>('getStateForGame', null))
       );
   }
+
+  updateGameState(gameState: GameState): Observable<any> {
+    return this.http.put<any>(this.gamesUrl + '/state', {
+      gameId: gameState.gameId,
+      gameState: gameState.state
+    }).pipe(
+      catchError(this.handleError<any>('updateGameState', null))
+    );
+  }
 }
