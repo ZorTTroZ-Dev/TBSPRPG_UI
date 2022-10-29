@@ -7,6 +7,7 @@ import {BaseService} from './base.service';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {GameUser} from '../models/gameUser';
+import {GameContentRoute} from '../models/gameContentRoute';
 
 @Injectable({
   providedIn: 'root'
@@ -44,10 +45,10 @@ export class GameService extends BaseService {
     );
   }
 
-  startGame(adventureId: string): Observable<any> {
-    return this.http.get<any>(this.gamesUrl + '/start/' + adventureId)
+  startGame(adventureId: string): Observable<GameContentRoute> {
+    return this.http.get<GameContentRoute>(this.gamesUrl + '/start/' + adventureId)
     .pipe(
-      catchError(this.handleError<any>('startGame', null))
+      catchError(this.handleError<GameContentRoute>('startGame', null))
     );
   }
 }

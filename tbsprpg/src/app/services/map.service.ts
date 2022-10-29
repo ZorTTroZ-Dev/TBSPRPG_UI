@@ -1,29 +1,20 @@
 import {Injectable} from '@angular/core';
 import {BaseService} from './base.service';
 import {HttpClient} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {LocationRoutes} from '../models/locationroutes';
+import {ContentRoute} from '../models/contentRoute';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService extends BaseService {
   private mapUrl: string;
-  private pollRoutesObservable: Subject<number>;
 
   constructor(http: HttpClient, ) {
     super(http);
-    this.pollRoutesObservable = new Subject<number>();
     this.mapUrl = this.getBaseUrl() + '/api/maps';
-  }
-
-  pollRoutes(trigger: number): void {
-    this.pollRoutesObservable.next(trigger);
-  }
-
-  getPollRoutes(): Observable<number> {
-    return this.pollRoutesObservable.asObservable();
   }
 
   getRoutesForGame(gameId: string): Observable<LocationRoutes> {
@@ -40,10 +31,10 @@ export class MapService extends BaseService {
       );
   }
 
-  changeLocationViaRoute(gameId: string, routeId: string): Observable<any> {
-    return this.http.get<any>(this.mapUrl + '/' + gameId + '/changelocation/' + routeId)
+  changeLocationViaRoute(gameId: string, routeId: string): Observable<ContentRoute> {
+    return this.http.get<ContentRoute>(this.mapUrl + '/' + gameId + '/changelocation/' + routeId)
       .pipe(
-        catchError(this.handleError<any>('startGame', null))
+        catchError(this.handleError<ContentRoute>('startGame', null))
       );
   }
 }

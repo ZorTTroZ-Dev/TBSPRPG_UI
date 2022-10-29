@@ -9,10 +9,10 @@
     An error occurred while loading or starting your game!
   </div>
   <div class="game-content">
-    <app-content [game]="game"></app-content>
+    <app-content [game]="game" [newContent]="newContent"></app-content>
   </div>
   <br>
   <div class="game-content">
-    <app-movement [game]="game"></app-movement>
+    <app-movement [game]="game" (contentChange)="contentChanged($event)"></app-movement>
   </div>
 </div>
