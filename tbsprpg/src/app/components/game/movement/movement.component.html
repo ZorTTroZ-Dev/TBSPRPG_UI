@@ -1,11 +1,5 @@
-<div class="movement-error" *ngIf="isMovementError">
-  An error occurred while loading game movement options!
-</div>
 <div *ngIf="finalLocation">
   <button class="btn btn-dark" routerLink="/adventure-explorer">Return</button>
-</div>
-<div class="spinner-border" role="status" *ngIf="routes.length === 0  && !isMovementError && !finalLocation">
-  <span class="visually-hidden">Loading Movement...</span>
 </div>
 <div>
     <ng-container *ngFor="let route of routes;">

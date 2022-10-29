@@ -4,9 +4,11 @@ import {GameService} from '../../services/game.service';
 import {Adventure} from '../../models/adventure';
 import {Game} from '../../models/game';
 
-import {catchError, map, switchMap, takeUntil, tap} from 'rxjs/operators';
-import {of, Subject, Subscription, timer} from 'rxjs';
+import {map, switchMap, tap} from 'rxjs/operators';
+import {Subject, Subscription} from 'rxjs';
 import {AdventureService} from '../../services/adventure.service';
+import {GameContentRoute} from '../../models/gameContentRoute';
+import {Content} from '../../models/content';
 
 @Component({
   selector: 'app-game',
@@ -15,9 +17,10 @@ import {AdventureService} from '../../services/adventure.service';
 })
 export class GameComponent implements OnInit, OnDestroy {
   adventure: Adventure;
-  game: Game;
+  game: GameContentRoute;
   gameLoaded: Subject<Game>;
   isGameError: boolean;
+  newContent: Content;
   private subscription: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute,
@@ -45,24 +48,14 @@ export class GameComponent implements OnInit, OnDestroy {
         switchMap(adventureId => this.adventureService.getAdventureById(adventureId)),
         tap(adventure => this.adventure = adventure), // save the adventure
         switchMap(adventure => this.gameService.startGame(adventure.id)),
-        switchMap(() => timer(0, 500)),  // start a timer to load the game every half second
-        takeUntil(this.gameLoaded), // try to load the game until it's loaded
-        map(tic => {
-          if (tic >= 20) {
-            this.isGameError = true;
-            throw new Error('failed to load game');
-          }
-          return tic;
-        }), // only try for 20 half seconds which is 10 seconds
-        switchMap(() => this.gameService.getGameForAdventure(this.adventure.id)),
-        tap(game => {
-          if (game !== null) {
-            this.game = game;
-            this.gameLoaded.next(game);
-          }
-        }),
-        catchError(() => of(null)),  // pipe line continue with a null game if there is an error
+        tap(gameContentRoute => {
+          this.game = gameContentRoute;
+        })
       ).subscribe()
     );
+  }
+
+  contentChanged(newContent: Content): void {
+    this.newContent = newContent;
   }
 }

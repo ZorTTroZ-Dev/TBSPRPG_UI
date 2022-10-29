@@ -1,12 +1,3 @@
-<div class="content-error" *ngIf="isContentError">
-  An error occurred while loading game content!
-</div>
-<div class="spinner-border" role="status" *ngIf="content.length === 0  && !isContentError">
-  <span class="visually-hidden">Loading Content...</span>
-</div>
 <div>
   <div class="content-item" *ngFor="let item of content" [innerHTML]="contentMap.get(item)"></div>
-  <div class="spinner-border" role="status" *ngIf="isContentLoading">
-    <span class="visually-hidden">Loading Content...</span>
-  </div>
 </div>
