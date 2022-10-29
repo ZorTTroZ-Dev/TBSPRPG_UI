@@ -32,7 +32,13 @@
         <app-adventure-edit [adventure]="adventure" (editAdventureChange)="updateAdventureEdit($event)"></app-adventure-edit>
       </div>
       <div *ngIf="sidebarLocation === 'games'">
-        <app-ad-games [adventure]="adventure"></app-ad-games>
+        <app-ad-games [adventure]="adventure"
+                      (sidebarLocationChange)="updateSidebarLocation($event)"
+                      (adventureGameChange)="updateAdventureGame($event)"
+        ></app-ad-games>
+      </div>
+      <div *ngIf="sidebarLocation === 'game-edit'">
+        <app-ad-game-edit [game]="game" [adventure]="adventure"></app-ad-game-edit>
       </div>
       <div *ngIf="sidebarLocation === 'scripts'">
         <app-ad-scripts
