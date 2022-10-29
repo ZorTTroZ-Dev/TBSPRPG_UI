@@ -8,10 +8,11 @@
   <div class="game-error" *ngIf="isGameError">
     An error occurred while loading or starting your game!
   </div>
-  <div>
-    <app-content [game]="game"></app-content>
+  <div class="game-content">
+    <app-content [game]="game" [newContent]="newContent"></app-content>
   </div>
-  <div>
-    <app-movement [game]="game"></app-movement>
+  <br>
+  <div class="game-content">
+    <app-movement [game]="game" (contentChange)="contentChanged($event)"></app-movement>
   </div>
 </div>
