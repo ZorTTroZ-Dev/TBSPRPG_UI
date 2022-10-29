@@ -1,8 +1,12 @@
 <div *ngIf="finalLocation">
-  <button class="btn btn-dark" routerLink="/adventure-explorer">Return</button>
+  <button class="btn btn-dark" routerLink="/adventure-explorer">
+    <span class="game-content-button-text">Return</span>
+  </button>
 </div>
 <div>
     <ng-container *ngFor="let route of routes;">
-        <button class="btn btn-dark" style="margin-right: 3px;" (click)="takeRoute(route.id)">{{route.source}}</button>
+        <button class="btn btn-dark game-content-button" (click)="takeRoute(route.id)">
+          <span class="game-content-button-text">{{route.source}}</span>
+        </button>
     </ng-container>
 </div>
