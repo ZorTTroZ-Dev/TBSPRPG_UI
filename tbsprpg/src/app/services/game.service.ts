@@ -7,6 +7,9 @@ import {BaseService} from './base.service';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {GameUser} from '../models/gameUser';
+import {FormControl, FormGroup} from '@angular/forms';
+import {GameState} from '../models/gameState';
+import {GameContentRoute} from '../models/gameContentRoute';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,24 @@ export class GameService extends BaseService {
   constructor(http: HttpClient, ) {
     super(http);
     this.gamesUrl = this.getBaseUrl() + '/api/games';
+  }
+
+  createGameFormGroup(game: GameUser, gameState: GameState): FormGroup {
+    const gameFormGroup = new FormGroup( {
+      id: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      userId: new FormControl<string>('')
+    });
+    const gameStateFormGroup = new FormGroup({
+      gameId: new FormControl<string>(''),
+      state: new FormControl<string>('')
+    });
+    gameFormGroup.setValue(game.game);
+    gameStateFormGroup.setValue(gameState);
+    return new FormGroup({
+      game: gameFormGroup,
+      gameState: gameStateFormGroup
+    });
   }
 
   deleteGame(game: Game): Observable<any> {
@@ -44,10 +65,26 @@ export class GameService extends BaseService {
     );
   }
 
-  startGame(adventureId: string): Observable<any> {
-    return this.http.get<any>(this.gamesUrl + '/start/' + adventureId)
+  startGame(adventureId: string): Observable<GameContentRoute> {
+    return this.http.get<GameContentRoute>(this.gamesUrl + '/start/' + adventureId)
     .pipe(
-      catchError(this.handleError<any>('startGame', null))
+      catchError(this.handleError<GameContentRoute>('startGame', null))
+    );
+  }
+
+  getStateForGame(gameId: string): Observable<any> {
+    return this.http.get<any>(this.gamesUrl + '/state/' + gameId)
+      .pipe(
+        catchError(this.handleError<any>('getStateForGame', null))
+      );
+  }
+
+  updateGameState(gameState: GameState): Observable<any> {
+    return this.http.put<any>(this.gamesUrl + '/state', {
+      gameId: gameState.gameId,
+      gameState: gameState.state
+    }).pipe(
+      catchError(this.handleError<any>('updateGameState', null))
     );
   }
 }

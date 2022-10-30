@@ -1,0 +1,9 @@
+@import '../../../styles.scss';
+
+div {
+  .game-content {
+    width: $content-width-em;
+    margin: auto;
+    font-size: $text-size-em;
+  }
+}

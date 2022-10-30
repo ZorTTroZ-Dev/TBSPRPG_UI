@@ -60,7 +60,8 @@
   <ul class="nav nav-pills flex-column mb-auto" id="games">
     <li class="nav-item">
       <a (click)="updateSidebarLocation('games')" type="button" class="nav-link"
-         [ngClass]="{'bg-light text-dark': location === 'games', 'text-light': location !== 'games'}">
+         [ngClass]="{'bg-light text-dark': location === 'games' || location === 'game-edit',
+         'text-light': location !== 'games' && location !== 'game-edit'}">
         <i class="fs-4 bi-controller"></i> <span class="ms-2 d-none d-sm-inline">Games</span>
       </a>
     </li>

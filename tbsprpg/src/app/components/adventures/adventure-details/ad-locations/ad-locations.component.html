@@ -16,9 +16,8 @@
       <td>{{ location.id }}</td>
       <td>{{ location.name }} <i *ngIf="location.initial" class="fs-4 bi-star-fill"></i></td>
       <td class="text-end">
-        <a (click)="updateLocations(location)"
-           type="button" class="btn btn-dark">Edit</a>
-        <a type="button" class="btn btn-dark mx-2">Delete</a>
+        <a (click)="updateLocations(location)" type="button" class="btn btn-dark">Edit</a>
+<!--        <a type="button" class="btn btn-dark mx-2">Delete</a>-->
       </td>
     </tr>
     </tbody>
