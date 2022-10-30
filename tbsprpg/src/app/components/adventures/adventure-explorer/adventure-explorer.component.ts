@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AdventureService} from '../../../services/adventure.service';
 import {Adventure} from '../../../models/adventure';
 import {Subject, Subscription} from 'rxjs';
-import {switchMap, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {SettingService} from '../../../services/setting.service';
 import {SourcesService} from '../../../services/sources.service';
 import {UserService} from '../../../services/user.service';
@@ -43,21 +43,23 @@ export class AdventureExplorerComponent implements OnInit, OnDestroy {
 
     this.subscriptions.add(
       this.adventureSubject.pipe(
-        switchMap(adventure => this.sourcesService.getProcessedSourceForAdventureForKey(
-          adventure.id, adventure.descriptionSourceKey, this.settingService.getLanguage())),
-        tap(source => {
-          this.sourceMap.set(source.adventureId, source.text);
+        tap(adventure => {
+          this.sourcesService.getProcessedSourceForAdventureForKey(adventure.id, adventure.descriptionSourceKey,
+            this.settingService.getLanguage()).subscribe(source => {
+            this.sourceMap.set(source.adventureId, source.text);
+          });
         })
       ).subscribe()
     );
 
     this.subscriptions.add(
       this.gameExistsSubject.pipe(
-        switchMap(adventure => this.gameService.getGameForAdventure(adventure.id)),
-        tap(game => {
-          if (game !== null) {
-            this.adventureGames[game.adventureId] = game;
-          }
+        tap(adventure => {
+          this.gameService.getGameForAdventure(adventure.id).subscribe(game => {
+            if (game !== null) {
+              this.adventureGames[game.adventureId] = game;
+            }
+          });
         })
       ).subscribe()
     );
