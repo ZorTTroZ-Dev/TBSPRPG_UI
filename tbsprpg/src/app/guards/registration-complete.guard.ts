@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import {UserService} from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationCompleteGuard implements CanActivate {
+export class RegistrationCompleteGuard  {
   constructor(private userService: UserService) {}
 
   canActivate(
