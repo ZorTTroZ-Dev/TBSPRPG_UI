@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {inject, Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {UserService} from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationCompleteGuard  {
+class RegistrationCompleteGuardService  {
   constructor(private userService: UserService) {}
 
   canActivate(
@@ -18,3 +18,8 @@ export class RegistrationCompleteGuard  {
     return true;
   }
 }
+
+export const RegistrationCompleteGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot):
+    Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
+  return inject(RegistrationCompleteGuardService).canActivate(next, state);
+};
