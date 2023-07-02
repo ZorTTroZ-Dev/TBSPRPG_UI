@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateFn} from '@angular/router';
-import { UserService } from '../services/user.service';
+import {CanActivateFn, Router, UrlTree} from '@angular/router';
+import {UserService} from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { UserService } from '../services/user.service';
 class AuthorizationGuardService  {
   constructor(private router: Router, private userService: UserService) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean|UrlTree {
+  canActivate(): boolean|UrlTree {
     if (this.userService.getAuthToken() !== null) {
       return true;
     }
@@ -17,6 +17,6 @@ class AuthorizationGuardService  {
   }
 }
 
-export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean|UrlTree => {
-  return inject(AuthorizationGuardService).canActivate(next, state);
+export const AuthGuard: CanActivateFn = (): boolean|UrlTree => {
+  return inject(AuthorizationGuardService).canActivate();
 };
