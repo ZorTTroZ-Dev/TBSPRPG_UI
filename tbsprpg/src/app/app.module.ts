@@ -61,6 +61,7 @@ import {PasswordValidatorDirective} from './directives/password-validator.direct
 import { AdScriptEditComponent } from './components/adventures/adventure-details/ad-script-edit/ad-script-edit.component';
 import { AdSourceEditFullComponent } from './components/adventures/adventure-details/ad-source-edit-full/ad-source-edit-full.component';
 import { AdGameEditComponent } from './components/adventures/adventure-details/ad-game-edit/ad-game-edit.component';
+import { AdObjectsComponent } from './components/adventures/adventure-details/ad-objects/ad-objects.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { AdGameEditComponent } from './components/adventures/adventure-details/a
     AdScriptEditComponent,
     AdSourceEditFullComponent,
     AdGameEditComponent,
+    AdObjectsComponent,
   ],
   imports: [
     BrowserModule,

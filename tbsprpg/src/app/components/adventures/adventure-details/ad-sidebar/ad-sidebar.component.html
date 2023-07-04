@@ -57,6 +57,15 @@
       </a>
     </li>
   </ul>
+  <ul class="nav nav-pills flex-column" id="objects">
+    <li class="nav-item">
+      <a (click)="updateSidebarLocation('objects')" type="button" class="nav-link"
+         [ngClass]="{'bg-light text-dark': location === 'objects' || location === 'object-edit',
+          'text-light': location !== 'objects' && location !== 'object-edit'}">
+        <i class="fs-4 bi-box-fill"></i> <span class="ms-2 d-none d-sm-inline">Objects</span>
+      </a>
+    </li>
+  </ul>
   <ul class="nav nav-pills flex-column mb-auto" id="games">
     <li class="nav-item">
       <a (click)="updateSidebarLocation('games')" type="button" class="nav-link"
