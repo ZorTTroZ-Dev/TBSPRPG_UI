@@ -49,14 +49,14 @@ export class AdventureObjectService extends BaseService {
         catchError(this.handleError<AdventureObject[]>('getScriptsForAdventure', null))
       );
   }
-  //
-  // updateScript(scriptData: any): Observable<any> {
-  //   return this.http.put<any>(this.scriptsUrl, {
-  //     script: scriptData
-  //   }).pipe(
-  //     catchError(this.handleError<any>('updateScript', null))
-  //   );
-  // }
+
+  updateAdventureObject(adventureObjectData: any): Observable<any> {
+    return this.http.put<any>(this.adventureObjectsUrl, {
+      obj: adventureObjectData
+    }).pipe(
+      catchError(this.handleError<any>('updateAdventureObject', null))
+    );
+  }
   //
   // deleteScript(script: Script): Observable<any> {
   //   return this.http.delete(this.scriptsUrl + '/' + script.id)

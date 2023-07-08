@@ -34,14 +34,14 @@ export class AdObjectEditComponent implements OnInit, OnChanges, OnDestroy {
 
   updateAdventureObject(): void {
     console.log(this.adventureObjectForm.value);
-    // this.subscriptions.add(
-    //   this.scriptService.updateScript(this.scriptForm.value).subscribe(() => {
-    //     const notification: Notification = {
-    //       type: NOTIFICATION_TYPE_SUCCESS,
-    //       message: 'script updated'
-    //     };
-    //     this.notificationService.postNotification(notification);
-    //   })
-    // );
+    this.subscriptions.add(
+      this.adventureObjectService.updateAdventureObject(this.adventureObjectForm.value).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'object updated'
+        };
+        this.notificationService.postNotification(notification);
+      })
+    );
   }
 }

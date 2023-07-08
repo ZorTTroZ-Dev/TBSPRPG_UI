@@ -14,7 +14,7 @@
           <label for="description">Description:</label>
         </div>
         <div class="form-floating mt-2">
-          <select class="form-select" id="type">
+          <select class="form-select" id="type" formControlName="type">
             <option *ngFor="let type of adventureObjectTypes" [value]="type">{{type}}</option>
           </select>
           <label for="type">Type:</label>
