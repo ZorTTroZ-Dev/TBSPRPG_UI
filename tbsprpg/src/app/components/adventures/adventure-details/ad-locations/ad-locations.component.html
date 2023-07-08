@@ -11,13 +11,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr (click)="updateLocations(location)"
-        style="cursor: pointer;" *ngFor="let location of locations">
-      <td>{{ location.id }}</td>
-      <td>{{ location.name }} <i *ngIf="location.initial" class="fs-4 bi-star-fill"></i></td>
+    <tr style="cursor: pointer;" *ngFor="let location of locations">
+      <td (click)="updateLocations(location)">{{ location.id }}</td>
+      <td (click)="updateLocations(location)">{{ location.name }} <i *ngIf="location.initial" class="fs-4 bi-star-fill"></i></td>
       <td class="text-end">
         <a (click)="updateLocations(location)" type="button" class="btn btn-dark">Edit</a>
-<!--        <a type="button" class="btn btn-dark mx-2">Delete</a>-->
+        <a (click)="deleteLocation(location)" type="button" class="btn btn-dark mx-2">Delete</a>
       </td>
     </tr>
     </tbody>

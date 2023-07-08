@@ -3,6 +3,8 @@ import {Adventure} from '../../../../models/adventure';
 import {Subscription} from 'rxjs';
 import {LocationService} from '../../../../services/location.service';
 import {Location} from '../../../../models/location';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-adventure-details-locations',
@@ -17,7 +19,7 @@ export class AdLocationsComponent implements OnInit, OnChanges, OnDestroy {
   @Output() adventureLocationChange = new EventEmitter<Location>();
   dtOptions: DataTables.Settings = {};
 
-  constructor(private locationService: LocationService) { }
+  constructor(private locationService: LocationService, private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.locations = [];
@@ -57,5 +59,20 @@ export class AdLocationsComponent implements OnInit, OnChanges, OnDestroy {
 
   updateAdventureLocation(location: Location): void {
     this.adventureLocationChange.emit(location);
+  }
+
+  deleteLocation(location: Location): void {
+    this.subscriptions.add(
+      this.locationService.deleteLocation(location).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'location deleted'
+        };
+        this.notificationService.postNotification(notification);
+        this.locations = this.locations.filter(l => {
+          return l.id !== location.id;
+        });
+      })
+    );
   }
 }
