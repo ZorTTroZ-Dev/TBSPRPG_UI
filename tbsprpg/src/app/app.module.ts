@@ -62,6 +62,7 @@ import { AdScriptEditComponent } from './components/adventures/adventure-details
 import { AdSourceEditFullComponent } from './components/adventures/adventure-details/ad-source-edit-full/ad-source-edit-full.component';
 import { AdGameEditComponent } from './components/adventures/adventure-details/ad-game-edit/ad-game-edit.component';
 import { AdObjectsComponent } from './components/adventures/adventure-details/ad-objects/ad-objects.component';
+import { AdObjectEditComponent } from './components/adventures/adventure-details/ad-object-edit/ad-object-edit.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { AdObjectsComponent } from './components/adventures/adventure-details/ad
     AdSourceEditFullComponent,
     AdGameEditComponent,
     AdObjectsComponent,
+    AdObjectEditComponent,
   ],
   imports: [
     BrowserModule,

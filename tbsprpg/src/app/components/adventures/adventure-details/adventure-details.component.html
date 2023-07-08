@@ -71,7 +71,13 @@
         <app-ad-source-edit-full [source]="source"></app-ad-source-edit-full>
       </div>
       <div *ngIf="sidebarLocation === 'objects'">
-        <app-ad-objects [adventure]="adventure"></app-ad-objects>
+        <app-ad-objects [adventure]="adventure"
+                        (sidebarLocationChange)="updateSidebarLocation($event)"
+                        (adventureObjectChange)="updateAdventureObject($event)"
+        ></app-ad-objects>
+      </div>
+      <div *ngIf="sidebarLocation === 'object-edit'">
+        <app-ad-object-edit [adventureObject]="adventureObject"></app-ad-object-edit>
       </div>
     </div>
   </div>

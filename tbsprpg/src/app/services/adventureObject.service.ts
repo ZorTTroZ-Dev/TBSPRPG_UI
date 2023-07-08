@@ -5,7 +5,9 @@ import {BaseService} from './base.service';
 
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {AdventureObject} from '../models/adventureObject';
+import {AdventureObject, GENERIC_ADVENTURE_OBJECT_TYPE} from '../models/adventureObject';
+import {NIL} from 'uuid';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -19,29 +21,27 @@ export class AdventureObjectService extends BaseService {
     this.adventureObjectsUrl = this.getBaseUrl() + '/api/objects';
   }
 
-  // createNewScript(adventureId: string): Script {
-  //   return {
-  //     id: NIL,
-  //     name: 'new script',
-  //     adventureId,
-  //     content: 'code here',
-  //     includes: [],
-  //     type: LUA_SCRIPT_TYPE
-  //   };
-  // }
+  createNewAdventureObject(adventureId: string): AdventureObject {
+    return {
+      id: NIL,
+      name: 'new object',
+      description: 'object description',
+      adventureId,
+      type: GENERIC_ADVENTURE_OBJECT_TYPE
+    };
+  }
 
-  // createScriptFormGroup(script: Script): FormGroup {
-  //   const formGroup = new FormGroup( {
-  //     id: new FormControl<string>(''),
-  //     name: new FormControl<string>(''),
-  //     adventureId: new FormControl<string>(''),
-  //     content: new FormControl<string>(''),
-  //     type: new FormControl<string>(''),
-  //     includes: new FormControl<Script[]>([])
-  //   });
-  //   formGroup.setValue(script);
-  //   return formGroup;
-  // }
+  createAdventureObjectFormGroup(adventureObject: AdventureObject): FormGroup {
+    const formGroup = new FormGroup( {
+      id: new FormControl<string>(''),
+      name: new FormControl<string>(''),
+      adventureId: new FormControl<string>(''),
+      description: new FormControl<string>(''),
+      type: new FormControl<string>('')
+    });
+    formGroup.setValue(adventureObject);
+    return formGroup;
+  }
 
   getAdventureObjectsForAdventure(adventureId: string): Observable<AdventureObject[]> {
     return this.http.get<AdventureObject[]>(this.adventureObjectsUrl + '/adventure/' + adventureId)

@@ -14,7 +14,6 @@ export class AdObjectsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
   @Output() sidebarLocationChange = new EventEmitter<string>();
   @Output() adventureObjectChange = new EventEmitter<AdventureObject>();
-  @Output() adventureObjectsChange = new EventEmitter<AdventureObject[]>();
   adventureObjects: AdventureObject[];
   private subscriptions: Subscription = new Subscription();
   adventureObjectObservable: Subject<string>;
@@ -48,23 +47,21 @@ export class AdObjectsComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  updateAdventureObject(adventureObject: AdventureObject): void {
-    // this.updateSidebarLocation('script-edit');
-    // this.updateAdventureScript(script);
-    // this.adventureScriptsChange.emit(this.scripts);
+  updateAdventureObjectUI(adventureObject: AdventureObject): void {
+    this.updateSidebarLocation('object-edit');
+    this.updateAdventureObject(adventureObject);
   }
 
   newAdventureObject(): void {
-    // this.updateSidebarLocation('script-edit');
-    // this.updateAdventureScript(this.scriptService.createNewScript(this.adventure.id));
-    // this.adventureScriptsChange.emit(this.scripts);
+    this.updateSidebarLocation('object-edit');
+    this.updateAdventureObject(this.adventureObjectService.createNewAdventureObject(this.adventure.id));
   }
 
   updateSidebarLocation(newLocation: string): void {
     this.sidebarLocationChange.emit(newLocation);
   }
 
-  updateAdventureScript(adventureObject: AdventureObject): void {
+  updateAdventureObject(adventureObject: AdventureObject): void {
     this.adventureObjectChange.emit(adventureObject);
   }
 
