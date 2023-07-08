@@ -4,6 +4,8 @@ import {AdventureObject} from '../../../../models/adventureObject';
 import {Subject, Subscription} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {AdventureObjectService} from '../../../../services/adventureObject.service';
+import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notification';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-ad-objects',
@@ -18,7 +20,7 @@ export class AdObjectsComponent implements OnInit, OnChanges, OnDestroy {
   private subscriptions: Subscription = new Subscription();
   adventureObjectObservable: Subject<string>;
 
-  constructor(private adventureObjectService: AdventureObjectService/*, private notificationService: NotificationService*/) {
+  constructor(private adventureObjectService: AdventureObjectService, private notificationService: NotificationService) {
     this.adventureObjects = [];
     this.adventureObjectObservable = new Subject<string>();
 
@@ -66,17 +68,17 @@ export class AdObjectsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   deleteAdventureObject(adventureObject: AdventureObject): void {
-    // this.subscriptions.add(
-    //   this.scriptService.deleteScript(script).subscribe(() => {
-    //     const notification: Notification = {
-    //       type: NOTIFICATION_TYPE_SUCCESS,
-    //       message: 'script deleted'
-    //     };
-    //     this.notificationService.postNotification(notification);
-    //     this.scripts = this.scripts.filter(s => {
-    //       return s.id !== script.id;
-    //     });
-    //   })
-    // );
+    this.subscriptions.add(
+      this.adventureObjectService.deleteAdventureObject(adventureObject).subscribe(() => {
+        const notification: Notification = {
+          type: NOTIFICATION_TYPE_SUCCESS,
+          message: 'object deleted'
+        };
+        this.notificationService.postNotification(notification);
+        this.adventureObjects = this.adventureObjects.filter(ao => {
+          return ao.id !== adventureObject.id;
+        });
+      })
+    );
   }
 }
