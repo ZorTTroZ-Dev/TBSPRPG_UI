@@ -9,6 +9,7 @@ import {Script} from '../../../models/script';
 import {Route} from '../../../models/route';
 import {Source} from '../../../models/source';
 import {GameUser} from '../../../models/gameUser';
+import {AdventureObject} from '../../../models/adventureObject';
 
 @Component({
   selector: 'app-adventure-details',
@@ -25,6 +26,7 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
   route: Route;
   source: Source;
   game: GameUser;
+  adventureObject: AdventureObject;
   sidebarLocation: string = null;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -92,5 +94,9 @@ export class AdventureDetailsComponent implements OnInit, OnDestroy {
 
   updateAdventureGame(game: GameUser): void {
     this.game = game;
+  }
+
+  updateAdventureObject(adventureObject: AdventureObject): void {
+    this.adventureObject = adventureObject;
   }
 }

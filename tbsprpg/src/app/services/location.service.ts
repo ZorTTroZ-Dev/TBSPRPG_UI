@@ -74,4 +74,11 @@ export class LocationService extends BaseService{
         catchError(this.handleError<Location>('getLocationById', null))
       );
   }
+
+  deleteLocation(location: Location): Observable<any> {
+    return this.http.delete(this.locationUrl + '/' + location.id)
+      .pipe(
+        catchError(this.handleError<any>('deleteLocation', null))
+      );
+  }
 }
