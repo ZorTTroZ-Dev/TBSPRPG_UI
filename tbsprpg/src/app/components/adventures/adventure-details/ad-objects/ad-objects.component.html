@@ -1,0 +1,26 @@
+<div class="mb-3 float-end">
+  <a (click)="newAdventureObject()" type="button" class="btn btn-dark">New Object</a>
+</div>
+<div *ngIf="adventureObjects.length > 0">
+  <table datatable class="row-border hover">
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>type</th>
+      <th>name</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let adventureObject of adventureObjects">
+      <td (click)="updateAdventureObjectUI(adventureObject)" style="cursor: pointer;">{{ adventureObject.id }}</td>
+      <td (click)="updateAdventureObjectUI(adventureObject)" style="cursor: pointer;">{{ adventureObject.type }}</td>
+      <td (click)="updateAdventureObjectUI(adventureObject)" style="cursor: pointer;">{{ adventureObject.name }}</td>
+      <td class="text-end">
+        <a (click)="updateAdventureObjectUI(adventureObject)" type="button" class="btn btn-dark">Edit</a>
+        <a (click)="deleteAdventureObject(adventureObject)" type="button" class="btn btn-dark mx-2">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
