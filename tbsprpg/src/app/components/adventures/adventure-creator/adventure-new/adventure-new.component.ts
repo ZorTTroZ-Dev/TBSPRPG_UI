@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Adventure} from '../../../../models/adventure';
 import {AdventureService} from '../../../../services/adventure.service';
 
@@ -9,6 +9,7 @@ import {AdventureService} from '../../../../services/adventure.service';
 })
 export class AdventureNewComponent implements OnInit {
   adventure: Adventure;
+  @Output() sidebarLocationChange = new EventEmitter<string>();
 
   constructor(private adventureService: AdventureService) { }
 
@@ -18,5 +19,6 @@ export class AdventureNewComponent implements OnInit {
 
   updateAdventureEdit(adventure: Adventure): void {
     this.adventure = adventure;
+    this.sidebarLocationChange.emit('adventures');
   }
 }

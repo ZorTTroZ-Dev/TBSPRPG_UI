@@ -18,7 +18,7 @@
         <app-adventures-table [tableType]="adventureTableType"></app-adventures-table>
       </div>
       <div *ngIf="sidebarLocation === 'new_adventure'">
-        <app-adventure-new></app-adventure-new>
+        <app-adventure-new (sidebarLocationChange)="updateSidebarLocation($event)"></app-adventure-new>
       </div>
     </div>
   </div>
