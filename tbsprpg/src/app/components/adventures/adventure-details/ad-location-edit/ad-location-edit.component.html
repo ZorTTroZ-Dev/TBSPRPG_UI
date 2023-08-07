@@ -41,6 +41,21 @@
         [label]="sourceLabel"
         [scripts]="scripts"
       ></app-adventure-details-source-edit>
+      <div class="form-floating mt-2">
+        <select class="form-select" id="selectObjects" formControlName="objectsSelect" (change)="addObject()">
+          <option *ngFor="let adventureObject of adventureObjects" [value]="adventureObject.id">
+            {{adventureObject.name}}
+          </option>
+        </select>
+        <label for="selectObjects">Select Object to Add to Location:</label>
+      </div>
+      <div class="form-floating mt-2">
+          <span id="adventureObjects"
+                *ngFor="let adventureObject of location.adventureObjects"
+                class="badge rounded-pill bg-dark fs-6">
+            {{adventureObject.name}} <i (click)="removeObject(adventureObject.id)" class="bi-x" style="cursor:pointer;"></i>
+          </span>
+      </div>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!locationForm.valid">Update</button>
     </form>
   </div>

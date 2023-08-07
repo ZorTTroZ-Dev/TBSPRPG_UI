@@ -46,7 +46,14 @@ export class AdventureObjectService extends BaseService {
   getAdventureObjectsForAdventure(adventureId: string): Observable<AdventureObject[]> {
     return this.http.get<AdventureObject[]>(this.adventureObjectsUrl + '/adventure/' + adventureId)
       .pipe(
-        catchError(this.handleError<AdventureObject[]>('getScriptsForAdventure', null))
+        catchError(this.handleError<AdventureObject[]>('getAdventureObjectsForAdventure', null))
+      );
+  }
+
+  getAdventureObjectsForLocation(locationId: string): Observable<AdventureObject[]> {
+    return this.http.get<AdventureObject[]>(this.adventureObjectsUrl + '/location/' + locationId)
+      .pipe(
+        catchError(this.handleError<AdventureObject[]>('getAdventureObjectsForLocation', null))
       );
   }
 

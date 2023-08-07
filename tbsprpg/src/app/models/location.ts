@@ -1,3 +1,5 @@
+import {AdventureObject} from './adventureObject';
+
 export interface Location {
   id: string;
   name: string;
@@ -7,4 +9,5 @@ export interface Location {
   adventureId: string;
   enterScriptId: string;
   exitScriptId: string;
+  adventureObjects: AdventureObject[];
 }
