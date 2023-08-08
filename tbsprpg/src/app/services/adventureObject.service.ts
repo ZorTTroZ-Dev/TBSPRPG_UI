@@ -8,6 +8,7 @@ import {catchError} from 'rxjs/operators';
 import {AdventureObject, GENERIC_ADVENTURE_OBJECT_TYPE} from '../models/adventureObject';
 import {NIL} from 'uuid';
 import {FormControl, FormGroup} from '@angular/forms';
+import {Location} from '../models/location';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class AdventureObjectService extends BaseService {
       name: 'new object',
       description: 'object description',
       adventureId,
-      type: GENERIC_ADVENTURE_OBJECT_TYPE
+      type: GENERIC_ADVENTURE_OBJECT_TYPE,
+      locations: []
     };
   }
 
@@ -37,7 +39,8 @@ export class AdventureObjectService extends BaseService {
       name: new FormControl<string>(''),
       adventureId: new FormControl<string>(''),
       description: new FormControl<string>(''),
-      type: new FormControl<string>('')
+      type: new FormControl<string>(''),
+      locations: new FormControl<Location[]>([])
     });
     formGroup.setValue(adventureObject);
     return formGroup;
