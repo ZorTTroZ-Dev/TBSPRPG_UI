@@ -20,6 +20,21 @@
           <label for="type">Type:</label>
         </div>
       </div>
+      <div class="form-floating mt-2">
+        <select class="form-select" id="selectLocations" formControlName="locationsSelect" (change)="addLocation()">
+          <option *ngFor="let location of locations" [value]="location.id">
+            {{location.name}}
+          </option>
+        </select>
+        <label for="selectLocations">Select Location to Add to Object:</label>
+      </div>
+      <div class="form-floating mt-2">
+          <span id="locations"
+                *ngFor="let location of adventureObject.locations"
+                class="badge rounded-pill bg-dark fs-6">
+            {{location.name}} <i (click)="removeLocation(location.id)" class="bi-x" style="cursor:pointer;"></i>
+          </span>
+      </div>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!adventureObjectForm.valid">Update</button>
     </form>
   </div>

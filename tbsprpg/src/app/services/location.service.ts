@@ -8,6 +8,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {SourcesService} from './sources.service';
 import {Source} from '../models/source';
 import {NIL} from 'uuid';
+import {AdventureObject} from '../models/adventureObject';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class LocationService extends BaseService{
       initial: false,
       final: false,
       enterScriptId: null,
-      exitScriptId: null
+      exitScriptId: null,
+      adventureObjects: []
     };
   }
 
@@ -42,7 +44,8 @@ export class LocationService extends BaseService{
       sourceKey: new FormControl<string>(''),
       adventureId: new FormControl<string>(''),
       enterScriptId: new FormControl<string>(''),
-      exitScriptId: new FormControl<string>('')
+      exitScriptId: new FormControl<string>(''),
+      adventureObjects: new FormControl<AdventureObject[]>([])
     });
     formGroup.setValue(location);
     return formGroup;
