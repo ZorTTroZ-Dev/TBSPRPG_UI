@@ -7,6 +7,8 @@ export interface AdventureObject {
   adventureId: string;
   type: string;
   locations: Location[];
+  nameSourceKey: string;
+  descriptionSourceKey: string;
 }
 
 export const GENERIC_ADVENTURE_OBJECT_TYPE = 'generic';
