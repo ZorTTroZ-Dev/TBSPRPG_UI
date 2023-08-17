@@ -11,6 +11,7 @@ import {Content} from '../../../models/content';
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent implements OnInit, OnChanges, OnDestroy {
+  toolTipAttributeName = 'tooltip';
   @Input() game: GameContentRoute;
   @Input() newContent: Content;
   contentObservable: Subject<string>;
@@ -35,6 +36,21 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
         map(key => this.contentService.getProcessedSourceForSourceKey(this.game.game.id, key)),
         tap(response => {
           response.subscribe(source => {
+            const parser = new DOMParser();
+            const virtualDoc = parser.parseFromString(source.text, 'text/html');
+            const objects = virtualDoc.getElementsByTagName('object');
+            Array.from(objects).forEach(object => {
+              const objectDescription = object.attributes[this.toolTipAttributeName].value;
+              const objectContent = object.innerHTML;
+              const newElement = virtualDoc.createElement('a');
+              newElement.setAttribute('href', '#');
+              newElement.setAttribute('data-bs-toggle', 'tooltip');
+              newElement.setAttribute('data-bs-html', 'true');
+              newElement.setAttribute('data-bs-title', objectDescription);
+              newElement.innerHTML = objectContent;
+              object.replaceWith(newElement);
+            });
+            source.text = virtualDoc.body.innerHTML;
             this.contentMap.set(source.key, source.text);
           });
         })
