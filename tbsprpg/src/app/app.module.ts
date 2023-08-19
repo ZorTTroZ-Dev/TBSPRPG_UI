@@ -64,6 +64,9 @@ import { AdGameEditComponent } from './components/adventures/adventure-details/a
 import { AdObjectsComponent } from './components/adventures/adventure-details/ad-objects/ad-objects.component';
 import { AdObjectEditComponent } from './components/adventures/adventure-details/ad-object-edit/ad-object-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ContentItemComponent } from './components/game/content/content-item/content-item.component';
+import { SourceDisplayComponent } from './components/game/content/source-display/source-display.component';
+import { SourceDirective } from './directives/source.directive';
 
 @NgModule({
   declarations: [
@@ -106,6 +109,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdGameEditComponent,
     AdObjectsComponent,
     AdObjectEditComponent,
+    ContentItemComponent,
+    SourceDisplayComponent,
+    SourceDirective,
   ],
   imports: [
     BrowserModule,
