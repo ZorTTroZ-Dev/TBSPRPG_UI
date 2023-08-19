@@ -1,1 +1,5 @@
-<span *ngFor="let token of tokens" [innerHTML]="token.text" ngbTooltip="{{token.tooltip}}"></span>
+<span *ngFor="let token of tokens">
+  <ng-template #tipContent><div [innerHTML]="token.tooltip"></div></ng-template>
+  <span *ngIf="token.tooltip" [innerHTML]="token.text" [ngbTooltip]="tipContent" style="cursor: pointer;"></span>
+  <span *ngIf="!token.tooltip" [innerHTML]="token.text"></span>
+</span>

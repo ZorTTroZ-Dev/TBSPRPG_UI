@@ -19,29 +19,6 @@ export class ContentComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.content = [];
-
-    // this.subscriptions.add(
-    //   // this.contentObservable.pipe(
-    //   //   map(key => this.contentService.getProcessedSourceForSourceKey(this.game.game.id, key)),
-    //   //   tap(response => {
-    //   //     response.subscribe(source => {
-    //   //       // const parser = new DOMParser();
-    //   //       // const virtualDoc = parser.parseFromString(source.text, 'text/html');
-    //   //       // const objects = virtualDoc.getElementsByTagName('object');
-    //   //       // Array.from(objects).forEach(object => {
-    //   //       //   const objectDescription = object.attributes[this.toolTipAttributeName].value;
-    //   //       //   const objectContent = object.innerHTML;
-    //   //       //   const newElement = virtualDoc.createElement('span');
-    //   //       //   newElement.setAttribute('ngbTooltip', objectDescription);
-    //   //       //   newElement.innerHTML = objectContent;
-    //   //       //   object.replaceWith(newElement);
-    //   //       // });
-    //   //       // source.text = virtualDoc.body.innerHTML;
-    //   //       this.contentMap.set(source.key, source);
-    //   //     });
-    //   //   })
-    //   // ).subscribe()
-    // );
   }
 
   ngOnChanges(changes: SimpleChanges): void {

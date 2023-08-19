@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Source} from '../../../../models/source';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SourceToken} from '../../../../models/sourceToken';
+import {micromark} from 'micromark';
 
 @Component({
   selector: 'app-source-display',
@@ -16,29 +17,30 @@ export class SourceDisplayComponent {
   }
 
   renderContent(): void {
-    // update api to not return html
-    // tokenize source text based on object tag <object>tooltip=xxx;text=yyy<object>
-    // install showdown markup library
-    // run showdown on each piece of text
-    this.tokens = this.source.text.split(/<p>|<\/p>/).map(token => {
-      if (token === '\n') {
+    const leadToken = [{text: this.sanitizer.bypassSecurityTrustHtml('<br>'), tooltip: ''}];
+    const contentTokens = this.source.text.split(/<object>/).map(token => {
+      if (token.indexOf(';;') >= 0) {
+        const objectAttributes = token.split(';;').filter(attribute => attribute !== '');
+        const objectToken: SourceToken = {
+          text: '',
+          tooltip: ''
+        };
+        objectAttributes.forEach(attribute => {
+          const nameValue = attribute.split('=');
+          if (nameValue[0].trim().toLowerCase() === 'text') {
+            objectToken.text = ' <u>' + micromark(nameValue[1]).slice(3, -4) + '</u>';
+          } else if (nameValue[0].trim().toLowerCase() === 'tooltip') {
+            objectToken.tooltip = micromark(nameValue[1]).slice(3, -4);
+          }
+        });
+        return objectToken;
+      } else {
         return {
-          text: this.sanitizer.bypassSecurityTrustHtml('<br>'),
+          text: micromark(token).slice(3, -4), // remove p tags
           tooltip: ''
         };
       }
-      return {
-        text: this.sanitizer.bypassSecurityTrustHtml('<br>' + token),
-        tooltip: 'xxx'
-      };
     });
-    this.tokens.shift();
-    this.tokens.pop();
-    // console.log(this.tokens);
-    // if (token.match(/<object|object>/) !== null) {
-    //   token.split(/<object|object>/).map(object => {
-    //     console.log(object);
-    //   });
-    // }
+    this.tokens = [...leadToken, ...contentTokens];
   }
 }
