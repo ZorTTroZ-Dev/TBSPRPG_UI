@@ -3,6 +3,7 @@ import {Source} from '../../../../models/source';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SourceToken} from '../../../../models/sourceToken';
 import {micromark} from 'micromark';
+import {UtilitiesService} from '../../../../services/utilities.service';
 
 @Component({
   selector: 'app-source-display',
@@ -13,27 +14,22 @@ export class SourceDisplayComponent {
   @Input() source: Source;
   tokens: SourceToken[];
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer,
+              private utilitiesService: UtilitiesService) {
   }
 
   renderContent(): void {
     const leadToken = [{text: this.sanitizer.bypassSecurityTrustHtml('<br>'), tooltip: ''}];
     const contentTokens = this.source.text.split(/<object>/).map(token => {
-      if (token.indexOf(';;') >= 0) {
-        const objectAttributes = token.split(';;').filter(attribute => attribute !== '');
-        const objectToken: SourceToken = {
-          text: '',
-          tooltip: ''
-        };
-        objectAttributes.forEach(attribute => {
-          const nameValue = attribute.split('=');
-          if (nameValue[0].trim().toLowerCase() === 'text') {
-            objectToken.text = ' <u>' + micromark(nameValue[1]).slice(3, -4) + '</u>';
-          } else if (nameValue[0].trim().toLowerCase() === 'tooltip') {
-            objectToken.tooltip = micromark(nameValue[1]).slice(3, -4);
+      const jsonObject = this.utilitiesService.tryParseJSONObject(token);
+      if (jsonObject !== false) {
+        Object.keys(jsonObject).forEach(key => {
+          jsonObject[key] = micromark(jsonObject[key]).slice(3, -4);
+          if (key === 'text') {
+            jsonObject[key] = ' <u>' + jsonObject[key] + '</u>';
           }
         });
-        return objectToken;
+        return jsonObject;
       } else {
         return {
           text: micromark(token).slice(3, -4), // remove p tags
