@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     remember: new FormControl<boolean>(false)
   });
   private subscriptions: Subscription = new Subscription();
+  loading = false;
 
   constructor(private router: Router,
               private userService: UserService) { }
@@ -26,17 +27,21 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(): void {
     const loginData = this.loginForm.value;
+    this.loading = true;
     this.subscriptions.add(
-      this.userService.authenticate(loginData.email, loginData.password).subscribe(
-        user => {
+      this.userService.authenticate(loginData.email, loginData.password).subscribe({
+        next: user =>
+        {
           this.router.navigate([
             this.userService.getLandingPage(user), {}
           ]);
-        }, () => {
+        },
+        error: () => {
           // authentication failed; either they entered the wrong email address or password
+          this.loading = false;
           this.router.navigate(['/signin-failed', {}]);
         }
-      )
+      })
     );
   }
 
