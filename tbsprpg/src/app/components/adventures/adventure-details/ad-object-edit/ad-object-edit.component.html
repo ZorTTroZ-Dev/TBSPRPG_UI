@@ -4,20 +4,47 @@
   </div>
   <div class="card-body" *ngIf="adventureObjectForm">
     <form [formGroup]="adventureObjectForm" (ngSubmit)="updateAdventureObject()">
-      <div>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="name" formControlName="name">
-          <label for="name">Name:</label>
+      <div formGroupName="adventureObject" class="mt-2">
+        <div>
+          <div class="form-floating">
+            <input type="text" class="form-control" id="name" formControlName="name">
+            <label for="name">Name:</label>
+          </div>
+          <div class="form-floating mt-2">
+            <textarea class="form-control" id="description" style="height: 100px" formControlName="description"></textarea>
+            <label for="description">Description:</label>
+          </div>
+          <div class="form-floating mt-2">
+            <select class="form-select" id="type" formControlName="type">
+              <option *ngFor="let type of adventureObjectTypes" [value]="type">{{type}}</option>
+            </select>
+            <label for="type">Type:</label>
+          </div>
         </div>
+        <app-adventure-details-source-edit
+          [form]="adventureObjectForm"
+          [label]="nameSourceLabel"
+          [sourceFormGroupName]="nameSourceFormGroupName"
+        ></app-adventure-details-source-edit>
+        <app-adventure-details-source-edit
+          [form]="adventureObjectForm"
+          [label]="descriptionSourceLabel"
+          [sourceFormGroupName]="descriptionSourceFormGroupName"
+        ></app-adventure-details-source-edit>
         <div class="form-floating mt-2">
-          <textarea class="form-control" id="description" style="height: 100px" formControlName="description"></textarea>
-          <label for="description">Description:</label>
-        </div>
-        <div class="form-floating mt-2">
-          <select class="form-select" id="type" formControlName="type">
-            <option *ngFor="let type of adventureObjectTypes" [value]="type">{{type}}</option>
+          <select class="form-select" id="selectLocations" formControlName="locationsSelect" (change)="addLocation()">
+            <option *ngFor="let location of locations" [value]="location.id">
+              {{location.name}}
+            </option>
           </select>
-          <label for="type">Type:</label>
+          <label for="selectLocations">Select Location to Add to Object:</label>
+        </div>
+        <div class="form-floating mt-2">
+            <span id="locations"
+                  *ngFor="let location of adventureObject.locations"
+                  class="badge rounded-pill bg-dark fs-6">
+              {{location.name}} <i (click)="removeLocation(location.id)" class="bi-x" style="cursor:pointer;"></i>
+            </span>
         </div>
       </div>
       <button type="submit" class="btn btn-dark float-end mt-2 me-2" [disabled]="!adventureObjectForm.valid">Update</button>

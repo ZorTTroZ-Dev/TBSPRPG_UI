@@ -81,7 +81,7 @@ export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
       routesToPut.push(value.value);
     }
     this.subscriptions.add(
-      this.routesService.updateRoutes(routesToPut).subscribe(() => {
+      this.routesService.updateRoutes(this.location.id, routesToPut).subscribe(() => {
         const notification: Notification = {
           type: NOTIFICATION_TYPE_SUCCESS,
           message: 'routes updated'

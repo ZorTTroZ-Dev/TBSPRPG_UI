@@ -85,8 +85,8 @@ export class RoutesService extends BaseService{
       );
   }
 
-  updateRoutes(routeData: any): Observable<any> {
-    return this.http.put<any>(this.routesUrl + '/sync', routeData).pipe(
+  updateRoutes(locationId: string, routeData: any): Observable<any> {
+    return this.http.put<any>(this.routesUrl + '/sync/' + locationId, routeData).pipe(
       catchError(this.handleError<any>('updateRoutes', null))
     );
   }
