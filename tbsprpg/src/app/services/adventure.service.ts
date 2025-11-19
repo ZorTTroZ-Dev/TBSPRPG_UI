@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {Adventure} from '../models/adventure';
 import {BaseService} from './base.service';
 import {Observable} from 'rxjs';

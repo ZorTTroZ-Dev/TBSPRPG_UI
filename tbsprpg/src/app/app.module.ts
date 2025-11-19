@@ -7,7 +7,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import {DataTablesModule} from 'angular-datatables';
 import {ToastrModule} from 'ngx-toastr';
 
@@ -68,65 +68,59 @@ import { ContentItemComponent } from './components/game/content/content-item/con
 import { SourceDisplayComponent } from './components/game/content/source-display/source-display.component';
 import { SourceDirective } from './directives/source.directive';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    GameComponent,
-    AdventuresComponent,
-    FocusOnShowDirectiveDirective,
-    LandingComponent,
-    LoginComponent,
-    RegistrationComponent,
-    ContentComponent,
-    VerbsComponent,
-    MovementComponent,
-    InventoryComponent,
-    AdventuresTableComponent,
-    AdSidebarComponent,
-    AdventureCreatorComponent,
-    AdventureCreatorSidebarComponent,
-    AdventureDetailsComponent,
-    AdHomeComponent,
-    AdLocationsComponent,
-    AdLocationEditComponent,
-    AdBreadcrumbsComponent,
-    AdSourceEditComponent,
-    AdRoutesEditComponent,
-    AdRouteEditComponent,
-    AdventureEditComponent,
-    AdventureExplorerComponent,
-    AdGamesComponent,
-    RegistrationVerifyComponent,
-    LoginFailedComponent,
-    PasswordValidatorDirective,
-    AeFormComponent,
-    AdventureNewComponent,
-    AdScriptsComponent,
-    AdRoutesComponent,
-    AdSourcesComponent,
-    AdScriptEditComponent,
-    AdSourceEditFullComponent,
-    AdGameEditComponent,
-    AdObjectsComponent,
-    AdObjectEditComponent,
-    ContentItemComponent,
-    SourceDisplayComponent,
-    SourceDirective,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    DataTablesModule,
-    ToastrModule.forRoot(),
-    NgbModule
-  ],
-  providers: [
-    httpInterceptorProviders
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        GameComponent,
+        AdventuresComponent,
+        FocusOnShowDirectiveDirective,
+        LandingComponent,
+        LoginComponent,
+        RegistrationComponent,
+        ContentComponent,
+        VerbsComponent,
+        MovementComponent,
+        InventoryComponent,
+        AdventuresTableComponent,
+        AdSidebarComponent,
+        AdventureCreatorComponent,
+        AdventureCreatorSidebarComponent,
+        AdventureDetailsComponent,
+        AdHomeComponent,
+        AdLocationsComponent,
+        AdLocationEditComponent,
+        AdBreadcrumbsComponent,
+        AdSourceEditComponent,
+        AdRoutesEditComponent,
+        AdRouteEditComponent,
+        AdventureEditComponent,
+        AdventureExplorerComponent,
+        AdGamesComponent,
+        RegistrationVerifyComponent,
+        LoginFailedComponent,
+        PasswordValidatorDirective,
+        AeFormComponent,
+        AdventureNewComponent,
+        AdScriptsComponent,
+        AdRoutesComponent,
+        AdSourcesComponent,
+        AdScriptEditComponent,
+        AdSourceEditFullComponent,
+        AdGameEditComponent,
+        AdObjectsComponent,
+        AdObjectEditComponent,
+        ContentItemComponent,
+        SourceDisplayComponent,
+        SourceDirective,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        DataTablesModule,
+        ToastrModule.forRoot(),
+        NgbModule], providers: [
+        httpInterceptorProviders,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
