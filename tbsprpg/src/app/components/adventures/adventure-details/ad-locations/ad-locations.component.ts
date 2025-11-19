@@ -7,9 +7,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-adventure-details-locations',
-  templateUrl: './ad-locations.component.html',
-  styleUrls: ['./ad-locations.component.scss']
+    selector: 'app-adventure-details-locations',
+    templateUrl: './ad-locations.component.html',
+    styleUrls: ['./ad-locations.component.scss'],
+    standalone: false
 })
 export class AdLocationsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;

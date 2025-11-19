@@ -10,9 +10,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-ad-game-edit',
-  templateUrl: './ad-game-edit.component.html',
-  styleUrls: ['./ad-game-edit.component.scss']
+    selector: 'app-ad-game-edit',
+    templateUrl: './ad-game-edit.component.html',
+    styleUrls: ['./ad-game-edit.component.scss'],
+    standalone: false
 })
 export class AdGameEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: GameUser;

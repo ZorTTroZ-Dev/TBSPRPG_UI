@@ -3,9 +3,10 @@ import {FormGroup} from '@angular/forms';
 import {Script} from '../../../../models/script';
 
 @Component({
-  selector: 'app-adventure-details-source-edit',
-  templateUrl: './ad-source-edit.component.html',
-  styleUrls: ['./ad-source-edit.component.scss']
+    selector: 'app-adventure-details-source-edit',
+    templateUrl: './ad-source-edit.component.html',
+    styleUrls: ['./ad-source-edit.component.scss'],
+    standalone: false
 })
 export class AdSourceEditComponent implements OnInit {
   @Input() form: FormGroup;

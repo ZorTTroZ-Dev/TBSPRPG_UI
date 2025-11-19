@@ -12,9 +12,10 @@ import {GameUser} from '../../../models/gameUser';
 import {AdventureObject} from '../../../models/adventureObject';
 
 @Component({
-  selector: 'app-adventure-details',
-  templateUrl: './adventure-details.component.html',
-  styleUrls: ['./adventure-details.component.scss']
+    selector: 'app-adventure-details',
+    templateUrl: './adventure-details.component.html',
+    styleUrls: ['./adventure-details.component.scss'],
+    standalone: false
 })
 
 export class AdventureDetailsComponent implements OnInit, OnDestroy {

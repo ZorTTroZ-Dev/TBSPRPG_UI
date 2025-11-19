@@ -6,9 +6,10 @@ import {confirmPasswordValidator} from '../../../directives/password-validator.d
 import {User} from '../../../models/user';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+    selector: 'app-registration',
+    templateUrl: './registration.component.html',
+    styleUrls: ['./registration.component.scss'],
+    standalone: false
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   registerForm = new FormGroup({

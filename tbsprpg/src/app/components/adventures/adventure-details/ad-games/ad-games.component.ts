@@ -9,9 +9,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-ad-games',
-  templateUrl: './ad-games.component.html',
-  styleUrls: ['./ad-games.component.scss']
+    selector: 'app-ad-games',
+    templateUrl: './ad-games.component.html',
+    styleUrls: ['./ad-games.component.scss'],
+    standalone: false
 })
 export class AdGamesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;

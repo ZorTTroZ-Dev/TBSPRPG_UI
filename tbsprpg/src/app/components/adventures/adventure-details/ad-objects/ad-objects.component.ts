@@ -8,9 +8,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-ad-objects',
-  templateUrl: './ad-objects.component.html',
-  styleUrls: ['./ad-objects.component.scss']
+    selector: 'app-ad-objects',
+    templateUrl: './ad-objects.component.html',
+    styleUrls: ['./ad-objects.component.scss'],
+    standalone: false
 })
 export class AdObjectsComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;

@@ -18,9 +18,10 @@ import {Subscription} from 'rxjs';
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-ad-script-edit',
-  templateUrl: './ad-script-edit.component.html',
-  styleUrls: ['./ad-script-edit.component.scss']
+    selector: 'app-ad-script-edit',
+    templateUrl: './ad-script-edit.component.html',
+    styleUrls: ['./ad-script-edit.component.scss'],
+    standalone: false
 })
 export class AdScriptEditComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() script: Script;

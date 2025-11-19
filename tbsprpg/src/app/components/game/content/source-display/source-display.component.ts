@@ -6,9 +6,10 @@ import {micromark} from 'micromark';
 import {UtilitiesService} from '../../../../services/utilities.service';
 
 @Component({
-  selector: 'app-source-display',
-  templateUrl: './source-display.component.html',
-  styleUrls: ['./source-display.component.scss']
+    selector: 'app-source-display',
+    templateUrl: './source-display.component.html',
+    styleUrls: ['./source-display.component.scss'],
+    standalone: false
 })
 export class SourceDisplayComponent {
   @Input() source: Source;

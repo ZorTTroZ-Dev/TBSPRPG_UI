@@ -12,9 +12,10 @@ import {NIL} from 'uuid';
 import {Script} from '../../../../models/script';
 
 @Component({
-  selector: 'app-adventure-details-routes-edit',
-  templateUrl: './ad-routes-edit.component.html',
-  styleUrls: ['./ad-routes-edit.component.scss']
+    selector: 'app-adventure-details-routes-edit',
+    templateUrl: './ad-routes-edit.component.html',
+    styleUrls: ['./ad-routes-edit.component.scss'],
+    standalone: false
 })
 export class AdRoutesEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;

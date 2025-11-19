@@ -10,9 +10,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-ad-source-edit-full',
-  templateUrl: './ad-source-edit-full.component.html',
-  styleUrls: ['./ad-source-edit-full.component.scss']
+    selector: 'app-ad-source-edit-full',
+    templateUrl: './ad-source-edit-full.component.html',
+    styleUrls: ['./ad-source-edit-full.component.scss'],
+    standalone: false
 })
 export class AdSourceEditFullComponent implements OnInit, OnChanges, OnDestroy {
   @Input() source: Source;

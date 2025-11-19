@@ -13,9 +13,10 @@ import {AdventureObject} from '../../../../models/adventureObject';
 import {AdventureObjectService} from '../../../../services/adventureObject.service';
 
 @Component({
-  selector: 'app-adventure-details-location-edit',
-  templateUrl: './ad-location-edit.component.html',
-  styleUrls: ['./ad-location-edit.component.scss']
+    selector: 'app-adventure-details-location-edit',
+    templateUrl: './ad-location-edit.component.html',
+    styleUrls: ['./ad-location-edit.component.scss'],
+    standalone: false
 })
 export class AdLocationEditComponent implements OnInit, OnChanges, OnDestroy {
   @Input() location: Location;

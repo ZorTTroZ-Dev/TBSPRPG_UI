@@ -11,9 +11,10 @@ import {LocationService} from '../../../../services/location.service';
 import {NIL} from 'uuid';
 
 @Component({
-  selector: 'app-ad-routes',
-  templateUrl: './ad-routes.component.html',
-  styleUrls: ['./ad-routes.component.scss']
+    selector: 'app-ad-routes',
+    templateUrl: './ad-routes.component.html',
+    styleUrls: ['./ad-routes.component.scss'],
+    standalone: false
 })
 export class AdRoutesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;

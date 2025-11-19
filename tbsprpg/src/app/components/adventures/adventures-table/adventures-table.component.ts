@@ -9,9 +9,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../models/notificat
 import {NotificationService} from '../../../services/notification.service';
 
 @Component({
-  selector: 'app-adventures-table',
-  templateUrl: './adventures-table.component.html',
-  styleUrls: ['./adventures-table.component.scss']
+    selector: 'app-adventures-table',
+    templateUrl: './adventures-table.component.html',
+    styleUrls: ['./adventures-table.component.scss'],
+    standalone: false
 })
 
 export class AdventuresTableComponent implements OnInit, OnChanges, OnDestroy {

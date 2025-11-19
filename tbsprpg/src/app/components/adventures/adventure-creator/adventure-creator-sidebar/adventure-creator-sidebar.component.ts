@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-adventure-creator-sidebar',
-  templateUrl: './adventure-creator-sidebar.component.html',
-  styleUrls: ['./adventure-creator-sidebar.component.scss']
+    selector: 'app-adventure-creator-sidebar',
+    templateUrl: './adventure-creator-sidebar.component.html',
+    styleUrls: ['./adventure-creator-sidebar.component.scss'],
+    standalone: false
 })
 export class AdventureCreatorSidebarComponent implements OnInit {
   @Input() location: string;

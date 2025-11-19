@@ -3,9 +3,10 @@ import {Adventure} from '../../models/adventure';
 import {AdventureService} from '../../services/adventure.service';
 
 @Component({
-  selector: 'app-adventures',
-  templateUrl: './adventures.component.html',
-  styleUrls: ['./adventures.component.scss']
+    selector: 'app-adventures',
+    templateUrl: './adventures.component.html',
+    styleUrls: ['./adventures.component.scss'],
+    standalone: false
 })
 export class AdventuresComponent implements OnInit {
   adventures: Adventure[];

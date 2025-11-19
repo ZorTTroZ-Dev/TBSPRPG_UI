@@ -3,9 +3,10 @@ import {GameContentRoute} from '../../../models/gameContentRoute';
 import {Content} from '../../../models/content';
 
 @Component({
-  selector: 'app-content',
-  templateUrl: './content.component.html',
-  styleUrls: ['./content.component.scss']
+    selector: 'app-content',
+    templateUrl: './content.component.html',
+    styleUrls: ['./content.component.scss'],
+    standalone: false
 })
 export class ContentComponent implements OnInit, OnChanges, OnDestroy {
   @Input() game: GameContentRoute;

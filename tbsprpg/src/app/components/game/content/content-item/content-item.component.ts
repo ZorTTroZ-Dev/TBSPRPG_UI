@@ -8,9 +8,10 @@ import {SourceDirective} from '../../../../directives/source.directive';
 import {SourceDisplayComponent} from '../source-display/source-display.component';
 
 @Component({
-  selector: 'app-content-item',
-  templateUrl: './content-item.component.html',
-  styleUrls: ['./content-item.component.scss']
+    selector: 'app-content-item',
+    templateUrl: './content-item.component.html',
+    styleUrls: ['./content-item.component.scss'],
+    standalone: false
 })
 
 export class ContentItemComponent implements OnInit, OnChanges, OnDestroy {

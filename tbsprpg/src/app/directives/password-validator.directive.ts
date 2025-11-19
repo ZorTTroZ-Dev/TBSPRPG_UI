@@ -2,8 +2,9 @@ import { Directive } from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
 
 @Directive({
-  selector: '[appPasswordValidator]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: PasswordValidatorDirective, multi: true }]
+    selector: '[appPasswordValidator]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: PasswordValidatorDirective, multi: true }],
+    standalone: false
 })
 
 export class PasswordValidatorDirective implements Validator {

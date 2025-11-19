@@ -1,7 +1,8 @@
 import { Directive, ElementRef} from '@angular/core';
 
 @Directive({
-  selector: '[appFocusOnShowDirective]'
+    selector: '[appFocusOnShowDirective]',
+    standalone: false
 })
 export class FocusOnShowDirectiveDirective {
 

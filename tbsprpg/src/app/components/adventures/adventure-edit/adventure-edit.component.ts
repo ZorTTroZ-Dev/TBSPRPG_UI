@@ -5,9 +5,10 @@ import {Subscription} from 'rxjs';
 import {Script} from '../../../models/script';
 
 @Component({
-  selector: 'app-adventure-edit',
-  templateUrl: './adventure-edit.component.html',
-  styleUrls: ['./adventure-edit.component.scss']
+    selector: 'app-adventure-edit',
+    templateUrl: './adventure-edit.component.html',
+    styleUrls: ['./adventure-edit.component.scss'],
+    standalone: false
 })
 
 export class AdventureEditComponent implements OnInit, OnChanges, OnDestroy {

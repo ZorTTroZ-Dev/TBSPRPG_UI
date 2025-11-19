@@ -12,9 +12,10 @@ import {NotificationService} from '../../../../services/notification.service';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-ad-route-edit',
-  templateUrl: './ad-route-edit.component.html',
-  styleUrls: ['./ad-route-edit.component.scss']
+    selector: 'app-ad-route-edit',
+    templateUrl: './ad-route-edit.component.html',
+    styleUrls: ['./ad-route-edit.component.scss'],
+    standalone: false
 })
 export class AdRouteEditComponent implements OnInit, OnChanges, OnDestroy {
   // you need to pass these

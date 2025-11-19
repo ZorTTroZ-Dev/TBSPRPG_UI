@@ -6,9 +6,10 @@ import {UserService} from '../../../services/user.service';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-registration-verify',
-  templateUrl: './registration-verify.component.html',
-  styleUrls: ['./registration-verify.component.scss']
+    selector: 'app-registration-verify',
+    templateUrl: './registration-verify.component.html',
+    styleUrls: ['./registration-verify.component.scss'],
+    standalone: false
 })
 export class RegistrationVerifyComponent implements OnInit, OnDestroy {
   @Input() user: User;

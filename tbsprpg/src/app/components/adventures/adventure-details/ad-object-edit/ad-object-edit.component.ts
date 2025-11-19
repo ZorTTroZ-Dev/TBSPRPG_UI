@@ -9,9 +9,10 @@ import {Location} from '../../../../models/location';
 import {LocationService} from '../../../../services/location.service';
 
 @Component({
-  selector: 'app-ad-object-edit',
-  templateUrl: './ad-object-edit.component.html',
-  styleUrls: ['./ad-object-edit.component.scss']
+    selector: 'app-ad-object-edit',
+    templateUrl: './ad-object-edit.component.html',
+    styleUrls: ['./ad-object-edit.component.scss'],
+    standalone: false
 })
 export class AdObjectEditComponent implements OnInit, OnChanges, OnDestroy {
   nameSourceLabel = 'Name Text';

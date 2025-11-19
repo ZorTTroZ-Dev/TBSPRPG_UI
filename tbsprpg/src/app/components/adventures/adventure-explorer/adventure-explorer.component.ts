@@ -13,9 +13,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../models/notificat
 import {NotificationService} from '../../../services/notification.service';
 
 @Component({
-  selector: 'app-adventure-explorer',
-  templateUrl: './adventure-explorer.component.html',
-  styleUrls: ['./adventure-explorer.component.scss']
+    selector: 'app-adventure-explorer',
+    templateUrl: './adventure-explorer.component.html',
+    styleUrls: ['./adventure-explorer.component.scss'],
+    standalone: false
 })
 export class AdventureExplorerComponent implements OnInit, OnDestroy {
   adventures: Adventure[];

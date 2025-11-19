@@ -11,9 +11,10 @@ import {NotificationService} from '../../../../services/notification.service';
 import {Script} from '../../../../models/script';
 
 @Component({
-  selector: 'app-ae-form',
-  templateUrl: './ae-form.component.html',
-  styleUrls: ['./ae-form.component.scss']
+    selector: 'app-ae-form',
+    templateUrl: './ae-form.component.html',
+    styleUrls: ['./ae-form.component.scss'],
+    standalone: false
 })
 export class AeFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;

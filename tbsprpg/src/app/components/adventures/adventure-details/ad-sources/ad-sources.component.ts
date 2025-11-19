@@ -8,9 +8,10 @@ import {Notification, NOTIFICATION_TYPE_SUCCESS} from '../../../../models/notifi
 import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
-  selector: 'app-ad-sources',
-  templateUrl: './ad-sources.component.html',
-  styleUrls: ['./ad-sources.component.scss']
+    selector: 'app-ad-sources',
+    templateUrl: './ad-sources.component.html',
+    styleUrls: ['./ad-sources.component.scss'],
+    standalone: false
 })
 export class AdSourcesComponent implements OnInit, OnChanges, OnDestroy {
   @Input() adventure: Adventure;
