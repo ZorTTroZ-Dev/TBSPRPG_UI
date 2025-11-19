@@ -87,19 +87,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tbsprpg:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "buildTarget": "tbsprpg:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tbsprpg:build:production"
+              "buildTarget": "tbsprpg:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tbsprpg:build"
+            "buildTarget": "tbsprpg:build"
           }
         },
         "test": {
